@@ -48,7 +48,7 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		System.out.println(screenX);
+		//System.out.println(screenX);
 		cam.position.x += lastTouchX - screenX;
 		lastTouchX = screenX;
 		cam.position.y += screenY - lastTouchY;
