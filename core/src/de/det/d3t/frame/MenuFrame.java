@@ -48,7 +48,8 @@ public class MenuFrame implements Screen {
 	private Button button;
 	private BitmapFont font;
 	
-	public void create() {
+	
+	public MenuFrame(){
 		TextureFactory.loadAllGameTextures();
 		setupStage();
 		setupUI();
@@ -76,8 +77,8 @@ public class MenuFrame implements Screen {
 		
 		/////////Stage//////////
 		
-		
 	}
+	
 	
 	public void setupStage(){
 		 stageCamera = new OrthographicCamera();
