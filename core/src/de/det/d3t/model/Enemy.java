@@ -37,8 +37,8 @@ public class Enemy extends Circle{
 	
 	@Override
 	public void act(float delta) {
-		float targetX = Settings.basePositionX - getCenterX();
-		float targetY = Settings.basePositionY - getCenterY();
+		float targetX = Settings.basePositionX - getX();
+		float targetY = Settings.basePositionY - getY();
 		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
 		length = 1f / length;
 		targetX = targetX * length;
@@ -49,7 +49,7 @@ public class Enemy extends Circle{
 		velocityY += targetY;
 		velocityX *= glideFactor;
 		velocityY *= glideFactor;
-		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 5 * delta));
+		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 3 * delta));
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
 	}
 	

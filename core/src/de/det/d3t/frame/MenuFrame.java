@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -47,7 +48,7 @@ public class MenuFrame extends Game implements ApplicationListener {
 	private BitmapFont font;
 	@Override
 	public void create() {
-		TextureFactory.loadAllMenuTextures();
+		TextureFactory.loadAllGameTextures();
 		setupStage();
 		setupUI();
 		setupTilemap();
@@ -70,7 +71,7 @@ public class MenuFrame extends Game implements ApplicationListener {
 		//////////UI/////////
 		
 		/////////Stage//////////
-		//stage.addActor(new Enemy(7000, 3180, 2));
+		stage.addActor(new Enemy(7000, 3180, 2));
 		
 		/////////Stage//////////
 		
