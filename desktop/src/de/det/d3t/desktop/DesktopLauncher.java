@@ -4,10 +4,11 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import de.det.d3t.frame.MainFrame;
+import de.det.d3t.frame.MenuFrame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new MainFrame(), config);
+		new LwjglApplication(new MenuFrame(), config);
 	}
 }

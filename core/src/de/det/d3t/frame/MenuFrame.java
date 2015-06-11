@@ -58,12 +58,14 @@ public class MenuFrame extends Game implements ApplicationListener {
         skin = new Skin();
 		buttonAtlas = new TextureAtlas(Gdx.files.internal("skins/button.pack"));
 	    skin.addRegions(buttonAtlas);
+	   // skin = new Skin(Gdx.files.internal("uiskin.json"));
 	    textButtonStyle = new TextButtonStyle();
 	    textButtonStyle.font = font;
 	    textButtonStyle.up = skin.getDrawable("buttonnormal");
 	    textButtonStyle.down = skin.getDrawable("buttonpressed");
 	    //textButtonStyle.checked = skin.getDrawable("checked-button");
-	    button = new TextButton("Button1", textButtonStyle);
+	    button = new TextButton("Spiel starten", textButtonStyle);
+	    button.setBounds(500, 500, 500, 500);
 		ui.addActor(button);
 		//////////UI/////////
 		
