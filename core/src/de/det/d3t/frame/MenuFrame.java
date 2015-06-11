@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,7 +29,7 @@ import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.model.Enemy;
 
-public class MenuFrame extends Game implements ApplicationListener {
+public class MenuFrame implements Screen {
 	private Stage stage;
 	private Stage ui;
 	private StretchViewport stageViewport;
@@ -45,7 +46,7 @@ public class MenuFrame extends Game implements ApplicationListener {
 	private TextButtonStyle textButtonStyle;
 	private Button button;
 	private BitmapFont font;
-	@Override
+	
 	public void create() {
 		TextureFactory.loadAllMenuTextures();
 		setupStage();
@@ -92,9 +93,11 @@ public class MenuFrame extends Game implements ApplicationListener {
 	}
 	
 	public void setupTilemap(){
+		/*
 		TiledMap map = new TmxMapLoader().load("tilemap/map.tmx");
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(1);
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
+		*/
 	}
 	
 	public void manageInputs(){
@@ -107,17 +110,14 @@ public class MenuFrame extends Game implements ApplicationListener {
 	
 	@Override
 	public void resize(int width, int height) {
-		super.resize(width,height);
 		stageViewport.update(width, height);
 		
 	}
-	@Override
 	public void render() {
-		super.render();
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stageCamera.update();
-		tileMapRenderer.setView(stageCamera);
-		tileMapRenderer.render();
+		//tileMapRenderer.setView(stageCamera);
+		//tileMapRenderer.render();
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		ui.act(Gdx.graphics.getDeltaTime());;
@@ -126,18 +126,33 @@ public class MenuFrame extends Game implements ApplicationListener {
 	}
 	@Override
 	public void pause() {
-		super.pause();
 		
 		
 	}
 	@Override
 	public void resume() {
-		super.resume();
 		
 	}
 	@Override
 	public void dispose() {
-		super.dispose();
+		
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
 		
 	}
 	
