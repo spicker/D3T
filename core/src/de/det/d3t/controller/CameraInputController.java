@@ -1,4 +1,4 @@
-package de.det.d3t;
+package de.det.d3t.controller;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;

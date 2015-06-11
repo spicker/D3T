@@ -1,9 +1,12 @@
-package de.det.d3t;
+package de.det.d3t.model;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import de.det.d3t.Settings;
+import de.det.d3t.TextureFactory;
 
 public class Enemy extends Circle{
 	private float scale;

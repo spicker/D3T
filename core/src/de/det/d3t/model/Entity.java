@@ -1,4 +1,4 @@
-package de.det.d3t;
+package de.det.d3t.model;
 
 import java.util.ArrayList;
 

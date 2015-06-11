@@ -1,4 +1,4 @@
-package de.det.d3t;
+package de.det.d3t.frame;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -14,6 +14,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+
+import de.det.d3t.Settings;
+import de.det.d3t.TextureFactory;
+import de.det.d3t.TileMapIntersectionDetector;
+import de.det.d3t.controller.CameraInputController;
+import de.det.d3t.model.Enemy;
 
 
 
