@@ -37,7 +37,7 @@ public class MainFrame implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		TextureFactory.loadAll();
+		TextureFactory.loadAllGameTextures();
 		setupStage();
 		setupUI();
 		setupTilemap();
