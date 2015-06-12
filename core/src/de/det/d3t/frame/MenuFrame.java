@@ -76,7 +76,6 @@ public class MenuFrame extends InputListener implements Screen {
 		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButtonDown")));
 		textButtonStyle.font = font;
 		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButtonOver")));
-	    //textButtonStyle.checked = skin.getDrawable("checked-button");
 	    startGameButton = new TextButton("Spiel starten", textButtonStyle);
 	    startGameButton.setBounds(stageViewport.getWorldWidth()/2 - 1650, stageViewport.getWorldHeight()/2 - 450, 3300, 900);
 	    startGameButton.addListener(this);

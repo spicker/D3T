@@ -13,35 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
 public class TextureFactory {
-	
-	//public static TextureFactory texturefactory= new TextureFactory();
-	
+		
 	private static Map<String, Texture> textures;
 	private static Map<String, BitmapFont> fonts;
 	
-	
-	
-	
-	/////////////////////GameTextures/////////////////////
-	//public Texture basic;
-	//public static Texture enemy;
-	/////////////////////GameTextures/////////////////////
-	
-	
-	
-	/////////////////////MenuTextures/////////////////////
-	//public Texture menuBackground;
-	//public Texture menuUIBg;
-	/*public static Texture menuUIStartGameSetup;
-	public static Texture menuUIStartSettings;
-	public static Texture menuUIStartAbout;
-	public static Texture menuUIStartLoad;
-	public static Texture menuUIStartEasterEgg;*/
-	
 
-	/////////////////////MenuTextures/////////////////////
-	
-	
 	public TextureFactory(){
 		textures = new HashMap<String, Texture>();
 		fonts  = new HashMap<String, BitmapFont>();
@@ -53,8 +29,6 @@ public class TextureFactory {
 	
 	
 	public static void loadAllGameRessources(){
-		//basic = new Texture("textures/pixel.png");
-		//enemy = new Texture("textures/enemy.png");
 		addTexture("basic", new Texture("textures/pixel.png"));
 		addTexture("enemy", new Texture("textures/enemy.png"));
 	}
@@ -72,8 +46,38 @@ public class TextureFactory {
 		addFont("Alpha_Echo", new BitmapFont(Gdx.files.internal("fonts/alpha_echo.fnt"), false));
 		addFont("OptionFont", new BitmapFont(Gdx.files.internal("fonts/OptionFont.fnt"), false));
 		addFont("vr", new BitmapFont(Gdx.files.internal("fonts/vr.fnt"),false));
+	}
+	
+	
+	public static void loadAllFonts(){
+		addFont("White" , new BitmapFont(Gdx.files.internal("fonts/whitefont.fnt"), false));
+		addFont("Black", new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false));
+		addFont("Alpha_Echo", new BitmapFont(Gdx.files.internal("fonts/alpha_echo.fnt"), false));
+		addFont("OptionFont", new BitmapFont(Gdx.files.internal("fonts/OptionFont.fnt"), false));
+		addFont("berlin_sans", new BitmapFont(Gdx.files.internal("fonts/berlin_sans_250_b.fnt"),false));
+		addFont("cracked_johnnie", new BitmapFont(Gdx.files.internal("fonts/cracked_johnnie_250_b.fnt"),false));
+		addFont("emmet", new BitmapFont(Gdx.files.internal("fonts/emmet_250_b.fnt"),false));
+		addFont("maiandra", new BitmapFont(Gdx.files.internal("fonts/maiandra_250_b.fnt"),false));
+		addFont("papyrus", new BitmapFont(Gdx.files.internal("fonts/papyrus_250_b.fnt"),false));
+		addFont("tempus", new BitmapFont(Gdx.files.internal("fonts/tempus_sans_250_b.fnt"),false));
+		addFont("toledo", new BitmapFont(Gdx.files.internal("fonts/toledo_250_b.fnt"),false));
+		addFont("tz", new BitmapFont(Gdx.files.internal("fonts/tz_250_b.fnt"),false));
+		addFont("vr_256b", new BitmapFont(Gdx.files.internal("fonts/vr_256_b.fnt"),false));
+		addFont("vr_256w", new BitmapFont(Gdx.files.internal("fonts/vr_256_w.fnt"),false));
+		addFont("vr_gradient_blue", new BitmapFont(Gdx.files.internal("fonts/vr_gradient_blue_256.fnt"),false));
+		addFont("vr_gradient_green", new BitmapFont(Gdx.files.internal("fonts/vr_gradient_green_256.fnt"),false));
+		addFont("vr_gradient_orange", new BitmapFont(Gdx.files.internal("fonts/vr_gradient_orange_256.fnt"),false));
+		addFont("vr_outline", new BitmapFont(Gdx.files.internal("fonts/vr_outline_256_b.fnt"),false));
+		addFont("vr_white", new BitmapFont(Gdx.files.internal("fonts/vr_white.fnt"),false));
+		if(!fonts.containsKey("vr")){
+			addFont("vr", new BitmapFont(Gdx.files.internal("fonts/vr.fnt"),false));
+		}
+		
 		
 	}
+	
+	
+	
 
 	private static void addTexture(String title, Texture texture) {
 		textures.put(title, texture);
@@ -87,9 +91,9 @@ public class TextureFactory {
 		fonts.put(title, font);
 	}
 	
-	public static BitmapFont getFont(String _Title)
+	public static BitmapFont getFont(String title)
 	{
-		return fonts.get(_Title);
+		return fonts.get(title);
 	}
 	
 	public static void changeImage(Image image, Texture texture) {
