@@ -1,6 +1,5 @@
 package de.det.d3t.frame;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -8,36 +7,35 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
-import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.model.Enemy;
 
-public class MenuFrame implements Screen {
+public class MenuFrame extends InputListener implements Screen {
 	private Stage stage;
 	private Stage ui;
 	private StretchViewport stageViewport;
 	private StretchViewport uiViewport;
 	private OrthographicCamera stageCamera;
 	private OrthographicCamera uiCamera;
-	private OrthogonalTiledMapRenderer tileMapRenderer;
 	private InputMultiplexer inputMultiplexer;
 	private FPSLogger fpsLogger;
 	
@@ -45,36 +43,48 @@ public class MenuFrame implements Screen {
 	private TextureAtlas buttonAtlas;
 	private Skin skin;
 	private TextButtonStyle textButtonStyle;
-	private Button button;
+	private Button startGameButton;
 	private BitmapFont font;
 	
 	
-	public MenuFrame(){
-		TextureFactory.loadAllGameTextures();
+	private int width;
+	private int height;
+	
+	private Game game;
+	
+	
+	public MenuFrame(Game game){
+		this.game = game;
+		TextureFactory.loadAllMenuRessources();
 		setupStage();
 		setupUI();
-		setupTilemap();
 		manageInputs();
 		fpsLogger = new FPSLogger();
+		
+		
+		
 		//////////UI/////////
-        font = new BitmapFont();
-        skin = new Skin();
-		buttonAtlas = new TextureAtlas(Gdx.files.internal("skins/button.pack"));
-	    skin.addRegions(buttonAtlas);
+        font = TextureFactory.getFont("vr");
+        
+       // skin = new Skin();
+		//buttonAtlas = new TextureAtlas(Gdx.files.internal("skins/button.pack"));
+	    //skin.addRegions(buttonAtlas);
 	   // skin = new Skin(Gdx.files.internal("uiskin.json"));
-	    textButtonStyle = new TextButtonStyle();
-	    textButtonStyle.font = font;
-	    textButtonStyle.up = skin.getDrawable("buttonnormal");
-	    textButtonStyle.down = skin.getDrawable("buttonpressed");
+	    
+		textButtonStyle = new TextButtonStyle();
+		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButton")));
+		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButtonDown")));
+		textButtonStyle.font = font;
+		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButtonOver")));
 	    //textButtonStyle.checked = skin.getDrawable("checked-button");
-	    button = new TextButton("Spiel starten", textButtonStyle);
-	    button.setBounds(500, 500, 500, 500);
-		ui.addActor(button);
+	    startGameButton = new TextButton("Spiel starten", textButtonStyle);
+	    startGameButton.setBounds(stageViewport.getWorldWidth()/2 - 1650, stageViewport.getWorldHeight()/2 - 450, 3300, 900);
+	    startGameButton.addListener(this);
+		ui.addActor(startGameButton);
 		//////////UI/////////
 		
 		/////////Stage//////////
-		stage.addActor(new Enemy(7000, 3180, 2));
-		
+		//stage.addActor(new Enemy(9000, 3180, 2));
 		/////////Stage//////////
 		
 	}
@@ -94,13 +104,7 @@ public class MenuFrame implements Screen {
 		ui = new Stage(uiViewport);
 	}
 	
-	public void setupTilemap(){
-		/*
-		TiledMap map = new TmxMapLoader().load("tilemap/map.tmx");
-		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(1);
-		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
-		*/
-	}
+
 	
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
@@ -115,17 +119,7 @@ public class MenuFrame implements Screen {
 		stageViewport.update(width, height);
 		
 	}
-	public void render() {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stageCamera.update();
-		//tileMapRenderer.setView(stageCamera);
-		//tileMapRenderer.render();
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
-		ui.act(Gdx.graphics.getDeltaTime());;
-		ui.draw();
-		fpsLogger.log();
-	}
+	
 	@Override
 	public void pause() {
 		
@@ -148,8 +142,18 @@ public class MenuFrame implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stageCamera.update();
+		//tileMapRenderer.setView(stageCamera);
+		//tileMapRenderer.render();
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+		ui.act(Gdx.graphics.getDeltaTime());;
+		ui.draw();
+		fpsLogger.log();	
+	
+		width = Gdx.graphics.getWidth();
+		height = Gdx.graphics.getHeight();
 	}
 
 	@Override
@@ -157,6 +161,26 @@ public class MenuFrame implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	@Override
+	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		if(event.getListenerActor() == startGameButton){
+			return true;
+		}		
+		return false;
+	}
+
+	@Override
+	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		if(event.getListenerActor() == startGameButton){
+            game.setScreen(new GameFrame(game));
+		}
+
+	}
+	
+	
+	
 	
 	
 	

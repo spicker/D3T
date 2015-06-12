@@ -1,6 +1,7 @@
 package de.det.d3t.frame;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -25,10 +26,23 @@ import de.det.d3t.model.Enemy;
 
 
 public class GameFrame implements Screen {
+	private Stage stage;
+	private Stage ui;
+	private StretchViewport stageViewport;
+	private StretchViewport uiViewport;
+	private OrthographicCamera stageCamera;
+	private OrthographicCamera uiCamera;
+	private OrthogonalTiledMapRenderer tileMapRenderer;
+	private InputMultiplexer inputMultiplexer;
+	private TileMapIntersectionDetector lavaDetector;
+	private FPSLogger fpsLogger;
+	
+	private Game game;
 	
 	
-	public GameFrame(){
-		TextureFactory.loadAllGameTextures();
+	public GameFrame(Game game){
+		this.game = game;
+		TextureFactory.loadAllGameRessources();
 		setupStage();
 		setupUI();
 		setupTilemap();
@@ -57,20 +71,8 @@ public class GameFrame implements Screen {
 				stage.addActor(i);
 			}
 		}
+		
 	}
-	
-	
-	
-	private Stage stage;
-	private Stage ui;
-	private StretchViewport stageViewport;
-	private StretchViewport uiViewport;
-	private OrthographicCamera stageCamera;
-	private OrthographicCamera uiCamera;
-	private OrthogonalTiledMapRenderer tileMapRenderer;
-	private InputMultiplexer inputMultiplexer;
-	private TileMapIntersectionDetector lavaDetector;
-	private FPSLogger fpsLogger;
 	
 	
 	public void setupStage(){
@@ -107,18 +109,6 @@ public class GameFrame implements Screen {
 	public void dispose() {
 	}
 
-	public void render() {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stageCamera.update();
-		tileMapRenderer.setView(stageCamera);
-		tileMapRenderer.render();
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
-		ui.act(Gdx.graphics.getDeltaTime());;
-		ui.draw();
-		fpsLogger.log();
-	}
-
 	@Override
 	public void resize(int width, int height) {
 		stageViewport.update(width, height);
@@ -140,8 +130,15 @@ public class GameFrame implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stageCamera.update();
+		tileMapRenderer.setView(stageCamera);
+		tileMapRenderer.render();
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+		ui.act(Gdx.graphics.getDeltaTime());;
+		ui.draw();
+		fpsLogger.log();
 	}
 
 	@Override

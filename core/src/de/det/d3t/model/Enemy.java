@@ -23,8 +23,8 @@ public class Enemy extends Circle{
 	private static final Vector2 hpBarSize = new Vector2(250, 40);
 	
 	public Enemy(float x, float y, float scale) {
-		super(TextureFactory.enemy, (TextureFactory.enemy.getHeight() / 2) * scale);
-		setBounds(x, y, TextureFactory.enemy.getWidth() * scale, TextureFactory.enemy.getHeight() * scale);
+		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
+		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;
 		hpBar = new HpBar();
 	}
@@ -57,7 +57,7 @@ public class Enemy extends Circle{
 		
 
 		protected HpBar() {
-			super(TextureFactory.basic);
+			super(TextureFactory.getTexture("basic"));
 			setZIndex(10);
 			setColor(new Color(0, 1, 0, 1));
 		}
