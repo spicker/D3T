@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="99" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="GLava" tilewidth="64" tileheight="64">
+  <image source="WC3/Dungeon2/GLava.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="Neues Terrain" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain=",0,,"/>
+  <tile id="5" terrain=",0,,0"/>
+  <tile id="6" terrain=",0,0,"/>
+  <tile id="7" terrain=",0,0,0"/>
+  <tile id="8" terrain="0,,,"/>
+  <tile id="9" terrain="0,,,0"/>
+  <tile id="10" terrain="0,,0,"/>
+  <tile id="11" terrain="0,,0,0"/>
+  <tile id="12" terrain="0,0,,"/>
+  <tile id="13" terrain="0,0,,0"/>
+  <tile id="14" terrain="0,0,0,"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="17" name="GBrick" tilewidth="64" tileheight="64">
+  <image source="WC3/Dungeon2/GBrick.png" width="512" height="256"/>
+  <terraintypes>
+   <terrain name="Neues Terrain" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain="0,0,0,0"/>
+  <tile id="5" terrain="0,0,0,0"/>
+  <tile id="6" terrain="0,0,0,0"/>
+  <tile id="7" terrain="0,0,0,0"/>
+  <tile id="9" terrain=",0,,0"/>
+  <tile id="11" terrain=",0,0,0"/>
+  <tile id="12" terrain="0,0,0,0"/>
+  <tile id="13" terrain="0,0,0,0"/>
+  <tile id="14" terrain="0,0,0,0"/>
+  <tile id="15" terrain="0,0,0,0"/>
+  <tile id="19" terrain="0,,0,0"/>
+  <tile id="20" terrain="0,0,0,0"/>
+  <tile id="21" terrain="0,0,0,0"/>
+  <tile id="22" terrain="0,0,0,0"/>
+  <tile id="23" terrain="0,0,0,0"/>
+  <tile id="27" terrain="0,0,0,0"/>
+  <tile id="28" terrain="0,0,0,0"/>
+  <tile id="29" terrain="0,0,0,0"/>
+  <tile id="30" terrain="0,0,0,0"/>
+  <tile id="31" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="49" name="GSquareTiles" tilewidth="64" tileheight="64">
+  <image source="WC3/Dungeon2/GSquareTiles.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="Neues Terrain" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain=",0,,"/>
+  <tile id="5" terrain=",0,,0"/>
+  <tile id="6" terrain=",0,0,"/>
+  <tile id="7" terrain=",0,0,0"/>
+  <tile id="8" terrain="0,,,"/>
+  <tile id="9" terrain="0,,,0"/>
+  <tile id="10" terrain="0,,0,"/>
+  <tile id="11" terrain="0,,0,0"/>
+  <tile id="12" terrain="0,0,,"/>
+  <tile id="13" terrain="0,0,,0"/>
+  <tile id="14" terrain="0,0,0,"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="65" name="GRedStones" tilewidth="64" tileheight="64">
+  <image source="WC3/Dungeon2/GRedStones.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="Neues Terrain" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain=",0,,"/>
+  <tile id="5" terrain=",0,,0"/>
+  <tile id="6" terrain=",0,0,"/>
+  <tile id="7" terrain=",0,0,0"/>
+  <tile id="8" terrain="0,,,"/>
+  <tile id="9" terrain="0,,,0"/>
+  <tile id="10" terrain="0,,0,"/>
+  <tile id="11" terrain="0,,0,0"/>
+  <tile id="12" terrain="0,0,,"/>
+  <tile id="13" terrain="0,0,,0"/>
+  <tile id="14" terrain="0,0,0,"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <layer name="Kachelebene 1" width="150" height="99">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="Kachelebene 2" width="150" height="99">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="Kachelebene 3" width="150" height="99">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgN+gIAAE=
+  </data>
+ </layer>
+</map>
