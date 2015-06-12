@@ -14,18 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class TextureFactory {
 		
-	private static Map<String, Texture> textures;
-	private static Map<String, BitmapFont> fonts;
-	
-
-	public TextureFactory(){
-		textures = new HashMap<String, Texture>();
-		fonts  = new HashMap<String, BitmapFont>();
-		//loadTextures();
-		//loadFonts();		
-	}
-	
-	
+	private static Map<String, Texture> textures = new HashMap<String, Texture>();
+	private static Map<String, BitmapFont> fonts = new HashMap<String, BitmapFont>();
 	
 	
 	public static void loadAllGameRessources(){

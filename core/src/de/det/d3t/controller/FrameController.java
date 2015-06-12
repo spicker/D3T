@@ -13,12 +13,10 @@ import de.det.d3t.util.Screenshooter;
 public class FrameController extends Game implements ApplicationListener {
 
 	private Screen currentScreen;
-	private TextureFactory texturefactory;
 	private boolean released =true;
 	
 	@Override
 	public void create() {
-		texturefactory = new TextureFactory();
 		
 	}
 
