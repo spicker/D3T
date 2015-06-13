@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -40,50 +42,89 @@ public class MenuFrame extends InputListener implements Screen {
 	private FPSLogger fpsLogger;
 	
 	
-	private TextureAtlas buttonAtlas;
-	private Skin skin;
+	//private TextureAtlas buttonAtlas;
+	//private Skin skin;
 	private TextButtonStyle textButtonStyle;
 	private Button startGameButton;
+	private Button startOptionsButton;
+	private Button closeGameButton;
+	private Button startCreditsButton;
+	private Button helpButton;//TODO: add help button
+	
+	private Image menuBg;
+	
+	
 	private BitmapFont font;
 	
 	
-	private int width;
-	private int height;
+	private float width;
+	private float height;
 	
 	private Game game;
 	
 	
 	public MenuFrame(Game game){
 		this.game = game;
+
 		TextureFactory.loadAllMenuRessources();
+		//TODO: remove later and put the correct buttons in "loadAllMenuRessources"
+		TextureFactory.loadAllButtons();
+		//TODO: remove later and put the correct fonts in "loadAllMenuRessources"
+		TextureFactory.loadAllFonts();
 		setupStage();
 		setupUI();
 		manageInputs();
+		width = stageViewport.getWorldWidth();
+		height = stageViewport.getWorldHeight();
 		fpsLogger = new FPSLogger();
 		
 		
 		
-		//////////UI/////////
-        font = TextureFactory.getFont("vr");
-        
+		//////////UI/////////        
        // skin = new Skin();
 		//buttonAtlas = new TextureAtlas(Gdx.files.internal("skins/button.pack"));
 	    //skin.addRegions(buttonAtlas);
 	   // skin = new Skin(Gdx.files.internal("uiskin.json"));
 	    
+        font = TextureFactory.getFont("emmet");
 		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButton")));
-		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButtonDown")));
+		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal")));
+		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal_down")));
 		textButtonStyle.font = font;
-		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameMenuButtonOver")));
+		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal_over")));
+		
 	    startGameButton = new TextButton("Spiel starten", textButtonStyle);
-	    startGameButton.setBounds(stageViewport.getWorldWidth()/2 - 1650, stageViewport.getWorldHeight()/2 - 450, 3300, 900);
+	    startGameButton.setBounds(width/2 - 1650, height/2 +700, 3000, 800);
 	    startGameButton.addListener(this);
-		ui.addActor(startGameButton);
+	    
+	    startOptionsButton = new TextButton("Optionen", textButtonStyle);
+	    startOptionsButton.setBounds(width/2 - 1650, height/2 -300, 3000, 800);
+	    startOptionsButton.addListener(this);
+	    
+	    startCreditsButton = new TextButton("Mitwirkende", textButtonStyle);
+	    startCreditsButton.setBounds(width/2 - 1650, height/2 -1300, 3000, 800);
+	    startCreditsButton.addListener(this);
+	    
+	    closeGameButton = new TextButton("Spiel Beenden", textButtonStyle);
+	    closeGameButton.setBounds(width/2 - 1650, height/2 -2300, 3000, 800);
+	    closeGameButton.addListener(this);
+	    
+		menuBg = new Image(TextureFactory.getTexture("menuBackground"));
+		menuBg.setBounds(0, 0, width, height);
+		
+		ui.addActor(menuBg);
+		
+	    ui.addActor(startGameButton);
+	    ui.addActor(startOptionsButton);
+	    ui.addActor(startCreditsButton);
+	    ui.addActor(closeGameButton);
+		
+		
+		
 		//////////UI/////////
 		
 		/////////Stage//////////
-		//stage.addActor(new Enemy(9000, 3180, 2));
+
 		/////////Stage//////////
 		
 	}
@@ -108,7 +149,7 @@ public class MenuFrame extends InputListener implements Screen {
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui);
-		inputMultiplexer.addProcessor(new CameraInputController(stageCamera)); //TODO Add some real controller here
+		//inputMultiplexer.addProcessor(new CameraInputController(stageCamera)); //TODO Add some real controller here
 		inputMultiplexer.addProcessor(stage);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
@@ -116,7 +157,8 @@ public class MenuFrame extends InputListener implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		stageViewport.update(width, height);
-		
+		this.height = stageViewport.getWorldHeight();
+		this.width = stageViewport.getWorldWidth();
 	}
 	
 	@Override
@@ -143,8 +185,6 @@ public class MenuFrame extends InputListener implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stageCamera.update();
-		//tileMapRenderer.setView(stageCamera);
-		//tileMapRenderer.render();
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		ui.act(Gdx.graphics.getDeltaTime());;
@@ -166,6 +206,18 @@ public class MenuFrame extends InputListener implements Screen {
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		if(event.getListenerActor() == startGameButton){
 			return true;
+		}	
+		if(event.getListenerActor() == startOptionsButton){
+			return true;
+		}		
+		if(event.getListenerActor() == startCreditsButton){
+			return true;
+		}		
+		if(event.getListenerActor() == helpButton){
+			return true;
+		}		
+		if(event.getListenerActor() == closeGameButton){
+			return true;
 		}		
 		return false;
 	}
@@ -175,6 +227,9 @@ public class MenuFrame extends InputListener implements Screen {
 		if(event.getListenerActor() == startGameButton){
             game.setScreen(new GameFrame(game));
 		}
+		if(event.getListenerActor() == closeGameButton){
+			Gdx.app.exit();
+		}	
 
 	}
 	

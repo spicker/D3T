@@ -25,11 +25,11 @@ public class TextureFactory {
 	
 	public static void loadAllMenuRessources(){
 		
-		addTexture("ingameMenuButtonOver", new Texture("textures/menu/ingameMenuButtonOver.png"));
-		addTexture("ingameMenuButton", new Texture("textures/menu/ingameMenuButton.png"));
-		addTexture("ingameMenuButtonDown", new Texture("textures/menu/ingameMenuButtonDown.png"));
+		addTexture("ingameMenuButtonOver", new Texture("textures/ui/buttons/ingameMenuButtonOver.png"));
+		addTexture("ingameMenuButton", new Texture("textures/ui/buttons/ingameMenuButton.png"));
+		addTexture("ingameMenuButtonDown", new Texture("textures/ui/buttons/ingameMenuButtonDown.png"));
 		
-		//addTexture("menuBackground", new Texture(Gdx.files.internal("textures/menu/menubg.png")));
+		addTexture("menuBackground", new Texture(Gdx.files.internal("textures/ui/background/calculations.png")));
 		
 		addFont("White" , new BitmapFont(Gdx.files.internal("fonts/whitefont.fnt"), false));
 		addFont("Black", new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false));
@@ -50,7 +50,7 @@ public class TextureFactory {
 		addFont("maiandra", new BitmapFont(Gdx.files.internal("fonts/maiandra_250_b.fnt"),false));
 		addFont("papyrus", new BitmapFont(Gdx.files.internal("fonts/papyrus_250_b.fnt"),false));
 		addFont("tempus", new BitmapFont(Gdx.files.internal("fonts/tempus_sans_250_b.fnt"),false));
-		addFont("toledo", new BitmapFont(Gdx.files.internal("fonts/toledo_250_b.fnt"),false));
+		addFont("toledo", new BitmapFont(Gdx.files.internal("fonts/toledo250_b.fnt"),false));
 		addFont("tz", new BitmapFont(Gdx.files.internal("fonts/tz_250_b.fnt"),false));
 		addFont("vr_256b", new BitmapFont(Gdx.files.internal("fonts/vr_256_b.fnt"),false));
 		addFont("vr_256w", new BitmapFont(Gdx.files.internal("fonts/vr_256_w.fnt"),false));
@@ -61,11 +61,35 @@ public class TextureFactory {
 		addFont("vr_white", new BitmapFont(Gdx.files.internal("fonts/vr_white.fnt"),false));
 		if(!fonts.containsKey("vr")){
 			addFont("vr", new BitmapFont(Gdx.files.internal("fonts/vr.fnt"),false));
-		}
-		
-		
+		}		
 	}
 	
+	public static void loadAllButtons(){
+		addTexture("button_brown", new Texture("textures/ui/buttons/button_brown.png"));
+		addTexture("button_brown_down", new Texture("textures/ui/buttons/button_brown_down.png"));
+		addTexture("button_brown_over", new Texture("textures/ui/buttons/button_brown_over.png"));
+		
+		addTexture("button_electro", new Texture("textures/ui/buttons/button_electro.png"));
+		addTexture("button_electro_down", new Texture("textures/ui/buttons/button_electro_down.png"));
+		addTexture("button_electro_over", new Texture("textures/ui/buttons/button_electro_over.png"));
+		
+		addTexture("button_metal", new Texture("textures/ui/buttons/button_metal.png"));
+		addTexture("button_metal_down", new Texture("textures/ui/buttons/button_metal_down.png"));
+		addTexture("button_metal_over", new Texture("textures/ui/buttons/button_metal_over.png"));
+		
+		addTexture("button_quest", new Texture("textures/ui/buttons/button_quest.png"));
+		addTexture("button_quest_down", new Texture("textures/ui/buttons/button_quest_down.png"));
+		addTexture("button_quest_over", new Texture("textures/ui/buttons/button_quest_over.png"));
+		
+		addTexture("button_wood", new Texture("textures/ui/buttons/button_wood.png"));
+		addTexture("button_wood_down", new Texture("textures/ui/buttons/button_wood_down.png"));
+		addTexture("button_wood_over", new Texture("textures/ui/buttons/button_wood_over.png"));
+		
+		addTexture("button_white", new Texture("textures/ui/buttons/button_white.png"));
+		addTexture("button_white_down", new Texture("textures/ui/buttons/button_white_down.png"));
+		addTexture("button_white_over", new Texture("textures/ui/buttons/button_white.png")); //maybe put another texture here
+		
+	}
 	
 	
 

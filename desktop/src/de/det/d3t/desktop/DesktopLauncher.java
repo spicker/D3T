@@ -1,5 +1,7 @@
 package de.det.d3t.desktop;
 
+import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -12,6 +14,8 @@ public class DesktopLauncher {
 		//config.fullscreen = true;
 		config.height = 800;
 		config.width = 1200;
+		config.title = "D3T";
+		config.addIcon("textures/icon/d3t32.png", Files.FileType.Internal);
 		new LwjglApplication(new FrameController(), config);
 	}
 }
