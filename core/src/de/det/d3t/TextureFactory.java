@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -105,10 +109,71 @@ public class TextureFactory {
 		fonts.put(title, font);
 	}
 	
-	public static BitmapFont getFont(String title)
-	{
+	public static BitmapFont getFont(String title)	{
 		return fonts.get(title);
 	}
+	
+	//generate Font with border and shadow
+	public static BitmapFont getFont(String title, int fontSize, Color fontColor, int borderWidth, Color borderColor, Color shadowColor, int shadowOffsetX, int shadowOffsetY) {
+	    FileHandle fontFile = Gdx.files.internal("fonts/"+ title +".ttf");
+	    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
+	    FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+	    parameter.size = fontSize;
+	    parameter.borderWidth = borderWidth;
+	    parameter.borderColor = borderColor;
+	    parameter.color = fontColor;
+	    parameter.shadowColor = shadowColor;
+	    parameter.shadowOffsetX = shadowOffsetX;
+	    parameter.shadowOffsetY = shadowOffsetY;
+	    BitmapFont font = generator.generateFont(parameter);
+	    generator.dispose();
+	    return font;
+	}
+	
+	//generate Font with border
+	public static BitmapFont getFont(String title, int fontSize, Color fontColor, int borderWidth, Color borderColor) {
+	    FileHandle fontFile = Gdx.files.internal("fonts/"+ title +".ttf");
+	    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
+	    FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+	    parameter.size = fontSize;
+	    parameter.borderWidth = borderWidth;
+	    parameter.borderColor = borderColor;
+	    parameter.color = fontColor;
+	    BitmapFont font = generator.generateFont(parameter);
+	    generator.dispose();
+	    return font;
+	}
+	
+	//generate Font with shadow
+	public static BitmapFont getFont(String title, int fontSize, Color fontColor, Color shadowColor, int shadowOffsetX, int shadowOffsetY) {
+	    FileHandle fontFile = Gdx.files.internal("fonts/"+ title +".ttf");
+	    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
+	    FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+	    parameter.size = fontSize;
+	    parameter.color = fontColor;
+	    parameter.shadowColor = shadowColor;
+	    parameter.shadowOffsetX = shadowOffsetX;
+	    parameter.shadowOffsetY = shadowOffsetY;
+	    BitmapFont font = generator.generateFont(parameter);
+	    generator.dispose();
+	    return font;
+	}
+	
+	//generate simple font
+	public static BitmapFont getFont(String title, int fontSize, Color fontColor) {
+	    FileHandle fontFile = Gdx.files.internal("fonts/"+ title +".ttf");
+	    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
+	    FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+	    parameter.size = fontSize;
+	    parameter.color = fontColor;
+	    BitmapFont font = generator.generateFont(parameter);
+	    generator.dispose();
+	    return font;
+	}
+	
+	
+
+	
 	
 	public static void changeImage(Image image, Texture texture) {
         TextureRegion tr;
@@ -116,6 +181,8 @@ public class TextureFactory {
         TextureRegionDrawable trd = new TextureRegionDrawable(tr);
         image.setDrawable(trd);
 	}
+	
+
 	
 
 }

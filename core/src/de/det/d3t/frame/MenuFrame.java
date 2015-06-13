@@ -1,9 +1,11 @@
 package de.det.d3t.frame;
 
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -69,24 +71,20 @@ public class MenuFrame extends InputListener implements Screen {
 		TextureFactory.loadAllMenuRessources();
 		//TODO: remove later and put the correct buttons in "loadAllMenuRessources"
 		TextureFactory.loadAllButtons();
-		//TODO: remove later and put the correct fonts in "loadAllMenuRessources"
-		TextureFactory.loadAllFonts();
 		setupStage();
 		setupUI();
 		manageInputs();
+		fpsLogger = new FPSLogger();
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
-		fpsLogger = new FPSLogger();
-		
-		
-		
+
 		//////////UI/////////        
        // skin = new Skin();
 		//buttonAtlas = new TextureAtlas(Gdx.files.internal("skins/button.pack"));
 	    //skin.addRegions(buttonAtlas);
 	   // skin = new Skin(Gdx.files.internal("uiskin.json"));
 	    
-        font = TextureFactory.getFont("emmet");
+        font = TextureFactory.getFont("emmett",48, Color.valueOf("484848"));
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal")));
 		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal_down")));
@@ -94,19 +92,19 @@ public class MenuFrame extends InputListener implements Screen {
 		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal_over")));
 		
 	    startGameButton = new TextButton("Spiel starten", textButtonStyle);
-	    startGameButton.setBounds(width/2 - 1650, height/2 +700, 3000, 800);
+	    startGameButton.setBounds(width/2 - 300, height/2 , 600, 150);
 	    startGameButton.addListener(this);
 	    
 	    startOptionsButton = new TextButton("Optionen", textButtonStyle);
-	    startOptionsButton.setBounds(width/2 - 1650, height/2 -300, 3000, 800);
+	    startOptionsButton.setBounds(width/2 - 300, height/2 -200, 600, 150);
 	    startOptionsButton.addListener(this);
 	    
 	    startCreditsButton = new TextButton("Mitwirkende", textButtonStyle);
-	    startCreditsButton.setBounds(width/2 - 1650, height/2 -1300, 3000, 800);
+	    startCreditsButton.setBounds(width/2 - 300, height/2 -400 , 600, 150);
 	    startCreditsButton.addListener(this);
 	    
 	    closeGameButton = new TextButton("Spiel Beenden", textButtonStyle);
-	    closeGameButton.setBounds(width/2 - 1650, height/2 -2300, 3000, 800);
+	    closeGameButton.setBounds(width/2 - 300, height/2 -600, 600, 150);
 	    closeGameButton.addListener(this);
 	    
 		menuBg = new Image(TextureFactory.getTexture("menuBackground"));
@@ -133,14 +131,14 @@ public class MenuFrame extends InputListener implements Screen {
 	public void setupStage(){
 		 stageCamera = new OrthographicCamera();
 		 stageCamera.zoom = 1f;
-		 stageViewport = new StretchViewport(Settings.viewportWidth, Settings.viewportHeight, stageCamera);
+		 stageViewport = new StretchViewport(2560, 1600, stageCamera);
 		 stage = new Stage(stageViewport);
 	}
 	
 	public void setupUI(){
 		uiCamera = new OrthographicCamera();
 		uiCamera.zoom = 1f;
-		uiViewport = new StretchViewport(Settings.viewportWidth, Settings.viewportHeight, uiCamera);
+		uiViewport = new StretchViewport(2560, 1600, uiCamera);
 		ui = new Stage(uiViewport);
 	}
 	
@@ -149,7 +147,6 @@ public class MenuFrame extends InputListener implements Screen {
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui);
-		//inputMultiplexer.addProcessor(new CameraInputController(stageCamera)); //TODO Add some real controller here
 		inputMultiplexer.addProcessor(stage);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
@@ -157,8 +154,14 @@ public class MenuFrame extends InputListener implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		stageViewport.update(width, height);
+		uiViewport.update(width, height);
 		this.height = stageViewport.getWorldHeight();
 		this.width = stageViewport.getWorldWidth();
+		
+		startGameButton.removeListener(this);
+		startGameButton.addListener(this);
+		
+		
 	}
 	
 	@Override
