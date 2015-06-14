@@ -1,7 +1,5 @@
 package de.det.d3t;
 
-import com.badlogic.gdx.math.Vector2;
-
 public class Settings {
 	public static final float aspectRatioX = 16;
 	public static final float aspectRatioY = 9;
@@ -13,5 +11,22 @@ public class Settings {
 	
 	public static float basePositionMenuX = 600;
 	public static float basePositionMenuY = 500;
+		
+	private static float bgm = 100f;
+	private static float sfx = 100f;
+	
+	public static float getBgm() {
+		return bgm;
+	}
+	public static void setBgm(float bgm) {
+		Settings.bgm = bgm;
+	}
+	public static float getSfx() {
+		return sfx;
+	}
+	public static void setSfx(float sfx) {
+		Settings.sfx = sfx;
+	}
+		
 
 }

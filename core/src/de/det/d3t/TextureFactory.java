@@ -28,24 +28,39 @@ public class TextureFactory {
 	}
 	
 	public static void loadAllMenuRessources(){
+		
+		//////////////////////////////MAIN-MENU-STAGE////////////////////////////////////////
 		addTexture("basic", new Texture("textures/pixel.png"));
 		addTexture("enemy", new Texture("textures/enemy.png"));
-		
 		addTexture("button_metal", new Texture("textures/ui/buttons/button_metal.png"));
 		addTexture("button_metal_down", new Texture("textures/ui/buttons/button_metal_down.png"));
 		addTexture("button_metal_over", new Texture("textures/ui/buttons/button_metal_over.png"));
-		
 		//addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles.png")));
 		addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles2.png")));
 		//addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles3.jpg")));
-		
 		addTexture("menuTitle", new Texture(Gdx.files.internal("textures/ui/title/D3t_title_1.png")));
+		//////////////////////////////MAIN-MENU-STAGE////////////////////////////////////////
 		
-		addFont("White" , new BitmapFont(Gdx.files.internal("fonts/whitefont.fnt"), false));
-		addFont("Black", new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false));
-		addFont("Alpha_Echo", new BitmapFont(Gdx.files.internal("fonts/alpha_echo.fnt"), false));
-		addFont("OptionFont", new BitmapFont(Gdx.files.internal("fonts/OptionFont.fnt"), false));
-		addFont("vr", new BitmapFont(Gdx.files.internal("fonts/vr.fnt"),false));
+		
+		
+		//////////////////////////////OPTIONS-MENU-STAGE////////////////////////////////////////
+		addTexture("slider_knob1", new Texture("textures/ui/slider/slider_knob1.png"));
+		addTexture("slider_bar1", new Texture("textures/ui/slider/slider_bar1.png"));
+		addTexture("slider_knob2", new Texture("textures/ui/slider/slider_knob2.png"));
+		addTexture("slider_bar2", new Texture("textures/ui/slider/slider_bar2.png"));
+		
+		
+		addTexture("optionsBackground", new Texture(Gdx.files.internal("textures/background/optionsBackground.jpg")));
+		//////////////////////////////OPTIONS-MENU-STAGE////////////////////////////////////////
+		
+		
+		
+		
+		//////////////////////////////CREDITS-STAGE////////////////////////////////////////
+		
+		
+		
+		//////////////////////////////CREDITS-STAGE////////////////////////////////////////
 	}
 	
 	

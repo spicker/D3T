@@ -18,13 +18,19 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -40,14 +46,18 @@ public class MenuFrame extends InputListener implements Screen {
 	private Stage creditsStage;
 	private StretchViewport stageViewport;
 	private StretchViewport uiViewport;
+	private StretchViewport creditsViewport;
 	private OrthographicCamera stageCamera;
 	private OrthographicCamera uiCamera;
+	private OrthographicCamera creditsCamera;
 	private InputMultiplexer inputMultiplexer;
 	private FPSLogger fpsLogger;
 	
+	private boolean inCredits = false;
+	private boolean inSettings = false;
+	private boolean inMenu = true;
 	
-	//private TextureAtlas buttonAtlas;
-	//private Skin skin;
+	
 	private TextButtonStyle textButtonStyle;
 	private Button startGameButton;
 	private Button loadGameButton;
@@ -55,10 +65,21 @@ public class MenuFrame extends InputListener implements Screen {
 	private Button closeGameButton;
 	private Button startCreditsButton;
 	private Button helpButton;//TODO: add help button
-	
 	private Image menuBg;
 	private Image menuTitle;
 	
+	
+	private Slider bgmSlider;
+	private Slider sfxSlider;
+	private LabelStyle ls;
+	private Label bgmLabel;
+	private Label sfxLabel;
+	private Button backButton;
+	private Button acceptButton;
+	private Image settingsBg;
+	
+	private float sfxToSet = 100f;
+	private float bgmToSet = 100f;
 	
 	private BitmapFont font;
 	private SpriteBatch  batch;
@@ -77,6 +98,8 @@ public class MenuFrame extends InputListener implements Screen {
 	private Game game;
 	
 	
+	
+	
 	public MenuFrame(Game game){
 		this.game = game;
 
@@ -85,6 +108,7 @@ public class MenuFrame extends InputListener implements Screen {
 		TextureFactory.loadAllButtons();
 		setupStage();
 		setupUI();
+		setupCreditsStage();
 		manageInputs();
 		fpsLogger = new FPSLogger();
 		width = stageViewport.getWorldWidth();
@@ -167,8 +191,69 @@ public class MenuFrame extends InputListener implements Screen {
 	    
 	    
 	    //////////////////////////////////////OPTIONS-STAGE//////////////////////////////////////  
-	    //TODO: add sliders for volume (sfx & bgm) --> add new GUI Images for that slider/slider knob and background
-	    //TODO: think abou other options and put them here
+	    //TODO: think about other options and put them here
+		SliderStyle sliderStyle = new SliderStyle();
+		sliderStyle.background = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("slider_bar1")));
+		sliderStyle.background.setMinWidth(600);
+		sliderStyle.knob = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("slider_knob1")));
+		sliderStyle.background.setMinHeight(40);
+		sliderStyle.knob.setMinHeight(100);
+		sliderStyle.knob.setMinWidth(100);
+
+		
+		ls = new LabelStyle();
+		ls.font = TextureFactory.getFont("emmett",48, Color.valueOf("484848"));
+	    bgmSlider = new Slider(0f, 100f, 0.1f, false, sliderStyle);
+	    bgmSlider.setBounds(width/2 + 400, height/2 - 200, 800, 200);
+	    bgmSlider.setValue(Settings.getBgm());
+	    bgmSlider.addListener(new ChangeListener(){
+
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				bgmLabel.setText("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
+				//Settings.setBgm(bgmSlider.getValue()/100);
+				bgmToSet = bgmSlider.getValue()/100;
+			}
+			
+		});
+	    bgmLabel = new Label("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %", ls);
+	    bgmLabel.setBounds(width/2 - 200, height/2 -200, 800, 200);
+	    
+	    sfxSlider = new Slider(0f, 100f, 0.1f, false, sliderStyle);
+	    sfxSlider.setBounds(width/2 + 400, height/2, 800, 200);
+	    sfxSlider.setValue(Settings.getSfx());
+	    sfxSlider.addListener(new ChangeListener(){
+
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				sfxLabel.setText("Sound-Lautstärke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
+				//Settings.setBgm(sfxSlider.getValue()/100);
+				sfxToSet = sfxSlider.getValue()/100;
+			}
+			
+		});
+	    sfxLabel = new Label("Sound-Lautstärke: " + String.format("%.01f", sfxSlider.getValue()) + " %", ls);
+	    sfxLabel.setBounds(width/2 - 200, height/2, 800, 200);
+	    
+	    backButton = new TextButton("Zurück", textButtonStyle);
+	    backButton.setBounds(width/2 - 1100, height/2 -700, 600, 150);
+	    backButton.addListener(this);
+	    
+	    acceptButton = new TextButton("Bestätigen", textButtonStyle);
+	    acceptButton.setBounds(width/2 + 500, height/2 -700, 600, 150);
+	    acceptButton.addListener(this);
+	    
+		settingsBg = new Image(TextureFactory.getTexture("optionsBackground"));
+		settingsBg.setBounds(0, 0, width, height);
+	    
+	        
+		settingsStage.addActor(settingsBg);
+	    settingsStage.addActor(sfxLabel);
+	    settingsStage.addActor(sfxSlider);
+	    settingsStage.addActor(bgmLabel);
+	    settingsStage.addActor(bgmSlider);
+	    settingsStage.addActor(backButton);
+	    settingsStage.addActor(acceptButton);
 	    
 	    //////////////////////////////////////OPTIONS-STAGE//////////////////////////////////////  
 	    
@@ -198,12 +283,20 @@ public class MenuFrame extends InputListener implements Screen {
 		uiStage = new Stage(uiViewport);
 	}
 	
+	public void setupCreditsStage(){
+		creditsCamera = new OrthographicCamera();
+		creditsCamera.zoom = 1f;
+		creditsViewport = new StretchViewport(2560, 1600, creditsCamera);
+		creditsStage = new Stage(creditsViewport);
+	}
+	
 
 	
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(uiStage);
 		inputMultiplexer.addProcessor(settingsStage);
+		inputMultiplexer.addProcessor(creditsStage);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 	
@@ -241,32 +334,43 @@ public class MenuFrame extends InputListener implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stageCamera.update();
-		settingsStage.act(Gdx.graphics.getDeltaTime());
-		settingsStage.draw();
-		uiStage.act(Gdx.graphics.getDeltaTime());;
-		uiStage.draw();
-		fpsLogger.log();	
-		batch.begin();
-		for(PooledEffect effect : effects) {
-			effect.draw(batch, delta);
-			if(effect.isComplete()) {
-				effect.start();
-				//PooledEffect effe = effect;
-				//effects.removeValue(effect, true);
-				//effect.free();
-				//effects.add(effe);
+		if(!inCredits && !inMenu){
+			settingsStage.act(Gdx.graphics.getDeltaTime());
+			settingsStage.draw();
+		}
+		if(!inSettings && !inCredits){
+			uiStage.act(Gdx.graphics.getDeltaTime());;
+			uiStage.draw();
+			batch.begin();
+			for(PooledEffect effect : effects) {
+				effect.draw(batch, delta);
+				if(effect.isComplete()) {
+					effect.start();
+					//PooledEffect effe = effect;
+					//effects.removeValue(effect, true);
+					//effect.free();
+					//effects.add(effe);
+				}
+			}
+			batch.end();
+			//Settings.basePositionMenuX = Gdx.input.getX();
+			//Settings.basePositionMenuY = Gdx.input.getY();
+			
+			timeNew = System.currentTimeMillis();
+			if(timeNew-timeOld > 5000){
+				Settings.basePositionMenuX = randInt(0,(int) ((int)width));
+				Settings.basePositionMenuY = randInt(0,(int) ((int)height));
+				timeOld = System.currentTimeMillis();
 			}
 		}
-		batch.end();
-		//Settings.basePositionMenuX = Gdx.input.getX();
-		//Settings.basePositionMenuY = Gdx.input.getY();
-		
-		timeNew = System.currentTimeMillis();
-		if(timeNew-timeOld > 5000){
-			Settings.basePositionMenuX = randInt(0,(int) ((int)width));
-			Settings.basePositionMenuY = randInt(0,(int) ((int)height));
-			timeOld = System.currentTimeMillis();
+		if(!inSettings && !inMenu){
+			creditsStage.act(Gdx.graphics.getDeltaTime());;
+			creditsStage.draw();
 		}
+		
+
+		fpsLogger.log();	
+		
 		
 		
 		
@@ -299,6 +403,16 @@ public class MenuFrame extends InputListener implements Screen {
 		if(event.getListenerActor() == closeGameButton){
 			return true;
 		}		
+		
+		
+		
+		if(event.getListenerActor() == backButton){
+			return true;
+		}	
+		if(event.getListenerActor() == acceptButton){
+			return true;
+		}	
+		
 		return false;
 	}
 
@@ -307,9 +421,31 @@ public class MenuFrame extends InputListener implements Screen {
 		if(event.getListenerActor() == startGameButton){
             game.setScreen(new GameFrame(game));
 		}
+		
+		if(event.getListenerActor() == startOptionsButton){
+			inSettings = true;
+			inMenu = false;
+		}		
 		if(event.getListenerActor() == closeGameButton){
 			Gdx.app.exit();
 		}	
+		
+		
+		
+		
+		
+		
+		if(event.getListenerActor() == backButton){
+			inSettings = false;
+			inMenu = true;
+		}
+		if(event.getListenerActor() == acceptButton){
+			Settings.setBgm(bgmToSet);
+			Settings.setSfx(sfxToSet);
+			inSettings = false;
+			inMenu = true;
+		}
+		
 
 	}
 	
