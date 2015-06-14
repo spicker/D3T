@@ -35,7 +35,9 @@ public class TextureFactory {
 		addTexture("button_metal_down", new Texture("textures/ui/buttons/button_metal_down.png"));
 		addTexture("button_metal_over", new Texture("textures/ui/buttons/button_metal_over.png"));
 		
-		addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles.png")));
+		//addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles.png")));
+		addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles2.png")));
+		//addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles3.jpg")));
 		
 		addTexture("menuTitle", new Texture(Gdx.files.internal("textures/ui/title/D3t_title_1.png")));
 		

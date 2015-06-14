@@ -34,8 +34,10 @@ import de.det.d3t.TextureFactory;
 import de.det.d3t.model.Enemy;
 
 public class MenuFrame extends InputListener implements Screen {
-	private Stage stage;
-	private Stage ui;
+	
+	private Stage settingsStage;
+	private Stage uiStage;
+	private Stage creditsStage;
 	private StretchViewport stageViewport;
 	private StretchViewport uiViewport;
 	private OrthographicCamera stageCamera;
@@ -111,21 +113,14 @@ public class MenuFrame extends InputListener implements Screen {
 		
 
 		
-		//////////UI/////////        
-       // skin = new Skin();
-		//buttonAtlas = new TextureAtlas(Gdx.files.internal("skins/button.pack"));
-	    //skin.addRegions(buttonAtlas);
-	   // skin = new Skin(Gdx.files.internal("uiskin.json"));
-	    
+		//////////////////////////////////////UI-STAGE//////////////////////////////////////    
         font = TextureFactory.getFont("emmett",48, Color.valueOf("484848"));
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal")));
 		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal_down")));
 		textButtonStyle.font = font;
 		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal_over")));
-		
-		
-		
+
 		menuTitle = new Image(TextureFactory.getTexture("menuTitle"));
 		menuTitle.setBounds(width/2 - 750, height/2 + height/7, 1500, 600);
 		
@@ -152,28 +147,39 @@ public class MenuFrame extends InputListener implements Screen {
 		menuBg = new Image(TextureFactory.getTexture("menuBackground"));
 		menuBg.setBounds(0, 0, width, height);
 		
-		ui.addActor(menuBg);
+		uiStage.addActor(menuBg);
 		Texture texture = new Texture("badlogic.jpg");
 		Image i = new Image(texture);
-		ui.addActor(new Enemy(500, 610, 0.7f,false));
+		uiStage.addActor(new Enemy(500, 610, 0.7f,false));
 		i = new Image(texture);
 		i.setBounds(0, 0, 500, 500);
 		i.rotateBy(180);
-		ui.addActor(i);
-		ui.addActor(menuTitle);
-	    ui.addActor(startGameButton);
-	    ui.addActor(loadGameButton);
-	    ui.addActor(startOptionsButton);
-	    ui.addActor(startCreditsButton);
-	    ui.addActor(closeGameButton);
-	    		
+		uiStage.addActor(i);
+		uiStage.addActor(menuTitle);
+	    uiStage.addActor(startGameButton);
+	    uiStage.addActor(loadGameButton);
+	    uiStage.addActor(startOptionsButton);
+	    uiStage.addActor(startCreditsButton);
+	    uiStage.addActor(closeGameButton);
+	    //////////////////////////////////////UI-STAGE//////////////////////////////////////  
 		
-		//////////UI/////////
-		
-		/////////Stage//////////
-
-		
-		/////////Stage//////////
+	    
+	    
+	    
+	    //////////////////////////////////////OPTIONS-STAGE//////////////////////////////////////  
+	    //TODO: add sliders for volume (sfx & bgm) --> add new GUI Images for that slider/slider knob and background
+	    //TODO: think abou other options and put them here
+	    
+	    //////////////////////////////////////OPTIONS-STAGE//////////////////////////////////////  
+	    
+	    
+	    
+	    
+	    //////////////////////////////////////CREDITS-STAGE//////////////////////////////////////  
+	    //TODO: add credits of the Game (creatively or "normal")
+	    //TODO: add possible easter eggs
+	    
+	    //////////////////////////////////////CREDITS-STAGE//////////////////////////////////////  
 		
 	}
 	
@@ -182,22 +188,22 @@ public class MenuFrame extends InputListener implements Screen {
 		 stageCamera = new OrthographicCamera();
 		 stageCamera.zoom = 1f;
 		 stageViewport = new StretchViewport(2560, 1600, stageCamera);
-		 stage = new Stage(stageViewport);
+		 settingsStage = new Stage(stageViewport);
 	}
 	
 	public void setupUI(){
 		uiCamera = new OrthographicCamera();
 		uiCamera.zoom = 1f;
 		uiViewport = new StretchViewport(2560, 1600, uiCamera);
-		ui = new Stage(uiViewport);
+		uiStage = new Stage(uiViewport);
 	}
 	
 
 	
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
-		inputMultiplexer.addProcessor(ui);
-		inputMultiplexer.addProcessor(stage);
+		inputMultiplexer.addProcessor(uiStage);
+		inputMultiplexer.addProcessor(settingsStage);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 	
@@ -235,10 +241,10 @@ public class MenuFrame extends InputListener implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stageCamera.update();
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
-		ui.act(Gdx.graphics.getDeltaTime());;
-		ui.draw();
+		settingsStage.act(Gdx.graphics.getDeltaTime());
+		settingsStage.draw();
+		uiStage.act(Gdx.graphics.getDeltaTime());;
+		uiStage.draw();
 		fpsLogger.log();	
 		batch.begin();
 		for(PooledEffect effect : effects) {
