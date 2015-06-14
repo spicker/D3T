@@ -1,6 +1,8 @@
 package de.det.d3t.frame;
 
 
+import java.util.Random;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -11,26 +13,24 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
-import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.model.Enemy;
 
 public class MenuFrame extends InputListener implements Screen {
@@ -48,19 +48,29 @@ public class MenuFrame extends InputListener implements Screen {
 	//private Skin skin;
 	private TextButtonStyle textButtonStyle;
 	private Button startGameButton;
+	private Button loadGameButton;
 	private Button startOptionsButton;
 	private Button closeGameButton;
 	private Button startCreditsButton;
 	private Button helpButton;//TODO: add help button
 	
 	private Image menuBg;
+	private Image menuTitle;
 	
 	
 	private BitmapFont font;
+	private SpriteBatch  batch;
 	
 	
 	private float width;
 	private float height;
+	
+	private long timeOld = 0;
+	private long timeNew = 0;
+	
+	private ParticleEffect particleEffect;
+	private ParticleEffectPool pool;
+	private Array<PooledEffect> effects;
 	
 	private Game game;
 	
@@ -78,6 +88,29 @@ public class MenuFrame extends InputListener implements Screen {
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
 
+		timeOld = System.currentTimeMillis();
+		
+		batch = new SpriteBatch();
+		
+		particleEffect = new ParticleEffect();
+		particleEffect.load(Gdx.files.internal("effects/unicornParticles.p"), Gdx.files.internal("particle"));
+		particleEffect.setPosition(width / 2, height / 2);
+		particleEffect.start();
+		pool = new ParticleEffectPool(particleEffect, 0, 70);
+		effects = new Array<PooledEffect>();
+		
+		
+		PooledEffect effect = pool.obtain();
+		effect.setPosition(310, 690);
+		effect.setDuration(2000000000);
+		effects.add(effect);
+		PooledEffect effect2 = pool.obtain();
+		effect2.setPosition(855, 670);
+		effect2.setDuration(2000000000);
+		effects.add(effect2);
+		
+
+		
 		//////////UI/////////        
        // skin = new Skin();
 		//buttonAtlas = new TextureAtlas(Gdx.files.internal("skins/button.pack"));
@@ -91,38 +124,55 @@ public class MenuFrame extends InputListener implements Screen {
 		textButtonStyle.font = font;
 		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_metal_over")));
 		
+		
+		
+		menuTitle = new Image(TextureFactory.getTexture("menuTitle"));
+		menuTitle.setBounds(width/2 - 750, height/2 + height/7, 1500, 600);
+		
 	    startGameButton = new TextButton("Spiel starten", textButtonStyle);
-	    startGameButton.setBounds(width/2 - 300, height/2 , 600, 150);
+	    startGameButton.setBounds(width/2 - 300, height/2 + 100, 600, 150);
 	    startGameButton.addListener(this);
 	    
+	    loadGameButton = new TextButton("Spiel laden", textButtonStyle);
+	    loadGameButton.setBounds(width/2 - 300, height/2 -100, 600, 150);
+	    loadGameButton.addListener(this);
+	    
 	    startOptionsButton = new TextButton("Optionen", textButtonStyle);
-	    startOptionsButton.setBounds(width/2 - 300, height/2 -200, 600, 150);
+	    startOptionsButton.setBounds(width/2 - 300, height/2 -300, 600, 150);
 	    startOptionsButton.addListener(this);
 	    
 	    startCreditsButton = new TextButton("Mitwirkende", textButtonStyle);
-	    startCreditsButton.setBounds(width/2 - 300, height/2 -400 , 600, 150);
+	    startCreditsButton.setBounds(width/2 - 300, height/2 -500 , 600, 150);
 	    startCreditsButton.addListener(this);
 	    
 	    closeGameButton = new TextButton("Spiel Beenden", textButtonStyle);
-	    closeGameButton.setBounds(width/2 - 300, height/2 -600, 600, 150);
+	    closeGameButton.setBounds(width/2 - 300, height/2 -700, 600, 150);
 	    closeGameButton.addListener(this);
 	    
 		menuBg = new Image(TextureFactory.getTexture("menuBackground"));
 		menuBg.setBounds(0, 0, width, height);
 		
 		ui.addActor(menuBg);
-		
+		Texture texture = new Texture("badlogic.jpg");
+		Image i = new Image(texture);
+		ui.addActor(new Enemy(500, 610, 0.7f,false));
+		i = new Image(texture);
+		i.setBounds(0, 0, 500, 500);
+		i.rotateBy(180);
+		ui.addActor(i);
+		ui.addActor(menuTitle);
 	    ui.addActor(startGameButton);
+	    ui.addActor(loadGameButton);
 	    ui.addActor(startOptionsButton);
 	    ui.addActor(startCreditsButton);
 	    ui.addActor(closeGameButton);
-		
-		
+	    		
 		
 		//////////UI/////////
 		
 		/////////Stage//////////
 
+		
 		/////////Stage//////////
 		
 	}
@@ -158,10 +208,6 @@ public class MenuFrame extends InputListener implements Screen {
 		this.height = stageViewport.getWorldHeight();
 		this.width = stageViewport.getWorldWidth();
 		
-		startGameButton.removeListener(this);
-		startGameButton.addListener(this);
-		
-		
 	}
 	
 	@Override
@@ -175,7 +221,8 @@ public class MenuFrame extends InputListener implements Screen {
 	}
 	@Override
 	public void dispose() {
-		
+		batch.dispose();
+		particleEffect.dispose();
 	}
 
 	@Override
@@ -193,9 +240,33 @@ public class MenuFrame extends InputListener implements Screen {
 		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
 		fpsLogger.log();	
-	
-		width = Gdx.graphics.getWidth();
-		height = Gdx.graphics.getHeight();
+		batch.begin();
+		for(PooledEffect effect : effects) {
+			effect.draw(batch, delta);
+			if(effect.isComplete()) {
+				effect.start();
+				//PooledEffect effe = effect;
+				//effects.removeValue(effect, true);
+				//effect.free();
+				//effects.add(effe);
+			}
+		}
+		batch.end();
+		//Settings.basePositionMenuX = Gdx.input.getX();
+		//Settings.basePositionMenuY = Gdx.input.getY();
+		
+		timeNew = System.currentTimeMillis();
+		if(timeNew-timeOld > 5000){
+			Settings.basePositionMenuX = randInt(0,(int) ((int)width));
+			Settings.basePositionMenuY = randInt(0,(int) ((int)height));
+			timeOld = System.currentTimeMillis();
+		}
+		
+		
+		
+		
+		//width = Gdx.graphics.getWidth();
+		//height = Gdx.graphics.getHeight();
 	}
 
 	@Override
@@ -237,7 +308,13 @@ public class MenuFrame extends InputListener implements Screen {
 	}
 	
 	
-	
+	public static int randInt(int min, int max) {
+
+	    Random rand = new Random();
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+	    return randomNum;
+	}
 	
 	
 	

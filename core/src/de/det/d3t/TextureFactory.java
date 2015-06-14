@@ -28,12 +28,16 @@ public class TextureFactory {
 	}
 	
 	public static void loadAllMenuRessources(){
+		addTexture("basic", new Texture("textures/pixel.png"));
+		addTexture("enemy", new Texture("textures/enemy.png"));
 		
-		addTexture("ingameMenuButtonOver", new Texture("textures/ui/buttons/ingameMenuButtonOver.png"));
-		addTexture("ingameMenuButton", new Texture("textures/ui/buttons/ingameMenuButton.png"));
-		addTexture("ingameMenuButtonDown", new Texture("textures/ui/buttons/ingameMenuButtonDown.png"));
+		addTexture("button_metal", new Texture("textures/ui/buttons/button_metal.png"));
+		addTexture("button_metal_down", new Texture("textures/ui/buttons/button_metal_down.png"));
+		addTexture("button_metal_over", new Texture("textures/ui/buttons/button_metal_over.png"));
 		
-		addTexture("menuBackground", new Texture(Gdx.files.internal("textures/ui/background/calculations.png")));
+		addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles.png")));
+		
+		addTexture("menuTitle", new Texture(Gdx.files.internal("textures/ui/title/D3t_title_1.png")));
 		
 		addFont("White" , new BitmapFont(Gdx.files.internal("fonts/whitefont.fnt"), false));
 		addFont("Black", new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false));
