@@ -15,5 +15,13 @@ public abstract class Circle extends Entity {
 	public float getRadius() {
 		return radius;
 	}
+	
+	public float getCenterX(){
+		return getX() + (getWidth() / 2f);
+	}
+	
+	public float getCenterY(){
+		return getY() + (getHeight() / 2f);
+	}
 
 }
