@@ -10,5 +10,8 @@ public class Settings {
 	public static final float viewportWidth = aspectRatioX * aspectRatioMultiplier;
 	public static final float basePositionX = 2250;
 	public static final float basePositionY = 4500;
+	
+	public static float basePositionMenuX = 600;
+	public static float basePositionMenuY = 500;
 
 }

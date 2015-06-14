@@ -54,7 +54,7 @@ public class GameFrame implements Screen {
 		Image i = new Image(texture);
 		i.setBounds(0, 0, 2000, 2000);
 		ui.addActor(i);
-		stage.addActor(new Enemy(7000, 3180, 2));
+		stage.addActor(new Enemy(7000, 3180, 2,true));
 		i = new Image(texture);
 		i.setBounds(0, 0, 2000, 2000);
 		i.rotateBy(180);
@@ -64,7 +64,7 @@ public class GameFrame implements Screen {
 		for(int j = 1; j < 1000; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
-			stage.addActor(new Enemy(x, y, 1));
+			stage.addActor(new Enemy(x, y, 1,true));
 			if(lavaDetector.hasIntersectAt(x, y)){
 				i = new Image(texture);
 				i.setBounds(x, y, 10, 10);

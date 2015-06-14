@@ -18,14 +18,16 @@ public class Enemy extends Circle{
 	private float velocityX = 0;
 	private float velocityY = -1000; 
 	private HpBar hpBar;
+	private boolean ingame;
 	
 	private static final Vector2 hpBarOffset = new Vector2(0, 140);
 	private static final Vector2 hpBarSize = new Vector2(250, 40);
 	
-	public Enemy(float x, float y, float scale) {
+	public Enemy(float x, float y, float scale, boolean ingame) {
 		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
 		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;
+		this.ingame = ingame;
 		hpBar = new HpBar();
 	}
 	
@@ -37,8 +39,17 @@ public class Enemy extends Circle{
 	
 	@Override
 	public void act(float delta) {
-		float targetX = Settings.basePositionX - getX();
-		float targetY = Settings.basePositionY - getY();
+		float targetX = 0;
+		float targetY = 0;
+		if(ingame){
+			targetX = Settings.basePositionX - getX();
+			targetY = Settings.basePositionY - getY();
+		}
+		else{
+			targetX = Settings.basePositionMenuX - getX();
+			targetY = Settings.basePositionMenuY - getY();
+		}
+		
 		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
 		length = 1f / length;
 		targetX = targetX * length;

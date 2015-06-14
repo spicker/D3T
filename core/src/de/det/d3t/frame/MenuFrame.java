@@ -1,6 +1,8 @@
 package de.det.d3t.frame;
 
 
+import java.util.Random;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
@@ -26,7 +29,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.model.Enemy;
 
 public class MenuFrame extends InputListener implements Screen {
 	private Stage stage;
@@ -60,6 +65,9 @@ public class MenuFrame extends InputListener implements Screen {
 	private float width;
 	private float height;
 	
+	private long timeOld = 0;
+	private long timeNew = 0;
+	
 	private ParticleEffect particleEffect;
 	private ParticleEffectPool pool;
 	private Array<PooledEffect> effects;
@@ -80,6 +88,8 @@ public class MenuFrame extends InputListener implements Screen {
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
 
+		timeOld = System.currentTimeMillis();
+		
 		batch = new SpriteBatch();
 		
 		particleEffect = new ParticleEffect();
@@ -99,6 +109,7 @@ public class MenuFrame extends InputListener implements Screen {
 		effect2.setDuration(2000000000);
 		effects.add(effect2);
 		
+
 		
 		//////////UI/////////        
        // skin = new Skin();
@@ -142,6 +153,13 @@ public class MenuFrame extends InputListener implements Screen {
 		menuBg.setBounds(0, 0, width, height);
 		
 		ui.addActor(menuBg);
+		Texture texture = new Texture("badlogic.jpg");
+		Image i = new Image(texture);
+		ui.addActor(new Enemy(500, 610, 0.7f,false));
+		i = new Image(texture);
+		i.setBounds(0, 0, 500, 500);
+		i.rotateBy(180);
+		ui.addActor(i);
 		ui.addActor(menuTitle);
 	    ui.addActor(startGameButton);
 	    ui.addActor(loadGameButton);
@@ -154,6 +172,7 @@ public class MenuFrame extends InputListener implements Screen {
 		
 		/////////Stage//////////
 
+		
 		/////////Stage//////////
 		
 	}
@@ -233,9 +252,21 @@ public class MenuFrame extends InputListener implements Screen {
 			}
 		}
 		batch.end();
-	
-		width = Gdx.graphics.getWidth();
-		height = Gdx.graphics.getHeight();
+		//Settings.basePositionMenuX = Gdx.input.getX();
+		//Settings.basePositionMenuY = Gdx.input.getY();
+		
+		timeNew = System.currentTimeMillis();
+		if(timeNew-timeOld > 5000){
+			Settings.basePositionMenuX = randInt(0,(int) ((int)width));
+			Settings.basePositionMenuY = randInt(0,(int) ((int)height));
+			timeOld = System.currentTimeMillis();
+		}
+		
+		
+		
+		
+		//width = Gdx.graphics.getWidth();
+		//height = Gdx.graphics.getHeight();
 	}
 
 	@Override
@@ -276,6 +307,14 @@ public class MenuFrame extends InputListener implements Screen {
 
 	}
 	
+	
+	public static int randInt(int min, int max) {
+
+	    Random rand = new Random();
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+	    return randomNum;
+	}
 	
 	
 	
