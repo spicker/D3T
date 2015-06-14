@@ -35,6 +35,26 @@ public class Enemy extends Circle{
 		super.setStage(stage);
 	}
 	
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+	
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
+	}
+	
+	public float getVelocityX() {
+		return velocityX;
+	}
+	
+	public float getVelocityY() {
+		return velocityY;
+	}
+	
+	public float getMass() {
+		return mass;
+	}
+	
 	@Override
 	public void act(float delta) {
 		float targetX = Settings.basePositionX - getX();

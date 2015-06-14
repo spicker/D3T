@@ -22,6 +22,7 @@ import de.det.d3t.TextureFactory;
 import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.model.Enemy;
+import de.det.d3t.model.Entity;
 
 
 
@@ -54,22 +55,22 @@ public class GameFrame implements Screen {
 		Image i = new Image(texture);
 		i.setBounds(0, 0, 2000, 2000);
 		ui.addActor(i);
-		stage.addActor(new Enemy(7000, 3180, 2));
+		//stage.addActor(new Enemy(7000, 3180, 2));
 		i = new Image(texture);
 		i.setBounds(0, 0, 2000, 2000);
 		i.rotateBy(180);
 		ui.addActor(i);
-		
-		
-		for(int j = 1; j < 1000; j++){
+		stage.addActor(new Enemy(0, 4500, 1));
+		stage.addActor(new Enemy(4000, 4500, 1));
+		for(int j = 1; j <= 100; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
 			stage.addActor(new Enemy(x, y, 1));
-			if(lavaDetector.hasIntersectAt(x, y)){
-				i = new Image(texture);
-				i.setBounds(x, y, 10, 10);
-				stage.addActor(i);
-			}
+//			if(lavaDetector.hasIntersectAt(x, y)){
+//				i = new Image(texture);
+//				i.setBounds(x, y, 10, 10);
+//				stage.addActor(i);
+//			}
 		}
 		
 	}
@@ -135,6 +136,7 @@ public class GameFrame implements Screen {
 		tileMapRenderer.setView(stageCamera);
 		tileMapRenderer.render();
 		stage.act(Gdx.graphics.getDeltaTime());
+		Entity.checkCollisions();
 		stage.draw();
 		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
