@@ -47,7 +47,7 @@ public class CollisionFactory{
 	    float vY = a.getVelocityY() - b.getVelocityY();
 	    float vn = new Vector2(vX, vY).dot(new Vector2(mtdX, mtdY).nor());
 	    if (vn > 0.0f) return;
-	    float i = 50f;//(-(1.0f - 0.94f) * vn) / (im1 + im2);
+	    float i = 30f;//(-(1.0f - 0.94f) * vn) / (im1 + im2);
 	    float impulseX = mtdX * i;
 	    float impulseY = mtdY * i;
 	    

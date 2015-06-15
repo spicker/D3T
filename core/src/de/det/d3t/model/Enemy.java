@@ -1,12 +1,15 @@
 package de.det.d3t.model;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.frame.RadialSprite;
 
 public class Enemy extends Circle{
 	private float scale;
@@ -17,7 +20,8 @@ public class Enemy extends Circle{
 	private float mass = 1f;
 	private float velocityX = 0;
 	private float velocityY = -1000; 
-	private HpBar hpBar;
+	private Image hpBarBack;
+	private Image hpBarFront;
 	private boolean ingame;
 	
 	private static final Vector2 hpBarOffset = new Vector2(0, 140);
@@ -28,12 +32,16 @@ public class Enemy extends Circle{
 		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;
 		this.ingame = ingame;
-		hpBar = new HpBar();
+		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
+		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
+		hpBarFront = new Image(new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar"))));
+		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale * 1.5f, TextureFactory.getTexture("enemy").getHeight() * scale * 1.5f);
 	}
 	
 	@Override
 	protected void setStage(Stage stage) {
-//		stage.addActor(hpBar);
+		stage.addActor(hpBarBack);
+		stage.addActor(hpBarFront);
 		super.setStage(stage);
 	}
 	
@@ -59,7 +67,7 @@ public class Enemy extends Circle{
 	
 	@Override
 	public void act(float delta) {
-		delta = Math.min(delta, 0.1f);
+		delta = Math.min(delta, 0.03f);
 		float targetX = 0;
 		float targetY = 0;
 		if(ingame){
@@ -81,27 +89,8 @@ public class Enemy extends Circle{
 		velocityY *= Math.pow(glideFactor, delta);
 		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 3 * delta));
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
+		hpBarBack.setPosition(getX(), getY());
+		hpBarFront.setPosition(getX(), getY());
 	}
-	
-	public class HpBar extends Entity{
-		
 
-		protected HpBar() {
-			super(TextureFactory.getTexture("basic"));
-			setZIndex(10);
-			setColor(new Color(0, 1, 0, 1));
-		}
-		
-		
-
-		@Override
-		public void act(float delta) {
-//			hp -= 0.1f;
-//			Vector2 tempSize = hpBarSize.cpy().scl(scale);
-//			tempSize.x *= hp / maxHp;
-//			Vector2 vec = getCenter().sub(tempSize.scl(0.5f)).add(hpBarOffset.cpy().scl(scale));
-//			setBounds(vec.x, vec.y, tempSize.x, tempSize.y);
-		}
-		
-	}
 }

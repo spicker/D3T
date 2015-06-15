@@ -6,14 +6,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -76,7 +79,7 @@ public class GameFrame implements Screen {
 		ui.addActor(i);
 		stage.addActor(new Enemy(0, 4500, 1, true));
 		stage.addActor(new Enemy(4000, 4500, 1, true));
-		for(int j = 1; j <= 1000; j++){
+		for(int j = 1; j <= 50; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
 			stage.addActor(new Enemy(x, y, 1, true));
@@ -86,7 +89,7 @@ public class GameFrame implements Screen {
 //				stage.addActor(i);
 //			}
 		}
-		
+		new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
 	}
 	
 	
@@ -181,6 +184,14 @@ public class GameFrame implements Screen {
 		stage.draw();
 		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
+		ui.getBatch().begin();
+		Image i =  new Image(TextureFactory.getTexture("hpbarback"));
+		i.setBounds(1000, 1000, 4000, 4000);
+		ui.addActor(i);
+		RadialSprite sp = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
+		sp.setColor(new Color(0, 1, 0, 1));
+		sp.draw(ui.getBatch(), 1000, 1000, 4000, 4000, 80f);
+		ui.getBatch().end();
 		if(escMenuShowing){
 			escMenuStage.act(Gdx.graphics.getDeltaTime());
 			escMenuStage.draw();
