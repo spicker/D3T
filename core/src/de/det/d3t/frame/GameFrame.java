@@ -61,7 +61,7 @@ public class GameFrame implements Screen {
 		ui.addActor(i);
 		stage.addActor(new Enemy(0, 4500, 1, true));
 		stage.addActor(new Enemy(4000, 4500, 1, true));
-		for(int j = 1; j <= 100; j++){
+		for(int j = 1; j <= 1000; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
 			stage.addActor(new Enemy(x, y, 1, true));

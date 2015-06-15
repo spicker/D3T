@@ -13,7 +13,7 @@ public class Enemy extends Circle{
 	private float acceleration = 1000.f;
 	private float maxHp = 100;
 	private float hp = 100;
-	private float glideFactor = 0.995f;
+	private float glideFactor = 0.90f;
 	private float mass = 1f;
 	private float velocityX = 0;
 	private float velocityY = -1000; 
@@ -59,6 +59,7 @@ public class Enemy extends Circle{
 	
 	@Override
 	public void act(float delta) {
+		delta = Math.min(delta, 0.1f);
 		float targetX = 0;
 		float targetY = 0;
 		if(ingame){
@@ -69,17 +70,15 @@ public class Enemy extends Circle{
 			targetX = Settings.basePositionMenuX - getX();
 			targetY = Settings.basePositionMenuY - getY();
 		}
-		
 		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
-		length = 1f / length;
-		targetX = targetX * length;
-		targetY = targetY * length;
+		targetX /= length;
+		targetY /= length;
 		targetX *= acceleration * delta;
 		targetY *= acceleration * delta;
 		velocityX += targetX;
 		velocityY += targetY;
-		velocityX *= glideFactor;
-		velocityY *= glideFactor;
+		velocityX *= Math.pow(glideFactor, delta);
+		velocityY *= Math.pow(glideFactor, delta);
 		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 3 * delta));
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
 	}
