@@ -9,11 +9,11 @@ public class Settings {
 	public static final float basePositionX = 2250;
 	public static final float basePositionY = 4500;
 	
-	public static float basePositionMenuX = 600;
-	public static float basePositionMenuY = 500;
+	private static float basePositionMenuX = 600;
+	private static float basePositionMenuY = 500;
 		
-	private static float bgm = 100f;
-	private static float sfx = 100f;
+	private static float bgm = 1f;
+	private static float sfx = 1f;
 	
 	public static float getBgm() {
 		return bgm;
@@ -27,6 +27,20 @@ public class Settings {
 	public static void setSfx(float sfx) {
 		Settings.sfx = sfx;
 	}
+	public static float getBasePositionMenuX() {
+		return basePositionMenuX;
+	}
+	public static void setBasePositionMenuX(float basePositionMenuX) {
+		Settings.basePositionMenuX = basePositionMenuX;
+	}
+	public static float getBasePositionMenuY() {
+		return basePositionMenuY;
+	}
+	public static void setBasePositionMenuY(float basePositionMenuY) {
+		Settings.basePositionMenuY = basePositionMenuY;
+	}
+	
+	
 		
 
 }
