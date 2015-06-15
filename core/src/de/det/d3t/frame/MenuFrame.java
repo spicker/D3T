@@ -205,7 +205,7 @@ public class MenuFrame extends InputListener implements Screen {
 		ls.font = TextureFactory.getFont("emmett",48, Color.valueOf("484848"));
 	    bgmSlider = new Slider(0f, 100f, 0.1f, false, sliderStyle);
 	    bgmSlider.setBounds(width/2 + 400, height/2 - 200, 800, 200);
-	    bgmSlider.setValue(Settings.getBgm());
+	    bgmSlider.setValue(Settings.getBgm()*100);
 	    bgmSlider.addListener(new ChangeListener(){
 
 			@Override
@@ -221,7 +221,7 @@ public class MenuFrame extends InputListener implements Screen {
 	    
 	    sfxSlider = new Slider(0f, 100f, 0.1f, false, sliderStyle);
 	    sfxSlider.setBounds(width/2 + 400, height/2, 800, 200);
-	    sfxSlider.setValue(Settings.getSfx());
+	    sfxSlider.setValue(Settings.getSfx()*100);
 	    sfxSlider.addListener(new ChangeListener(){
 
 			@Override
@@ -433,6 +433,10 @@ public class MenuFrame extends InputListener implements Screen {
 		if(event.getListenerActor() == backButton){
 			inSettings = false;
 			inMenu = true;
+			sfxSlider.setValue(Settings.getSfx()*100);
+			bgmSlider.setValue(Settings.getBgm()*100);
+			sfxLabel.setText("Sound-Lautstärke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
+			bgmLabel.setText("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
 		}
 		if(event.getListenerActor() == acceptButton){
 			Settings.setBgm(bgmToSet);

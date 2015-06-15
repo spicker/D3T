@@ -12,8 +12,8 @@ public class Settings {
 	private static float basePositionMenuX = 600;
 	private static float basePositionMenuY = 500;
 		
-	private static float bgm = 100f;
-	private static float sfx = 100f;
+	private static float bgm = 1f;
+	private static float sfx = 1f;
 	
 	public static float getBgm() {
 		return bgm;
