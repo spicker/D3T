@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,16 +24,20 @@ import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
+import de.det.d3t.util.Screenshooter;
 
 
 
 public class GameFrame implements Screen {
 	private Stage stage;
 	private Stage ui;
+	private Stage escMenuStage;
 	private StretchViewport stageViewport;
 	private StretchViewport uiViewport;
+	private StretchViewport escViewport;
 	private OrthographicCamera stageCamera;
 	private OrthographicCamera uiCamera;
+	private OrthographicCamera escCamera;
 	private OrthogonalTiledMapRenderer tileMapRenderer;
 	private InputMultiplexer inputMultiplexer;
 	private TileMapIntersectionDetector lavaDetector;
@@ -40,12 +45,16 @@ public class GameFrame implements Screen {
 	
 	private Game game;
 	
+	private boolean escMenuShowing = false;
+	private boolean escReleased = true;
+	
 	
 	public GameFrame(Game game){
 		this.game = game;
 		TextureFactory.loadAllGameRessources();
 		setupStage();
 		setupUI();
+		setupEscMenuStage();
 		setupTilemap();
 		manageInputs();
 		fpsLogger = new FPSLogger();
@@ -89,6 +98,13 @@ public class GameFrame implements Screen {
 		ui = new Stage(uiViewport);
 	}
 	
+	public void setupEscMenuStage(){
+		escCamera = new OrthographicCamera();
+		escCamera.zoom = 1f;
+		escViewport = new StretchViewport(Settings.viewportWidth, Settings.viewportHeight, escCamera);
+		escMenuStage = new Stage(escViewport);
+	}
+	
 	public void setupTilemap(){
 		TiledMap map = new TmxMapLoader().load("tilemap/map.tmx");
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(1);
@@ -96,11 +112,13 @@ public class GameFrame implements Screen {
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
 	}
 	
+	
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui);
 		inputMultiplexer.addProcessor(new CameraInputController(stageCamera)); //TODO Add some real controller here
 		inputMultiplexer.addProcessor(stage);
+		inputMultiplexer.addProcessor(escMenuStage);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 	
@@ -130,6 +148,19 @@ public class GameFrame implements Screen {
 
 	@Override
 	public void render(float delta) {
+		
+		if(escReleased == true && Gdx.input.isKeyPressed(Keys.ESCAPE)){
+			escMenuShowing = !escMenuShowing;
+			System.out.println("EscMenuShowing: " + escMenuShowing);
+			escReleased = false;
+		}
+		if(escReleased == false){
+			if(!Gdx.input.isKeyPressed(Keys.ESCAPE)){
+				escReleased = true;
+			}
+		}
+		
+		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stageCamera.update();
 		tileMapRenderer.setView(stageCamera);
@@ -139,7 +170,21 @@ public class GameFrame implements Screen {
 		stage.draw();
 		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
+		if(escMenuShowing){
+			escMenuStage.act(Gdx.graphics.getDeltaTime());
+			escMenuStage.draw();
+			inputMultiplexer = new InputMultiplexer();
+			inputMultiplexer.addProcessor(escMenuStage);
+			Gdx.input.setInputProcessor(inputMultiplexer);
+			//TODO: stop enemies from moving
+		}
+		else{
+			if(inputMultiplexer.getProcessors().size == 1){
+				manageInputs();
+			}
+		}
 		fpsLogger.log();
+		
 	}
 
 	@Override
