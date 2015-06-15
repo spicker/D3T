@@ -304,6 +304,7 @@ public class MenuFrame extends InputListener implements Screen {
 	public void resize(int width, int height) {
 		stageViewport.update(width, height);
 		uiViewport.update(width, height);
+		creditsViewport.update(width,height);
 		this.height = stageViewport.getWorldHeight();
 		this.width = stageViewport.getWorldWidth();
 		
@@ -326,7 +327,7 @@ public class MenuFrame extends InputListener implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -358,8 +359,8 @@ public class MenuFrame extends InputListener implements Screen {
 			
 			timeNew = System.currentTimeMillis();
 			if(timeNew-timeOld > 5000){
-				Settings.basePositionMenuX = randInt(0,(int) ((int)width));
-				Settings.basePositionMenuY = randInt(0,(int) ((int)height));
+				Settings.setBasePositionMenuX(randInt(0,(int) ((int)width)));
+				Settings.setBasePositionMenuY(randInt(0,(int) ((int)height)));
 				timeOld = System.currentTimeMillis();
 			}
 		}
@@ -371,12 +372,6 @@ public class MenuFrame extends InputListener implements Screen {
 
 		fpsLogger.log();	
 		
-		
-		
-		
-		
-		//width = Gdx.graphics.getWidth();
-		//height = Gdx.graphics.getHeight();
 	}
 
 	@Override

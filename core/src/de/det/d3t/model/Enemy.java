@@ -66,8 +66,8 @@ public class Enemy extends Circle{
 			targetY = Settings.basePositionY - getY();
 		}
 		else{
-			targetX = Settings.basePositionMenuX - getX();
-			targetY = Settings.basePositionMenuY - getY();
+			targetX = Settings.getBasePositionMenuX() - getX();
+			targetY = Settings.getBasePositionMenuY() - getY();
 		}
 		
 		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);

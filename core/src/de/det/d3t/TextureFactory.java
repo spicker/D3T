@@ -64,6 +64,17 @@ public class TextureFactory {
 	}
 	
 	
+	
+	public static void loadALlSetupGameRessources(){
+		
+		
+	
+	}
+	
+	
+	
+	
+	
 	public static void loadAllFonts(){
 		addFont("White" , new BitmapFont(Gdx.files.internal("fonts/whitefont.fnt"), false));
 		addFont("Black", new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false));

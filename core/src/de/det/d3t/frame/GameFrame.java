@@ -48,6 +48,9 @@ public class GameFrame implements Screen {
 	private boolean escMenuShowing = false;
 	private boolean escReleased = true;
 	
+	private float width;
+	private float height;
+	
 	
 	public GameFrame(Game game){
 		this.game = game;
@@ -58,6 +61,9 @@ public class GameFrame implements Screen {
 		setupTilemap();
 		manageInputs();
 		fpsLogger = new FPSLogger();
+		
+		width = stageViewport.getWorldWidth();
+		height = stageViewport.getWorldHeight();
 		
 		//teststuff
 		Texture texture = new Texture("badlogic.jpg");
@@ -130,6 +136,11 @@ public class GameFrame implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		stageViewport.update(width, height);
+		uiViewport.update(width,height);
+		escViewport.update(width,height);
+		
+		this.width = stageViewport.getWorldWidth();
+		this.height = stageViewport.getWorldHeight();
 	}
 
 	@Override
