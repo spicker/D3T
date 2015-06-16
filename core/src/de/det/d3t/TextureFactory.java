@@ -25,10 +25,10 @@ public class TextureFactory {
 	public static void loadAllGameRessources(){
 		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
-		addTexture("basic", new Texture("textures/pixel.png"));
-		addTexture("enemy", new Texture("textures/enemy.png"));
-		addTexture("hpbar", new Texture("textures/gameElements/hg_bar_structure2_white2.png"));
-		addTexture("hpbarback", new Texture("textures/gameElements/hg_bar_structure2_background.png"));
+		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
+		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
+		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2.png"));
+		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background.png"));
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		
 		
@@ -49,8 +49,10 @@ public class TextureFactory {
 	public static void loadAllMenuRessources(){
 		
 		//////////////////////////////MAIN-MENU-STAGE////////////////////////////////////////
-		addTexture("basic", new Texture("textures/pixel.png"));
-		addTexture("enemy", new Texture("textures/enemy.png"));
+		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
+		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
+		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2.png"));
+		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background.png"));
 		addTexture("button_metal", new Texture("textures/ui/buttons/button_metal.png"));
 		addTexture("button_metal_down", new Texture("textures/ui/buttons/button_metal_down.png"));
 		addTexture("button_metal_over", new Texture("textures/ui/buttons/button_metal_over.png"));
