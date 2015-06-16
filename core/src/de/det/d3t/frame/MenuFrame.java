@@ -102,7 +102,6 @@ public class MenuFrame extends InputListener implements Screen {
 	
 	public MenuFrame(Game game){
 		this.game = game;
-		TextureFactory.loadAllGameRessources();
 		TextureFactory.loadAllMenuRessources();
 		//TODO: remove later and put the correct buttons in "loadAllMenuRessources"
 		TextureFactory.loadAllButtons();

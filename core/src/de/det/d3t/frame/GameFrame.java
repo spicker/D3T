@@ -28,6 +28,7 @@ import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
+import de.det.d3t.model.Tower;
 import de.det.d3t.util.RadialSprite;
 import de.det.d3t.util.Screenshooter;
 
@@ -80,11 +81,14 @@ public class GameFrame implements Screen {
 		i.rotateBy(180);
 		ui.addActor(i);
 		stage.addActor(new Enemy(0, 4500, 1, true));
-		stage.addActor(new Enemy(4000, 4500, 1, true));
+		stage.addActor(new Tower(2000, 4500, 2));
 		for(int j = 1; j <= 50; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
 			stage.addActor(new Enemy(x, y, 1, true));
+			x = (float) (Math.random() * Settings.viewportWidth);
+			y = (float) (Math.random() * Settings.viewportHeight);
+			stage.addActor(new Tower(x, y, 2));
 //			if(lavaDetector.hasIntersectAt(x, y)){
 //				i = new Image(texture);
 //				i.setBounds(x, y, 10, 10);

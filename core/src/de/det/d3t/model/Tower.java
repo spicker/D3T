@@ -11,25 +11,18 @@ import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.util.RadialSprite;
 
-public class Enemy extends Circle{
+public class Tower extends Circle{
 	private float scale;
-	private float acceleration = 1000.f;
 	private float maxHp = 100;
 	private float hp = 100;
-	private float glideFactor = 0.90f;
-	private float mass = 1f;
-	private float velocityX = 0;
-	private float velocityY = -1000; 
 	private Image hpBarBack;
 	private Image hpBarFront;
-	private boolean ingame;
 	private RadialSprite hpBarFrontSprite;
 	
-	public Enemy(float x, float y, float scale, boolean ingame) {
+	public Tower(float x, float y, float scale) {
 		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
 		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;
-		this.ingame = ingame;
 		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
 		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
@@ -45,55 +38,8 @@ public class Enemy extends Circle{
 		super.setStage(stage);
 	}
 	
-	public void setVelocityX(float velocityX) {
-		this.velocityX = velocityX;
-	}
-	
-	public void setVelocityY(float velocityY) {
-		this.velocityY = velocityY;
-	}
-	
-	public float getVelocityX() {
-		return velocityX;
-	}
-	
-	public float getVelocityY() {
-		return velocityY;
-	}
-	
-	public float getMass() {
-		return mass;
-	}
-	
 	@Override
 	public void act(float delta) {
-		delta = Math.min(delta, 0.03f);
-		float targetX = 0;
-		float targetY = 0;
-		if(ingame){
-			targetX = Settings.basePositionX - getX();
-			targetY = Settings.basePositionY - getY();
-		}
-		else{
-			targetX = Settings.getBasePositionMenuX() - getX();
-			targetY = Settings.getBasePositionMenuY() - getY();
-		}
-		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
-		targetX /= length;
-		targetY /= length;
-		targetX *= acceleration * delta;
-		targetY *= acceleration * delta;
-		velocityX += targetX;
-		velocityY += targetY;
-		velocityX *= Math.pow(glideFactor, delta);
-		velocityY *= Math.pow(glideFactor, delta);
-		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 3 * delta));
-		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
-		hpBarBack.setPosition(getX(), getY());
-		hpBarFront.setPosition(getX(), getY());
-		
-		
-		//TEST
 		hp-=0.1f;
 		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
 		
