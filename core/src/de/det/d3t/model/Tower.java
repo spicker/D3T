@@ -42,7 +42,6 @@ public class Tower extends Circle{
 	public void act(float delta) {
 		hp-=0.1f;
 		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
-		
 	}
 
 }

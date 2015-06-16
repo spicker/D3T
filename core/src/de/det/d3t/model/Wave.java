@@ -42,7 +42,7 @@ public class Wave extends ArrayList<Enemy>{
 	 */
 	public void addMultiple(int n, Enemy enemy){
 		for(int i = 0; i < n; i++){
-			add(enemy.clone());
+			//add(enemy.clone());
 		}
 	}
 

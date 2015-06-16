@@ -6,10 +6,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,10 +31,10 @@ import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
+import de.det.d3t.model.SingleShotTower;
 import de.det.d3t.model.Tower;
 import de.det.d3t.util.RadialSprite;
 import de.det.d3t.util.Screenshooter;
-
 
 
 public class GameFrame implements Screen {
@@ -83,15 +85,28 @@ public class GameFrame implements Screen {
 		i.setBounds(0, 0, 2000, 2000);
 		i.rotateBy(180);
 		ui.addActor(i);
+		
+		
+		
+		//UI
+		Image uiback = new Image(TextureFactory.getTexture("uiback"));
+		Pixmap map = new Pixmap(new FileHandle("textures/ui/ingame/uiBack.png"));
+//		map.getPixel(x, y)
+//				uiCamera.unproject(screenCoords)
+		
+		uiback.setBounds(0,0,width, height);
+		ui.addActor(uiback);
+		
+		
 		stage.addActor(new Enemy(0, 4500, 1, true));
-		stage.addActor(new Tower(2000, 4500, 2));
-		for(int j = 1; j <= 50; j++){
+		stage.addActor(new SingleShotTower(2000, 4500, 2));
+		for(int j = 1; j <= 2000; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
 			stage.addActor(new Enemy(x, y, 1, true));
-			x = (float) (Math.random() * Settings.viewportWidth);
-			y = (float) (Math.random() * Settings.viewportHeight);
-			stage.addActor(new Tower(x, y, 2));
+//			x = (float) (Math.random() * Settings.viewportWidth);
+//			y = (float) (Math.random() * Settings.viewportHeight);
+//			stage.addActor(new Tower(x, y, 2));
 //			if(lavaDetector.hasIntersectAt(x, y)){
 //				i = new Image(texture);
 //				i.setBounds(x, y, 10, 10);
@@ -101,13 +116,11 @@ public class GameFrame implements Screen {
 		//new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
 	}
 	
-	
 	private void setupLevels() {
-			levelController = new LevelController();
-			levelController.loadLevelsFromFile();
+		levelController = new LevelController();
+		levelController.loadLevelsFromFile();
 	}
-
-
+	
 	public void setupStage(){
 		 stageCamera = new OrthographicCamera();
 		 stageCamera.zoom = 1f;
@@ -220,7 +233,7 @@ public class GameFrame implements Screen {
 				manageInputs();
 			}
 		}
-		fpsLogger.log();
+		//fpsLogger.log();
 		
 	}
 
