@@ -98,5 +98,23 @@ public class Enemy extends Circle{
 		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
 		
 	}
+	
+	/**
+	 * Returns a deep copy of this object
+	 */
+	public Enemy clone(){
+		
+		Enemy clonedEnemy = new Enemy(velocityX, velocityY, scale, ingame);
+		clonedEnemy.maxHp = maxHp;
+		clonedEnemy.hp = hp;
+		clonedEnemy.acceleration = acceleration;
+		clonedEnemy.glideFactor = glideFactor;
+		clonedEnemy.mass = mass;
+		clonedEnemy.hpBarBack = hpBarBack;
+		clonedEnemy.hpBarFront = hpBarFront;
+		clonedEnemy.hpBarFrontSprite = hpBarFrontSprite;
+		
+		return clonedEnemy;
+	}
 
 }
