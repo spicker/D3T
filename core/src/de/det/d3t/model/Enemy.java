@@ -23,6 +23,7 @@ public class Enemy extends Circle{
 	private Image hpBarBack;
 	private Image hpBarFront;
 	private boolean ingame;
+	private RadialSprite hpBarFrontSprite;
 	
 	private static final Vector2 hpBarOffset = new Vector2(0, 140);
 	private static final Vector2 hpBarSize = new Vector2(250, 40);
@@ -34,7 +35,9 @@ public class Enemy extends Circle{
 		this.ingame = ingame;
 		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
 		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
-		hpBarFront = new Image(new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar"))));
+		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
+		hpBarFront = new Image(hpBarFrontSprite);
+		hpBarFrontSprite.setColor(Color.valueOf("00FF00"));
 		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale , TextureFactory.getTexture("enemy").getHeight() * scale);
 	}
 	
@@ -91,6 +94,12 @@ public class Enemy extends Circle{
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
 		hpBarBack.setPosition(getX(), getY());
 		hpBarFront.setPosition(getX(), getY());
+		
+		
+		//TEST
+		hp-=0.1f;
+		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
+		
 	}
 
 }
