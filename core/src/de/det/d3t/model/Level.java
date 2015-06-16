@@ -26,6 +26,13 @@ public class Level {
 	private Wave currentWave;
 	private int curWaveId;
 
+	/**
+	 * Creates a new level with an empty wavelist
+	 * @param name
+	 * @param tiledMap
+	 * @param id
+	 * @param initialDelay Number of seconds to pass between starting the map and starting the first wave
+	 */
 	public Level(String name, TiledMap tiledMap, int id, float initialDelay) {
 		super();
 		this.name = name;
@@ -35,14 +42,25 @@ public class Level {
 		
 	}
 
+	/**
+	 * Creates a new level
+	 * @param name
+	 * @param tiledMap
+	 * @param id
+	 * @param waveList
+	 * @param initialDelay Number of seconds to pass between starting the map and starting the first wave
+	 */
 	public Level(String name, TiledMap tiledMap, int id,
-			ArrayList<Wave> waveList) {
+			ArrayList<Wave> waveList, float initialDelay) {
 		super();
 		this.name = name;
 		this.tiledMap = tiledMap;
 		this.id = id;
 		this.waveList = waveList;
+		this.initialDelay = initialDelay;
 	}
+
+
 
 	/**
 	 * Adds the wave after the current last wave

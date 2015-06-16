@@ -41,19 +41,18 @@ public class CollisionFactory{
 	    float distance = (float) Math.sqrt(collX * collX + collY * collY);
 	    float mtdX = collX * (((a.getRadius() + b.getRadius()) - distance) / distance);
 	    float mtdY = collY * (((a.getRadius() + b.getRadius()) - distance) / distance);
-	    float im1 = 1f / 1000000f; 
+	    float im1 = 1f / 100f; 
 	    float im2 = 1 / b.getMass();
 	    
 	    float addA = im1 / (im1 + im2);
 	    float addB = im2 / (im1 + im2);
-	    a.setPosition(a.getX() + (mtdX * addA), a.getY() + (mtdY * addA));
 	    b.setPosition(b.getX() - (mtdX * addB), b.getY() - (mtdY * addB));
 	    
 	    float vX = -b.getVelocityX();
 	    float vY = -b.getVelocityY();
 	    float vn = new Vector2(vX, vY).dot(new Vector2(mtdX, mtdY).nor());
 	    if (vn > 0.0f) return;
-	    float i = 30f;//(-(1.0f - 0.94f) * vn) / (im1 + im2);
+	    float i = 200f;//(-(1.0f - 0.94f) * vn) / (im1 + im2);
 	    float impulseX = mtdX * i;
 	    float impulseY = mtdY * i;
 	   
