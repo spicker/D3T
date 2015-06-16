@@ -6,10 +6,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -80,6 +82,19 @@ public class GameFrame implements Screen {
 		i.setBounds(0, 0, 2000, 2000);
 		i.rotateBy(180);
 		ui.addActor(i);
+		
+		
+		
+		//UI
+		Image uiback = new Image(TextureFactory.getTexture("uiback"));
+		Pixmap map = new Pixmap(new FileHandle("textures/ui/ingame/uiBack.png"));
+//		map.getPixel(x, y)
+//				uiCamera.unproject(screenCoords)
+		
+		uiback.setBounds(0,0,width, height);
+		ui.addActor(uiback);
+		
+		
 		stage.addActor(new Enemy(0, 4500, 1, true));
 		stage.addActor(new Tower(2000, 4500, 2));
 		for(int j = 1; j <= 50; j++){
