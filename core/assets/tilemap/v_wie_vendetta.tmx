@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="175" height="99" tilewidth="64" tileheight="64" nextobjectid="1">
  <tileset firstgid="1" name="Felwood_Poison" tilewidth="64" tileheight="64">
-  <image source="D3T/core/assets/tilemap/WC3/Felwood/Felwood_Poison.png" width="512" height="256"/>
+  <image source="WC3/Felwood/Felwood_Poison.png" width="512" height="256"/>
   <terraintypes>
    <terrain name="poison" tile="-1"/>
   </terraintypes>
@@ -39,7 +39,7 @@
   <tile id="31" terrain="0,0,0,0" probability="0.01"/>
  </tileset>
  <tileset firstgid="33" name="North_dirtdark" tilewidth="64" tileheight="64">
-  <image source="D3T/core/assets/tilemap/WC3/Northrend/North_dirtdark.png" width="256" height="256"/>
+  <image source="WC3/Northrend/North_dirtdark.png" width="256" height="256"/>
   <terraintypes>
    <terrain name="ground" tile="-1"/>
    <terrain name="Neues Terrain" tile="-1"/>
