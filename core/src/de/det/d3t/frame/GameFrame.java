@@ -28,13 +28,13 @@ import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
+import de.det.d3t.controller.LevelController;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
 import de.det.d3t.model.SingleShotTower;
 import de.det.d3t.model.Tower;
 import de.det.d3t.util.RadialSprite;
 import de.det.d3t.util.Screenshooter;
-
 
 
 public class GameFrame implements Screen {
@@ -53,6 +53,7 @@ public class GameFrame implements Screen {
 	private FPSLogger fpsLogger;
 	
 	private Game game;
+	private LevelController levelController;
 	
 	private boolean escMenuShowing = false;
 	private boolean escReleased = true;
@@ -68,6 +69,7 @@ public class GameFrame implements Screen {
 		setupUI();
 		setupEscMenuStage();
 		setupTilemap();
+		setupLevels();
 		manageInputs();
 		fpsLogger = new FPSLogger();
 		
@@ -114,6 +116,10 @@ public class GameFrame implements Screen {
 		//new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
 	}
 	
+	private void setupLevels() {
+		levelController = new LevelController();
+		levelController.loadLevelsFromFile();
+	}
 	
 	public void setupStage(){
 		 stageCamera = new OrthographicCamera();
