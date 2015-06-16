@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
-import de.det.d3t.frame.RadialSprite;
+import de.det.d3t.util.RadialSprite;
 
 public class Enemy extends Circle{
 	private float scale;
@@ -35,7 +35,7 @@ public class Enemy extends Circle{
 		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
 		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		hpBarFront = new Image(new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar"))));
-		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale * 1.5f, TextureFactory.getTexture("enemy").getHeight() * scale * 1.5f);
+		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale , TextureFactory.getTexture("enemy").getHeight() * scale);
 	}
 	
 	@Override

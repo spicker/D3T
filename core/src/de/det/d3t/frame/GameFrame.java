@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -27,6 +28,7 @@ import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
+import de.det.d3t.util.RadialSprite;
 import de.det.d3t.util.Screenshooter;
 
 
@@ -89,7 +91,7 @@ public class GameFrame implements Screen {
 //				stage.addActor(i);
 //			}
 		}
-		new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
+		//new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
 	}
 	
 	
@@ -184,14 +186,14 @@ public class GameFrame implements Screen {
 		stage.draw();
 		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
-		ui.getBatch().begin();
+		/*ui.getBatch().begin();
 		Image i =  new Image(TextureFactory.getTexture("hpbarback"));
 		i.setBounds(1000, 1000, 4000, 4000);
 		ui.addActor(i);
 		RadialSprite sp = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
 		sp.setColor(new Color(0, 1, 0, 1));
 		sp.draw(ui.getBatch(), 1000, 1000, 4000, 4000, 80f);
-		ui.getBatch().end();
+		ui.getBatch().end();*/
 		if(escMenuShowing){
 			escMenuStage.act(Gdx.graphics.getDeltaTime());
 			escMenuStage.draw();
