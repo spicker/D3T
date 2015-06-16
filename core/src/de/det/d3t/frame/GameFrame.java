@@ -90,7 +90,7 @@ public class GameFrame implements Screen {
 		
 		//UI
 		Image uiback = new Image(TextureFactory.getTexture("uiback"));
-		Pixmap map = new Pixmap(new FileHandle("textures/ui/ingame/uiBack.png"));
+		//Pixmap map = new Pixmap(new FileHandle("textures/ui/ingame/uiBack.png"));
 //		map.getPixel(x, y)
 //				uiCamera.unproject(screenCoords)
 		
