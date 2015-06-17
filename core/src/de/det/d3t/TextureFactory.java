@@ -29,6 +29,27 @@ public class TextureFactory {
 		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2+7.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
+		
+		
+		
+		
+		//TOWERS:
+		addTexture("blue1", new Texture("textures/gameElements/towers/generation/large/blue1.png"));
+		addTexture("black1", new Texture("textures/gameElements/towers/generation/large/black1.png"));
+		addTexture("gray1", new Texture("textures/gameElements/towers/generation/large/gray1.png"));
+		addTexture("green1", new Texture("textures/gameElements/towers/generation/large/green1.png"));
+		addTexture("green2", new Texture("textures/gameElements/towers/generation/large/green2.png"));
+		addTexture("orange1", new Texture("textures/gameElements/towers/generation/large/blue1.png"));
+		addTexture("red1", new Texture("textures/gameElements/towers/generation/large/red1.png"));
+		addTexture("red2", new Texture("textures/gameElements/towers/generation/large/red2.png"));
+		addTexture("teal1", new Texture("textures/gameElements/towers/generation/large/teal1.png"));
+		addTexture("violet1", new Texture("textures/gameElements/towers/generation/large/violet1.png"));
+		addTexture("yellow1", new Texture("textures/gameElements/towers/generation/large/yellow1.png"));
+		addTexture("yellow2", new Texture("textures/gameElements/towers/generation/large/yellow2.png"));
+
+		
+		
+		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		
 		
