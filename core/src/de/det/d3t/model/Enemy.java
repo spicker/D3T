@@ -1,5 +1,7 @@
 package de.det.d3t.model;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -12,6 +14,7 @@ import de.det.d3t.TextureFactory;
 import de.det.d3t.util.RadialSprite;
 
 public class Enemy extends Circle{
+	private static ArrayList<Enemy> allEnemys = new ArrayList<Enemy>();
 	private float scale;
 	private float acceleration = 1000.f;
 	private float maxHp = 100;
@@ -23,19 +26,26 @@ public class Enemy extends Circle{
 	private Image hpBarBack;
 	private Image hpBarFront;
 	private boolean ingame;
-	
-	private static final Vector2 hpBarOffset = new Vector2(0, 140);
-	private static final Vector2 hpBarSize = new Vector2(250, 40);
+	private RadialSprite hpBarFrontSprite;
 	
 	public Enemy(float x, float y, float scale, boolean ingame) {
 		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
+		if(ingame){
+			allEnemys.add(this);
+		}
 		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;
 		this.ingame = ingame;
 		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
 		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
-		hpBarFront = new Image(new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar"))));
+		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
+		hpBarFront = new Image(hpBarFrontSprite);
+		hpBarFrontSprite.setColor(Color.valueOf("00FF00"));
 		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale , TextureFactory.getTexture("enemy").getHeight() * scale);
+	}
+	
+	public static ArrayList<Enemy> getAllEnemys() {
+		return allEnemys;
 	}
 	
 	@Override
@@ -65,6 +75,18 @@ public class Enemy extends Circle{
 		return mass;
 	}
 	
+	public void addForce(float x, float y){
+		velocityX += x;
+		velocityY += y;
+	}
+	
+	@Override
+	public void setPosition(float x, float y) {
+		hpBarBack.setPosition(x, y);
+		hpBarFront.setPosition(x, y);
+		super.setPosition(x, y);
+	}
+	
 	@Override
 	public void act(float delta) {
 		delta = Math.min(delta, 0.03f);
@@ -89,8 +111,12 @@ public class Enemy extends Circle{
 		velocityY *= Math.pow(glideFactor, delta);
 		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 3 * delta));
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
-		hpBarBack.setPosition(getX(), getY());
-		hpBarFront.setPosition(getX(), getY());
+		
+		
+		//TEST
+		hp-=0.1f;
+		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
+		
 	}
 
 }

@@ -1,5 +1,4 @@
 package de.det.d3t.util;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -287,4 +286,5 @@ public class RadialSprite implements Drawable {
 		this.v2 = textureRegion.getV2();
 		this.dirty = true;
 	}
+
 }
