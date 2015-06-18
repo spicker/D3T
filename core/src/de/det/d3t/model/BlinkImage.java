@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.det.d3t.TextureFactory;
 
-public class BlinkImage extends Image {
+public class BlinkImage extends Actor {
 	private float offset = 500;
 	private Circle bind;
 	private Texture texture;
@@ -32,6 +32,7 @@ public class BlinkImage extends Image {
 	private String textureName;
 	private float stateTime = 0;
 	private Animation anim;
+	private Image drawImage;
 	/**
 	 * 
 	 * @param texture the texture of the first frame of the animation, numbered at the end with convention _Number, beginning with 0
@@ -43,7 +44,7 @@ public class BlinkImage extends Image {
 	 * @param animationSpeed the animation-speed in milliseconds
 	 */
 	public BlinkImage(Animation anim, Circle bind, float offset, int direction, float animationSpeed, int frames) {
-		super(anim.getKeyFrame(0));
+		//super(anim.getKeyFrame(0));
 		this.anim = anim;	
 		this.offset = offset;
 		this.bind = bind;
@@ -55,6 +56,8 @@ public class BlinkImage extends Image {
 		numberOfFrames = frames;
 		
 		timeOld = System.currentTimeMillis();
+		drawImage = new Image(anim.getKeyFrame(0));
+		drawImage.setBounds(bind.getCenterX() - bind.getWidth()/2, bind.getCenterY() - bind.getHeight()/2, bind.getWidth(), bind.getHeight());
 	}
 
 	
@@ -104,8 +107,8 @@ public class BlinkImage extends Image {
 	    	stateTime = 0;
 	    }
 		stateTime = stateTime+delta;
-		((TextureRegionDrawable)getDrawable()).setRegion(anim.getKeyFrame(stateTime, true));
-		System.out.println(" " + anim.getKeyFrameIndex(stateTime)+ "  " + anim.getAnimationDuration());
+	//	((TextureRegionDrawable)getDrawable()).setRegion(anim.getKeyFrame(stateTime, true));
+	//	System.out.println(" " + anim.getKeyFrameIndex(stateTime)+ "  " + anim.getAnimationDuration());
 
 		/*timeNew = System.currentTimeMillis();
 		if(timeNew - timeOld > animationSpeed){
@@ -124,6 +127,16 @@ public class BlinkImage extends Image {
 			timeOld = timeNew;
 
 		}*/
+	}
+
+
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		// TODO Auto-generated method stub
+		super.draw(batch, parentAlpha);
+		drawImage.setDrawable(new TextureRegionDrawable(anim.getKeyFrame(stateTime)));
+		drawImage.draw(batch, parentAlpha);
+		
 	}
 	
 	
