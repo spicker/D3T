@@ -7,7 +7,7 @@ import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 
 public class SingleShotTower extends Tower {
-	public float knockStrength = 20000;
+	public float knockStrength = 2000;
 	private float cd = 1f;
 	RotatingImage deco;
 	RotatingImage deco2;
@@ -16,6 +16,8 @@ public class SingleShotTower extends Tower {
 		super(x, y, scale);
 		deco = new RotatingImage(TextureFactory.getTexture("red1"), this, 130);
 		deco2 = new RotatingImage(TextureFactory.getTexture("red1"), this, 130);
+		addComponent(deco);
+		addComponent(deco2);
 		deco.setBounds(0, 0, 150, 150);
 		deco2.setBounds(0, 0, 150, 150);
 		deco2.setRotation(180f);
@@ -30,12 +32,7 @@ public class SingleShotTower extends Tower {
 		}
 		super.act(delta);
 	}
-	
-	@Override
-	protected void setStage(Stage stage) {
-		stage.addActor(deco);
-		stage.addActor(deco2);
-	}
+
 	
 	public void shoot(){
 		Enemy e = getNearest(Enemy.getAllEnemys());
