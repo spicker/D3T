@@ -33,6 +33,7 @@ import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
+import de.det.d3t.model.MagnetTower;
 import de.det.d3t.model.SingleShotTower;
 import de.det.d3t.model.Tower;
 import de.det.d3t.util.RadialSprite;
@@ -104,6 +105,7 @@ public class GameFrame implements Screen {
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
 		stage.addActor(new DummyTower(3000,4500,2));
 		stage.addActor(new AntiGravityTower(2500,6000,2));
+		stage.addActor(new MagnetTower(3000,6000,2));
 		for(int j = 1; j <= 100; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);

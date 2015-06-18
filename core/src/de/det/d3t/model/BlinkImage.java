@@ -102,37 +102,27 @@ public class BlinkImage extends Actor {
 	public void act(float delta) {
 		
 		super.act(delta);
-	    
-	    if(numberOfFrames == anim.getKeyFrameIndex(stateTime)){
-	    	stateTime = 0;
+		//direction -1 --> magnet tower --> inner
+	    if(direction == -1){
+	    	System.out.println(" " + anim.getKeyFrameIndex(stateTime) + " -1");
+		    if(numberOfFrames == anim.getKeyFrameIndex(stateTime)){
+		    	stateTime = 0;
+		    }
+			stateTime = stateTime+delta;
 	    }
-		stateTime = stateTime+delta;
-	//	((TextureRegionDrawable)getDrawable()).setRegion(anim.getKeyFrame(stateTime, true));
-	//	System.out.println(" " + anim.getKeyFrameIndex(stateTime)+ "  " + anim.getAnimationDuration());
-
-		/*timeNew = System.currentTimeMillis();
-		if(timeNew - timeOld > animationSpeed){
-			setOrigin(getWidth() / 2, getHeight() / 2);
-			if(numberOfFrames <= currentFrame){
-				currentFrame = 0;
-				texture = TextureFactory.getTexture(textureName+"_"+currentFrame);
-				((TextureRegionDrawable)getDrawable()).setRegion(new TextureRegion(texture));
-			}
-			else{
-				texture = TextureFactory.getTexture(textureName+"_"+currentFrame);
-				((TextureRegionDrawable)getDrawable()).setRegion(anim.getKeyFrame(stateTime+=delta, true));
-				currentFrame++;
-			}		
-			
-			timeOld = timeNew;
-
-		}*/
+	    //direction != -1 --> ant gravity tower --> outer
+	    else{
+	    	//System.out.println(" " + anim.getKeyFrameIndex(stateTime) + " 1" + " stateTime: " + stateTime + "  delta " + delta);
+	    	 if(anim.getKeyFrameIndex(stateTime) == 0){
+			    	stateTime = 1;
+			    }
+				stateTime = stateTime-delta;
+	    }
 	}
 
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		// TODO Auto-generated method stub
 		super.draw(batch, parentAlpha);
 		drawImage.setDrawable(new TextureRegionDrawable(anim.getKeyFrame(stateTime)));
 		drawImage.draw(batch, parentAlpha);
