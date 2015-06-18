@@ -1,0 +1,136 @@
+package de.det.d3t.model;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import de.det.d3t.TextureFactory;
+
+public class BlinkImage extends Image {
+	private float offset = 500;
+	private Circle bind;
+	private Texture texture;
+	private float min;
+	private float max;
+	private int direction; //-1=backward  (large --> small), 0=staying, 1=forward (small --> large)
+	private float animationSpeed;
+	private float x;
+	private float y;
+	private long timeOld;
+	private long timeNew;
+	private int numberOfFrames;
+	private int currentFrame;
+	private String textureName;
+	private float stateTime = 0;
+	private Animation anim;
+	/**
+	 * 
+	 * @param texture the texture of the first frame of the animation, numbered at the end with convention _Number, beginning with 0
+	 * @param bind the main tower object to bind the Image to
+	 * @param offset the offset to set the Image
+	 * @param minScale the minimum Scale of the BlinkImage
+	 * @param maxScale the maximum scale of the BlinkImage
+	 * @param direction the direction of the scaling 
+	 * @param animationSpeed the animation-speed in milliseconds
+	 */
+	public BlinkImage(Animation anim, Circle bind, float offset, int direction, float animationSpeed, int frames) {
+		super(anim.getKeyFrame(0));
+		this.anim = anim;	
+		this.offset = offset;
+		this.bind = bind;
+		this.direction = direction;
+		this.animationSpeed = animationSpeed;	
+		x = this.getX();
+		y = this.getY();
+		currentFrame = 1;	
+		numberOfFrames = frames;
+		
+		timeOld = System.currentTimeMillis();
+	}
+
+	
+	public void setOffset(float offset) {
+		this.offset = offset;
+	}
+	
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+	
+		
+	public float getMin() {
+		return min;
+	}
+
+	public void setMin(float min) {
+		this.min = min;
+	}
+
+	public float getMax() {
+		return max;
+	}
+
+	public void setMax(float max) {
+		this.max = max;
+	}
+
+	public float getAnimationSpeed() {
+		return animationSpeed;
+	}
+
+	public void setAnimationSpeed(float animationSpeed) {
+		this.animationSpeed = animationSpeed;
+	}
+
+	@Override
+	public void act(float delta) {
+		
+		super.act(delta);
+	    
+	    if(numberOfFrames == anim.getKeyFrameIndex(stateTime)){
+	    	stateTime = 0;
+	    }
+		stateTime = stateTime+delta;
+		((TextureRegionDrawable)getDrawable()).setRegion(anim.getKeyFrame(stateTime, true));
+		System.out.println(" " + anim.getKeyFrameIndex(stateTime)+ "  " + anim.getAnimationDuration());
+
+		/*timeNew = System.currentTimeMillis();
+		if(timeNew - timeOld > animationSpeed){
+			setOrigin(getWidth() / 2, getHeight() / 2);
+			if(numberOfFrames <= currentFrame){
+				currentFrame = 0;
+				texture = TextureFactory.getTexture(textureName+"_"+currentFrame);
+				((TextureRegionDrawable)getDrawable()).setRegion(new TextureRegion(texture));
+			}
+			else{
+				texture = TextureFactory.getTexture(textureName+"_"+currentFrame);
+				((TextureRegionDrawable)getDrawable()).setRegion(anim.getKeyFrame(stateTime+=delta, true));
+				currentFrame++;
+			}		
+			
+			timeOld = timeNew;
+
+		}*/
+	}
+	
+	
+	
+
+	
+	
+	
+	
+}

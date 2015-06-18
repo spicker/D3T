@@ -1,0 +1,81 @@
+spriteSheet1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arrows_anim0
+  rotate: true
+  xy: 2, 2
+  size: 547, 535
+  orig: 550, 550
+  offset: 2, 9
+  index: -1
+arrows_anim1
+  rotate: true
+  xy: 539, 2
+  size: 498, 487
+  orig: 550, 550
+  offset: 26, 33
+  index: -1
+arrows_anim2
+  rotate: true
+  xy: 2, 551
+  size: 449, 438
+  orig: 550, 550
+  offset: 51, 58
+  index: -1
+arrows_anim3
+  rotate: true
+  xy: 442, 551
+  size: 399, 389
+  orig: 550, 550
+  offset: 76, 82
+  index: -1
+arrows_anim4
+  rotate: false
+  xy: 1028, 2
+  size: 349, 341
+  orig: 550, 550
+  offset: 101, 106
+  index: -1
+arrows_anim5
+  rotate: false
+  xy: 1028, 345
+  size: 300, 293
+  orig: 550, 550
+  offset: 125, 129
+  index: -1
+arrows_anim6
+  rotate: true
+  xy: 833, 652
+  size: 250, 245
+  orig: 550, 550
+  offset: 150, 153
+  index: -1
+arrows_anim7
+  rotate: false
+  xy: 1080, 640
+  size: 200, 197
+  orig: 550, 550
+  offset: 175, 177
+  index: -1
+arrows_anim8
+  rotate: false
+  xy: 833, 502
+  size: 150, 148
+  orig: 550, 550
+  offset: 200, 201
+  index: -1
+arrows_anim9
+  rotate: true
+  xy: 1080, 839
+  size: 100, 99
+  orig: 550, 550
+  offset: 225, 226
+  index: -1
+arrows_anim91
+  rotate: false
+  xy: 1330, 345
+  size: 50, 50
+  orig: 550, 550
+  offset: 250, 250
+  index: -1
