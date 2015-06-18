@@ -29,6 +29,7 @@ import de.det.d3t.TextureFactory;
 import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
+import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
 import de.det.d3t.model.SingleShotTower;
@@ -100,6 +101,7 @@ public class GameFrame implements Screen {
 		
 		stage.addActor(new Enemy(0, 4500, 1, true));
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
+		stage.addActor(new DummyTower(3000,4500,2));
 		for(int j = 1; j <= 100; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
