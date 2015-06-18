@@ -100,7 +100,7 @@ public class GameFrame implements Screen {
 		
 		stage.addActor(new Enemy(0, 4500, 1, true));
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
-		for(int j = 1; j <= 2000; j++){
+		for(int j = 1; j <= 100; j++){
 			float x = (float) (Math.random() * Settings.viewportWidth);
 			float y = (float) (Math.random() * Settings.viewportHeight);
 			stage.addActor(new Enemy(x, y, 1, true));
