@@ -68,6 +68,24 @@ public class DummyTower extends Tower {
 		deco2.setRotation(180f);
 		deco21.setRotation(90f);
 		deco22.setRotation(270f);
+		
+		
+		
+		addComponent(deco);
+		addComponent(deco2);
+		addComponent(deco21);
+		addComponent(deco22);
+		
+		addComponent(deco4);
+		addComponent(deco5);
+		addComponent(deco6);
+		addComponent(deco7);
+		addComponent(deco8);
+		addComponent(deco9);
+		
+		addComponent(deco3);
+		
+		
 
 	}
 	
@@ -81,23 +99,6 @@ public class DummyTower extends Tower {
 		super.act(delta);
 	}
 	
-	@Override
-	protected void setStage(Stage stage) {
-		stage.addActor(deco);
-		stage.addActor(deco2);
-		stage.addActor(deco21);
-		stage.addActor(deco22);
-		
-		stage.addActor(deco4);
-		stage.addActor(deco5);
-		stage.addActor(deco6);
-		stage.addActor(deco7);
-		stage.addActor(deco8);
-		stage.addActor(deco9);
-		
-		stage.addActor(deco3);
-
-	}
 	
 	public void shoot(){
 		/*Enemy e = getNearest(Enemy.getAllEnemys());

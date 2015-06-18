@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,6 +21,8 @@ public class TextureFactory {
 		
 	private static Map<String, Texture> textures = new HashMap<String, Texture>();
 	private static Map<String, BitmapFont> fonts = new HashMap<String, BitmapFont>();
+	private static Map<String, Animation> animations = new HashMap<String, Animation>();
+	private static TextureAtlas atlas = new TextureAtlas();
 	
 	
 	public static void loadAllGameRessources(){
@@ -47,8 +50,28 @@ public class TextureFactory {
 		addTexture("yellow1", new Texture("textures/gameElements/towers/generation/large/yellow1.png"));
 		addTexture("yellow2", new Texture("textures/gameElements/towers/generation/large/yellow2.png"));
 
+		addTexture("arrows_empty", new Texture("textures/gameElements/towers/generation/blink/arrows_400.png"));
+		addTexture("arrows_red", new Texture("textures/gameElements/towers/generation/blink/arrows_400_red.png"));
 		
+		addTexture("arrows_anim_0", new Texture("textures/gameElements/towers/generation/blink/arrows_anim0.png"));
+		addTexture("arrows_anim_1", new Texture("textures/gameElements/towers/generation/blink/arrows_anim1.png"));
+		addTexture("arrows_anim_2", new Texture("textures/gameElements/towers/generation/blink/arrows_anim2.png"));
+		addTexture("arrows_anim_3", new Texture("textures/gameElements/towers/generation/blink/arrows_anim3.png"));
+		addTexture("arrows_anim_4", new Texture("textures/gameElements/towers/generation/blink/arrows_anim4.png"));
+		addTexture("arrows_anim_5", new Texture("textures/gameElements/towers/generation/blink/arrows_anim5.png"));
+		addTexture("arrows_anim_6", new Texture("textures/gameElements/towers/generation/blink/arrows_anim6.png"));
+		addTexture("arrows_anim_7", new Texture("textures/gameElements/towers/generation/blink/arrows_anim7.png"));
+		addTexture("arrows_anim_8", new Texture("textures/gameElements/towers/generation/blink/arrows_anim8.png"));
+		addTexture("arrows_anim_9", new Texture("textures/gameElements/towers/generation/blink/arrows_anim9.png"));
+		addTexture("arrows_anim_10", new Texture("textures/gameElements/towers/generation/blink/arrows_anim91.png"));
 		
+		TextureRegion[] animReg = new TextureRegion[11];
+		for(int i = 0; i<11;i++){
+			animReg[i] = new TextureRegion(getTexture("arrows_anim_" + i));
+		}
+		addAnimation("arrows_anim", new Animation(0.5f,animReg));
+		atlas = new TextureAtlas("textures/gameElements/towers/generation/blink/spriteSheet1.txt");
+		addAnimation("arrows_atlas", new Animation(0.5f,atlas.getRegions()));
 		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		
@@ -186,6 +209,16 @@ public class TextureFactory {
 	public static BitmapFont getFont(String title)	{
 		return fonts.get(title);
 	}
+	
+	
+	public static void addAnimation(String title, Animation anim){
+		animations.put(title, anim);
+	}
+	
+	public static Animation getAnimation(String title){
+		return animations.get(title);
+	}
+	
 	
 	//generate Font with border and shadow
 	public static BitmapFont getFont(String title, int fontSize, Color fontColor, int borderWidth, Color borderColor, Color shadowColor, int shadowOffsetX, int shadowOffsetY) {

@@ -36,7 +36,31 @@ public class Tower extends Circle{
 		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale , TextureFactory.getTexture("enemy").getHeight() * scale);
 		components.addActor(hpBarFront);
 	}
-	
+		
+	public float getScale() {
+		return scale;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+
+	public float getMaxHp() {
+		return maxHp;
+	}
+
+	public void setMaxHp(float maxHp) {
+		this.maxHp = maxHp;
+	}
+
+	public float getHp() {
+		return hp;
+	}
+
+	public void setHp(float hp) {
+		this.hp = hp;
+	}
+
 	public void addComponent(Actor a){
 		components.addActor(a);
 	}
@@ -44,7 +68,6 @@ public class Tower extends Circle{
 	public void removeComponent(Actor a){
 		a.remove();
 	}
-	
 	
 	@Override
 	protected void setStage(Stage stage) {
