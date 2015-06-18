@@ -69,9 +69,9 @@ public class TextureFactory {
 		for(int i = 0; i<11;i++){
 			animReg[i] = new TextureRegion(getTexture("arrows_anim_" + i));
 		}
-		addAnimation("arrows_anim", new Animation(0.1f,animReg));
+		addAnimation("arrows_anim", new Animation(0.05f,animReg));
 		atlas = new TextureAtlas("textures/gameElements/towers/generation/blink/spriteSheet1.txt");
-		addAnimation("arrows_atlas", new Animation(0.1f,atlas.getRegions()));
+		addAnimation("arrows_atlas", new Animation(0.05f,atlas.getRegions()));
 		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		

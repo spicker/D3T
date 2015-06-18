@@ -104,7 +104,6 @@ public class BlinkImage extends Actor {
 		super.act(delta);
 		//direction -1 --> magnet tower --> inner
 	    if(direction == -1){
-	    	System.out.println(" " + anim.getKeyFrameIndex(stateTime) + " -1");
 		    if(numberOfFrames == anim.getKeyFrameIndex(stateTime)){
 		    	stateTime = 0;
 		    }
@@ -112,9 +111,8 @@ public class BlinkImage extends Actor {
 	    }
 	    //direction != -1 --> ant gravity tower --> outer
 	    else{
-	    	//System.out.println(" " + anim.getKeyFrameIndex(stateTime) + " 1" + " stateTime: " + stateTime + "  delta " + delta);
 	    	 if(anim.getKeyFrameIndex(stateTime) == 0){
-			    	stateTime = 1;
+			    	stateTime = 0.5f;
 			    }
 				stateTime = stateTime-delta;
 	    }

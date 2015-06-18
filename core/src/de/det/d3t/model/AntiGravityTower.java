@@ -22,15 +22,11 @@ public class AntiGravityTower extends Tower {
 	
 	@Override
 	public void act(float delta) {
-		sp.begin();
 		cd -= delta;
 		if(cd < 0){
 			cd = 1f;
 			shoot();
 		}
-		deco.act(delta);
-		deco.draw(sp, 0);
-		sp.end();
 		super.act(delta);
 	}
 
