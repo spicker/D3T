@@ -13,7 +13,7 @@ public class AntiGravityTower extends Tower {
 	public AntiGravityTower(float x, float y, float scale) {
 		super(x, y, scale);
 		sp = new SpriteBatch();
-		deco = new BlinkImage(TextureFactory.getAnimation("arrows_anim"), this, 0,1,250,10);
+		deco = new BlinkImage(TextureFactory.getAnimation("arrows_anim_green"), this, 0,1,250,10);
 		addComponent(deco);
 		deco.setBounds(0, 0, 200, 200);
 

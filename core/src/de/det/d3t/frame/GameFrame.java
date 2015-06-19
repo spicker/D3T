@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -20,8 +21,16 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.det.d3t.Settings;
@@ -40,7 +49,7 @@ import de.det.d3t.util.RadialSprite;
 import de.det.d3t.util.Screenshooter;
 
 
-public class GameFrame implements Screen {
+public class GameFrame extends InputListener implements Screen {
 	private Stage stage;
 	private Stage ui;
 	private Stage escMenuStage;
@@ -64,6 +73,20 @@ public class GameFrame implements Screen {
 	private float width;
 	private float height;
 	
+	private Image escMenu;
+	private Image uiback;
+	private BitmapFont font;
+	private TextButtonStyle textButtonStyle;
+	private Button ingameButtonMenu;
+	private Button ingameButtonRestart;
+	private Button ingameButtonOptions;
+	private Button ingameButtonHelp;
+	private Image ingameGold;
+	private Image ingameTime;
+	private Label ingameGoldLabel;
+	private Label ingameTimeLabel;
+	private LabelStyle ls;
+	
 	
 	public GameFrame(Game game){
 		this.game = game;
@@ -80,25 +103,88 @@ public class GameFrame implements Screen {
 		height = stageViewport.getWorldHeight();
 		
 		//teststuff
-		Texture texture = new Texture("badlogic.jpg");
+		/*Texture texture = new Texture("badlogic.jpg");
 		Image i = new Image(texture);
 		i.setBounds(0, 0, 2000, 2000);
 		ui.addActor(i);
 		i = new Image(texture);
 		i.setBounds(0, 0, 2000, 2000);
 		i.rotateBy(180);
-		ui.addActor(i);
+		ui.addActor(i);*/
 		
 		
 		
 		//UI
-		Image uiback = new Image(TextureFactory.getTexture("uiback"));
+		uiback = new Image(TextureFactory.getTexture("uiskin2_d"));
+		uiback.setBounds(0,0,width, height);		
+		
+		font = TextureFactory.getFont("emmett",150, Color.valueOf("DDDCE0"));
+		textButtonStyle = new TextButtonStyle();
+		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_quest")));
+		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_quest_down")));
+		textButtonStyle.font = font;
+		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_quest_over")));
+		
+	    ingameButtonMenu = new TextButton("Menü [ESC]", textButtonStyle);
+	    ingameButtonMenu.setBounds(width/2 -(1900/2), height/2  + height/3 + height/10, 1900, 500);
+	    ingameButtonMenu.addListener(this);
+	    
+	    ingameButtonOptions = new TextButton("Optionen [F11]", textButtonStyle);
+	    ingameButtonOptions.setBounds(width/2 - (1900/2) - 2000, height/2  + height/3 + height/10, 1900, 500);
+	    ingameButtonOptions.addListener(this);
+	    
+	    ingameButtonRestart = new TextButton("Neu Starten [F10]", textButtonStyle);
+	    ingameButtonRestart.setBounds(width/2 - (1900/2) - 4000, height/2  + height/3 + height/10, 1900, 500);
+	    ingameButtonRestart.addListener(this);
+	    
+	    ingameButtonHelp = new TextButton("Hilfe [F9]", textButtonStyle);
+	    ingameButtonHelp.setBounds(width/2 - (1900/2) - 6000, height/2  + height/3 + height/10, 1900, 500);
+	    ingameButtonHelp.addListener(this);
+	    
+	    ingameGold = new Image(TextureFactory.getTexture("gold"));
+	    ingameGold.setBounds(width/2 - (1900/2) + 2600, height/2  + height/3 + height/10 + height/120, 300, 300);
+		
+	    ingameTime = new Image(TextureFactory.getTexture("time"));
+	    ingameTime.setBounds(width/2 - (1900/2) + 3600, height/2  + height/3 + height/10 + height/120, 300, 300);
+	    
+		ls = new LabelStyle();
+		ls.font = TextureFactory.getFont("emmett",150, Color.YELLOW);
+		
+		ingameGoldLabel = new Label("127",ls);
+		ingameGoldLabel.setBounds(width/2 - (1900/2) + 3000, height/2  + height/3 + height/10, 1000, 400);
+		
+		ls.font = TextureFactory.getFont("emmett",150, Color.valueOf("DDDCE0"));
+		
+		ingameTimeLabel = new Label("00:00:15",ls);
+		ingameTimeLabel.setBounds(width/2 - (1900/2) + 4000, height/2  + height/3 + height/10, 1000, 400);
+		
+		
+		
+		ui.addActor(uiback);
+		ui.addActor(ingameButtonMenu);
+		ui.addActor(ingameButtonOptions);
+		ui.addActor(ingameButtonRestart);
+		ui.addActor(ingameButtonHelp);
+		ui.addActor(ingameGold);
+		ui.addActor(ingameTime);
+		ui.addActor(ingameGoldLabel);
+		ui.addActor(ingameTimeLabel);
+		
+		
+		
+		//escMenuStage
+		escMenu = new Image(TextureFactory.getTexture("escMenu"));
+		escMenu.setBounds(width/2-(4000/2),height/2-(7000/2), 4000, 7000);
+		
+		//TODO: add Buttons
+        
+		escMenuStage.addActor(escMenu);
+		
 		//Pixmap map = new Pixmap(new FileHandle("textures/ui/ingame/uiBack.png"));
 //		map.getPixel(x, y)
 //				uiCamera.unproject(screenCoords)
 		
-		uiback.setBounds(0,0,width, height);
-		ui.addActor(uiback);
+
 		
 		
 		stage.addActor(new Enemy(0, 4500, 1, true));
@@ -248,4 +334,62 @@ public class GameFrame implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	}
+
+	@Override
+	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		if(event.getListenerActor().equals(ingameButtonMenu)){
+			escMenuShowing = !escMenuShowing;
+		}
+	}
+
+	@Override
+	public void touchDragged(InputEvent event, float x, float y, int pointer) {
+		// TODO Auto-generated method stub
+		super.touchDragged(event, x, y, pointer);
+	}
+
+	@Override
+	public boolean mouseMoved(InputEvent event, float x, float y) {
+		// TODO Auto-generated method stub
+		return super.mouseMoved(event, x, y);
+	}
+
+	@Override
+	public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+		// TODO Auto-generated method stub
+		super.enter(event, x, y, pointer, fromActor);
+	}
+
+	@Override
+	public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+		// TODO Auto-generated method stub
+		super.exit(event, x, y, pointer, toActor);
+	}
+
+	@Override
+	public boolean keyDown(InputEvent event, int keycode) {
+		// TODO Auto-generated method stub
+		return super.keyDown(event, keycode);
+	}
+
+	@Override
+	public boolean keyUp(InputEvent event, int keycode) {
+		// TODO Auto-generated method stub
+		return super.keyUp(event, keycode);
+	}
+
+	@Override
+	public boolean keyTyped(InputEvent event, char character) {
+		// TODO Auto-generated method stub
+		return super.keyTyped(event, character);
+	}
+	
+	
+	
+	
 }

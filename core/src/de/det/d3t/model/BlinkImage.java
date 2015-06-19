@@ -122,6 +122,9 @@ public class BlinkImage extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		if(stateTime < 0){
+			stateTime = 0;
+		}
 		drawImage.setDrawable(new TextureRegionDrawable(anim.getKeyFrame(stateTime)));
 		drawImage.draw(batch, parentAlpha);
 		

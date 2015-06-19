@@ -34,7 +34,18 @@ public class TextureFactory {
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
 		
 		
+		//UI:
+		//addTexture("uiskin_small", new Texture("textures/ui/ingame/uiskin_small.png"));
+		//addTexture("uiskin2_small", new Texture("textures/ui/ingame/uiskin2_small.png"));
+		addTexture("uiskin2_d", new Texture("textures/ui/ingame/uiskin2_d.png"));
+		//addTexture("uiskin2_r", new Texture("textures/ui/ingame/uiskin2_r.png"));
+		addTexture("escMenu", new Texture("textures/ui/ingame/escMenu_boiling.png"));
+		addTexture("ingameButton1", new Texture("textures/ui/ingame/ingameButton1.png"));
+		addTexture("ingameButton1_down", new Texture("textures/ui/ingame/ingameButton1_down.png"));
+		addTexture("ingameButton1_over", new Texture("textures/ui/ingame/ingameButton1_over.png"));
 		
+		addTexture("time", new Texture("textures/ui/ingame/time.png"));
+		addTexture("gold", new Texture("textures/ui/ingame/gold.png"));
 		
 		//TOWERS:
 		addTexture("blue1", new Texture("textures/gameElements/towers/generation/large/blue1.png"));
@@ -63,15 +74,30 @@ public class TextureFactory {
 		addTexture("arrows_anim_7", new Texture("textures/gameElements/towers/generation/blink/arrows_anim7.png"));
 		addTexture("arrows_anim_8", new Texture("textures/gameElements/towers/generation/blink/arrows_anim8.png"));
 		addTexture("arrows_anim_9", new Texture("textures/gameElements/towers/generation/blink/arrows_anim9.png"));
-		addTexture("arrows_anim_10", new Texture("textures/gameElements/towers/generation/blink/arrows_anim91.png"));
+		addTexture("arrows_anim_10", new Texture("textures/gameElements/towers/generation/blink/arrows_anim10.png"));
+		
+		addTexture("arrows_anim_green_0", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green0.png"));
+		addTexture("arrows_anim_green_1", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green1.png"));
+		addTexture("arrows_anim_green_2", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green2.png"));
+		addTexture("arrows_anim_green_3", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green3.png"));
+		addTexture("arrows_anim_green_4", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green4.png"));
+		addTexture("arrows_anim_green_5", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green5.png"));
+		addTexture("arrows_anim_green_6", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green6.png"));
+		addTexture("arrows_anim_green_7", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green7.png"));
+		addTexture("arrows_anim_green_8", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green8.png"));
+		addTexture("arrows_anim_green_9", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green9.png"));
+		addTexture("arrows_anim_green_10", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green10.png"));
 		
 		TextureRegion[] animReg = new TextureRegion[11];
+		TextureRegion[] animReg2 = new TextureRegion[11];
 		for(int i = 0; i<11;i++){
 			animReg[i] = new TextureRegion(getTexture("arrows_anim_" + i));
+			animReg2[i] = new TextureRegion(getTexture("arrows_anim_green_" + i));
 		}
 		addAnimation("arrows_anim", new Animation(0.05f,animReg));
-		atlas = new TextureAtlas("textures/gameElements/towers/generation/blink/spriteSheet1.txt");
-		addAnimation("arrows_atlas", new Animation(0.05f,atlas.getRegions()));
+		addAnimation("arrows_anim_green", new Animation(0.05f,animReg2));
+		/*atlas = new TextureAtlas("textures/gameElements/towers/generation/blink/spriteSheet1.txt");
+		addAnimation("arrows_atlas", new Animation(0.05f,atlas.getRegions()));*/
 		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		
