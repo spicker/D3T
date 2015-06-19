@@ -32,18 +32,28 @@ public class SingleShotTower extends Tower {
 		}
 		super.act(delta);
 	}
+	
+	@Override
+	public boolean remove() {
+		// TODO Auto-generated method stub
+		return super.remove();
+	}
 
 	
 	public void shoot(){
-		Enemy e = getNearest(Enemy.getAllEnemys());
-		if(e != null){
-			float targetX = e.getCenterX() - getCenterX();
-			float targetY = e.getCenterY() - getCenterY();
-			float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
-			targetX /= length;
-			targetY /= length;
-			e.addForce(targetX * knockStrength, targetY * knockStrength);
-		}
+		Missle m = new Missle(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);
+		getStage().addActor(m);
+		m.setAction((Enemy e) -> {
+			if(e != null){
+				float targetX = e.getCenterX() - getCenterX();
+				float targetY = e.getCenterY() - getCenterY();
+				float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
+				targetX /= length;
+				targetY /= length;
+				e.addForce(targetX * knockStrength, targetY * knockStrength);
+				System.out.println("hit");
+			}
+		});
 	}
 
 }

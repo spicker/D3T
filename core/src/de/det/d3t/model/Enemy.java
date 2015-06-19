@@ -136,7 +136,7 @@ public class Enemy extends Circle{
 		ArrayList<Enemy> toRemove = new ArrayList<>();
 		for(Enemy e : allEnemys){
 			if(!detector.hasIntersectAt(e.getCenterX(), e.getCenterY())){
-				e.hp -= 30 * delta;
+				e.hp -= 5 * delta;
 				e.hpBarFrontSprite.setAngle(360 * (1 -(e.hp / e.maxHp)));
 				if(e.hp < 0){
 					toRemove.add(e);
