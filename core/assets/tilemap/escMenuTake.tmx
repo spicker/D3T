@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="18" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="Dalaran_BrickTiles" tilewidth="64" tileheight="64">
+  <image source="WC3/Dalaran/Dalaran_BrickTiles.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="dalaran" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain=",0,,"/>
+  <tile id="5" terrain=",0,,0"/>
+  <tile id="6" terrain=",0,0,"/>
+  <tile id="7" terrain=",0,0,0"/>
+  <tile id="8" terrain="0,,,"/>
+  <tile id="9" terrain="0,,,0"/>
+  <tile id="10" terrain="0,,0,"/>
+  <tile id="11" terrain="0,,0,0"/>
+  <tile id="12" terrain="0,0,,"/>
+  <tile id="13" terrain="0,0,,0"/>
+  <tile id="14" terrain="0,0,0,"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="17" name="Dalaran_RoundTiles" tilewidth="64" tileheight="64">
+  <image source="WC3/Dalaran/Dalaran_RoundTiles.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="round" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain=",0,,"/>
+  <tile id="5" terrain=",0,,0"/>
+  <tile id="6" terrain=",0,0,"/>
+  <tile id="7" terrain=",0,0,0"/>
+  <tile id="8" terrain="0,,,"/>
+  <tile id="9" terrain="0,,,0"/>
+  <tile id="10" terrain="0,,0,"/>
+  <tile id="11" terrain="0,,0,0"/>
+  <tile id="12" terrain="0,0,,"/>
+  <tile id="13" terrain="0,0,,0"/>
+  <tile id="14" terrain="0,0,0,"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <layer name="Kachelebene 1" width="30" height="18" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzdld0KwCAIhXUbI2h/7/+0qwtBTu7SEyw4lHnxYZqqiKjTA/aXLzrjXSTz301noq6A2/cquWsHnonBRaaSuFHNsOOdlV9mvLPqatY/wvyy68r3MuY7e/6f48XZweTi7GJyfcxH05rEXJqKjLk1u7O3BBUZ+5TZL5zsBpM=
+  </data>
+ </layer>
+ <layer name="Kachelebene 2" width="30" height="18" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzFk1sKgDAMBPcKFZWCr9z/lEZoII32M2thaKrIuDQpAEQpDQm71RLejerRN/H5pRxJnB//Y2zIW0tzm1ccmd5nreDn9d7oZnhjVmbe2NPMvN7P8gr6nmbnZXsF/Ps1p3ez59dq9hwxvX/2s4Q90zspFf38mHdX5iQq3n1s5xv7CRK2
+  </data>
+ </layer>
+ <layer name="Kachelebene 3" width="30" height="18">
+  <data encoding="base64" compression="zlib">
+   eJztlFsKgDAMBHuF+igVteb+pzSBFpZQBJEEQReGIAGH5mNDeGcGZmLGm7unSQwxW3Ugue5WA+/MFCZWSHEwi4FXkpQzAhZvRS860W3t7b2XHLzo8/aiu31737lNrzu3aX1n6aSsXDilT6z6Sv4v/bArSrDtK3H0Oulq9+fbOQGWHgpI
+  </data>
+ </layer>
+ <layer name="Kachelebene 4" width="30" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSigLQAACHAAAQ==
+  </data>
+ </layer>
+</map>
