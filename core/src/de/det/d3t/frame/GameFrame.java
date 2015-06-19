@@ -118,12 +118,12 @@ public class GameFrame extends InputListener implements Screen {
 		uiback = new Image(TextureFactory.getTexture("uiskin2_d"));
 		uiback.setBounds(0,0,width, height);		
 		
-		font = TextureFactory.getFont("emmett",150, Color.valueOf("DDDCE0"));
+		font = TextureFactory.getFont("emmett",200, Color.valueOf("DDDCE0"));
 		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_quest")));
-		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_quest_down")));
+		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameButton1")));
+		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameButton1_down")));
 		textButtonStyle.font = font;
-		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("button_quest_over")));
+		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameButton1_over")));
 		
 	    ingameButtonMenu = new TextButton("Menü [ESC]", textButtonStyle);
 	    ingameButtonMenu.setBounds(width/2 -(1900/2), height/2  + height/3 + height/10, 1900, 500);
@@ -148,12 +148,12 @@ public class GameFrame extends InputListener implements Screen {
 	    ingameTime.setBounds(width/2 - (1900/2) + 3600, height/2  + height/3 + height/10 + height/120, 300, 300);
 	    
 		ls = new LabelStyle();
-		ls.font = TextureFactory.getFont("emmett",150, Color.YELLOW);
-		
-		ingameGoldLabel = new Label("127",ls);
+		ls.font = TextureFactory.getFont("emmett",200, Color.YELLOW);
+	
+		ingameGoldLabel = new Label("143",ls);
 		ingameGoldLabel.setBounds(width/2 - (1900/2) + 3000, height/2  + height/3 + height/10, 1000, 400);
 		
-		ls.font = TextureFactory.getFont("emmett",150, Color.valueOf("DDDCE0"));
+		ls.font = TextureFactory.getFont("emmett",200, Color.valueOf("DDDCE0"));
 		
 		ingameTimeLabel = new Label("00:00:15",ls);
 		ingameTimeLabel.setBounds(width/2 - (1900/2) + 4000, height/2  + height/3 + height/10, 1000, 400);
