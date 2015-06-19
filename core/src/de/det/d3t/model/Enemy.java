@@ -17,6 +17,7 @@ public class Enemy extends Circle{
 	private static ArrayList<Enemy> allEnemys = new ArrayList<Enemy>();
 	private float scale;
 	private float acceleration = 1000.f;
+	private float accelerationGrow = 100f;
 	private float maxHp = 100;
 	private float hp = 100;
 	private float glideFactor = 0.90f;
@@ -103,6 +104,7 @@ public class Enemy extends Circle{
 		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
 		targetX /= length;
 		targetY /= length;
+		acceleration += accelerationGrow * delta;
 		targetX *= acceleration * delta;
 		targetY *= acceleration * delta;
 		velocityX += targetX;
