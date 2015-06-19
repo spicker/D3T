@@ -8,9 +8,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.sun.xml.internal.messaging.saaj.soap.impl.DetailImpl;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.util.RadialSprite;
 
 public class Enemy extends Circle{
@@ -19,7 +21,7 @@ public class Enemy extends Circle{
 	private float acceleration = 1000.f;
 	private float accelerationGrow = 100f;
 	private float maxHp = 100;
-	private float hp = 100;
+	private float hp = 100; 
 	private float glideFactor = 0.90f;
 	private float mass = 1f;
 	private float velocityX = 0;
@@ -51,8 +53,10 @@ public class Enemy extends Circle{
 	
 	@Override
 	protected void setStage(Stage stage) {
-		stage.addActor(hpBarBack);
-		stage.addActor(hpBarFront);
+		if(stage != null){
+			stage.addActor(hpBarBack);
+			stage.addActor(hpBarFront);
+		}
 		super.setStage(stage);
 	}
 	
@@ -115,10 +119,33 @@ public class Enemy extends Circle{
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
 		
 		
-		//TEST
-		hp-=0.1f;
-		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
+
+
 		
+	}
+	
+	@Override
+	public boolean remove() {
+		allEnemys.remove(this);
+		hpBarBack.remove();
+		hpBarFront.remove();
+		return super.remove();
+	}
+	
+	public static void checkForIntersection(TileMapIntersectionDetector detector, float delta){
+		ArrayList<Enemy> toRemove = new ArrayList<>();
+		for(Enemy e : allEnemys){
+			if(!detector.hasIntersectAt(e.getCenterX(), e.getCenterY())){
+				e.hp -= 30 * delta;
+				e.hpBarFrontSprite.setAngle(360 * (1 -(e.hp / e.maxHp)));
+				if(e.hp < 0){
+					toRemove.add(e);
+				}
+			}
+		}
+		for(Enemy e : toRemove){
+			e.remove();
+		}
 	}
 
 }

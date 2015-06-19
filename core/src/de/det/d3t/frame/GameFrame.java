@@ -294,13 +294,14 @@ public class GameFrame extends InputListener implements Screen {
 			}
 		}
 		
-		
+		stage.addActor(new Enemy(0, 4500, 1, true));
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stageCamera.update();
 		tileMapRenderer.setView(stageCamera);
 		tileMapRenderer.render();
 		stage.act(Gdx.graphics.getDeltaTime());
 		Entity.checkCollisions();
+		Enemy.checkForIntersection(lavaDetector, Gdx.graphics.getDeltaTime());
 		stage.draw();
 		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
