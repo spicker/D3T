@@ -1,18 +1,18 @@
 package de.det.d3t.model;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.det.d3t.TextureFactory;
 
 public class AntiGravityTower extends Tower {
-	public float knockStrength = 2000;
-	private float cd = 1f;
+	public float knockStrength = 850;
 	BlinkImage deco;
-	SpriteBatch sp;
+	private float towerRange = 4000f;
 
 	public AntiGravityTower(float x, float y, float scale) {
 		super(x, y, scale);
-		sp = new SpriteBatch();
 		deco = new BlinkImage(TextureFactory.getAnimation("arrows_anim_green"), this, 0,1,250,10);
 		addComponent(deco);
 		deco.setBounds(0, 0, 200, 200);
@@ -20,19 +20,21 @@ public class AntiGravityTower extends Tower {
 
 	}
 	
+	
 	@Override
-	public void act(float delta) {
-		cd -= delta;
-		if(cd < 0){
-			cd = 1f;
-			shoot();
+	public void act(float delta){
+		ArrayList<Enemy> inRange = getAllInRange(Enemy.getAllEnemys(), towerRange);
+		float cx = getCenterX();
+		float cy = getCenterY();
+		for(Enemy e : inRange){
+			float difX = e.getCenterX() - cx;
+			float difY = e.getCenterY() - cy;
+			float length = (float) Math.sqrt(difX * difX + difY * difY);
+			difX /= length;
+			difY /= length;
+			e.addForce(difX * knockStrength * delta, difY * knockStrength * delta);
 		}
 		super.act(delta);
-	}
-
-	
-	public void shoot(){
-
 	}
 
 }
