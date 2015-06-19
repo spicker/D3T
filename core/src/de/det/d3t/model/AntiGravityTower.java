@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.det.d3t.TextureFactory;
 
 public class AntiGravityTower extends Tower {
-	public float knockStrength = 850;
+	public float knockStrength = 2000;
 	BlinkImage deco;
 	private float towerRange = 4000f;
 
