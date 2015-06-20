@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,6 +24,9 @@ public class TextureFactory {
 	private static Map<String, Texture> textures = new HashMap<String, Texture>();
 	private static Map<String, BitmapFont> fonts = new HashMap<String, BitmapFont>();
 	private static Map<String, Animation> animations = new HashMap<String, Animation>();
+	private static Map<String, Music> musics = new HashMap<String, Music>();
+	private static Map<String, Sound> sounds = new HashMap<String, Sound>();
+	
 	private static TextureAtlas atlas = new TextureAtlas();
 	
 	
@@ -130,6 +135,13 @@ public class TextureFactory {
 		addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles2.png")));
 		//addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles3.jpg")));
 		addTexture("menuTitle", new Texture(Gdx.files.internal("textures/ui/title/D3t_title_1.png")));
+		
+		addMusic("menuBgm", Gdx.audio.newMusic(Gdx.files.internal("music/creppy_bgm.mp3")));
+		addMusic("happyBgm", Gdx.audio.newMusic(Gdx.files.internal("music/happy_bgm.mp3")));
+		addMusic("happyTranceBgm", Gdx.audio.newMusic(Gdx.files.internal("music/happy_trance_bgm.mp3")));
+		addMusic("dangerBgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm.mp3")));
+		addMusic("danger2Bgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm2.mp3")));
+		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
 		//////////////////////////////MAIN-MENU-STAGE////////////////////////////////////////
 		
 		
@@ -236,6 +248,21 @@ public class TextureFactory {
 		return fonts.get(title);
 	}
 	
+	public static void addMusic(String title, Music music){
+		musics.put(title, music);
+	}
+	
+	public static Music getMusic(String title){
+		return musics.get(title);
+	}
+	
+	public static void addSound(String title, Sound sound){
+		sounds.put(title, sound);
+	}
+	
+	public static Sound getSound(String title){
+		return sounds.get(title);
+	}
 	
 	public static void addAnimation(String title, Animation anim){
 		animations.put(title, anim);
@@ -244,6 +271,7 @@ public class TextureFactory {
 	public static Animation getAnimation(String title){
 		return animations.get(title);
 	}
+	
 	
 	
 	//generate Font with border and shadow
@@ -303,10 +331,6 @@ public class TextureFactory {
 	    generator.dispose();
 	    return font;
 	}
-	
-	
-
-	
 	
 	public static void changeImage(Image image, Texture texture) {
         TextureRegion tr;
