@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -87,6 +89,9 @@ public class GameFrame extends InputListener implements Screen {
 	private Label ingameTimeLabel;
 	private LabelStyle ls;
 	
+	private Music bgmMusic;
+	private Sound buttonClickSound;
+	
 	
 	public GameFrame(Game game){
 		this.game = game;
@@ -101,6 +106,11 @@ public class GameFrame extends InputListener implements Screen {
 		
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
+		
+		bgmMusic = TextureFactory.getMusic("dubstepBgm");
+		bgmMusic.setLooping(true);
+		bgmMusic.play();
+		buttonClickSound = TextureFactory.getSound("buttonClick");
 		
 		//teststuff
 		/*Texture texture = new Texture("badlogic.jpg");
@@ -339,8 +349,28 @@ public class GameFrame extends InputListener implements Screen {
 
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
+		if(event.getListenerActor().equals(ingameButtonMenu)){
+			buttonClickSound.play();
+			return true;
+		}
+		if(event.getListenerActor().equals(ingameButtonHelp)){
+			buttonClickSound.play();
+			return true;
+		}
+		if(event.getListenerActor().equals(ingameButtonOptions)){
+			buttonClickSound.play();
+			return true;
+		}
+		if(event.getListenerActor().equals(ingameButtonRestart)){
+			buttonClickSound.play();
+			return true;
+		}
+		
+		
+		return false;
+		
 	}
+		
 
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
