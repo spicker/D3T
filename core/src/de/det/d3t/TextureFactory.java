@@ -39,15 +39,26 @@ public class TextureFactory {
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
 		addTexture("singleShotMissle", new Texture("textures/gameElements/towers/tower_cannon_ball.png"));
 		addTexture("testLine", new Texture("textures/thunder.png"));
+		
+		
+		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
+		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));
+		
 		//UI:
 		//addTexture("uiskin_small", new Texture("textures/ui/ingame/uiskin_small.png"));
 		//addTexture("uiskin2_small", new Texture("textures/ui/ingame/uiskin2_small.png"));
 		addTexture("uiskin2_d", new Texture("textures/ui/ingame/uiskin2_d.png"));
+		addTexture("uiskin2Shadow", new Texture("textures/ui/ingame/uiskin2_shadow.png"));
 		//addTexture("uiskin2_r", new Texture("textures/ui/ingame/uiskin2_r.png"));
 		addTexture("escMenu", new Texture("textures/ui/ingame/escMenu_boiling.png"));
+		
 		addTexture("ingameButton1", new Texture("textures/ui/ingame/ingameButton1.png"));
 		addTexture("ingameButton1_down", new Texture("textures/ui/ingame/ingameButton1_down.png"));
 		addTexture("ingameButton1_over", new Texture("textures/ui/ingame/ingameButton1_over.png"));
+	
+		addTexture("iconBackground", new Texture("textures/ui/ingame/icon_background.png"));
+		//addTexture("iconBackground2", new Texture("textures/ui/ingame/icon_background2.png"));
+		//addTexture("iconBackground3", new Texture("textures/ui/ingame/icon_background3.png"));
 		
 		addTexture("time", new Texture("textures/ui/ingame/time.png"));
 		addTexture("gold", new Texture("textures/ui/ingame/gold.png"));
@@ -136,11 +147,11 @@ public class TextureFactory {
 		//addTexture("menuBackground", new Texture(Gdx.files.internal("textures/background/bluebubbles3.jpg")));
 		addTexture("menuTitle", new Texture(Gdx.files.internal("textures/ui/title/D3t_title_1.png")));
 		
-		addMusic("menuBgm", Gdx.audio.newMusic(Gdx.files.internal("music/creppy_bgm.mp3")));
+		//addMusic("menuBgm", Gdx.audio.newMusic(Gdx.files.internal("music/creppy_bgm.mp3")));
 		addMusic("happyBgm", Gdx.audio.newMusic(Gdx.files.internal("music/happy_bgm.mp3")));
-		addMusic("happyTranceBgm", Gdx.audio.newMusic(Gdx.files.internal("music/happy_trance_bgm.mp3")));
-		addMusic("dangerBgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm.mp3")));
-		addMusic("danger2Bgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm2.mp3")));
+		//addMusic("happyTranceBgm", Gdx.audio.newMusic(Gdx.files.internal("music/happy_trance_bgm.mp3")));
+		//addMusic("dangerBgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm.mp3")));
+		//addMusic("danger2Bgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm2.mp3")));
 		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
 		//////////////////////////////MAIN-MENU-STAGE////////////////////////////////////////
 		
@@ -172,6 +183,28 @@ public class TextureFactory {
 		
 		
 	
+	}
+	
+	
+	
+	public static void loadAllMusic(){
+		addMusic("menuBgm", Gdx.audio.newMusic(Gdx.files.internal("music/creppy_bgm.mp3")));
+		addMusic("happyBgm", Gdx.audio.newMusic(Gdx.files.internal("music/happy_bgm.mp3")));
+		addMusic("happyTranceBgm", Gdx.audio.newMusic(Gdx.files.internal("music/happy_trance_bgm.mp3")));
+		addMusic("dangerBgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm.mp3")));
+		addMusic("danger2Bgm", Gdx.audio.newMusic(Gdx.files.internal("music/danger_bgm2.mp3")));
+		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));
+		addMusic("boss1Bgm", Gdx.audio.newMusic(Gdx.files.internal("music/boss1_bgm.mp3")));
+		addMusic("darkAmbientBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dark_ambient_bgm.mp3")));
+		addMusic("darkChillBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dark_chill_bgm.mp3")));
+		addMusic("darkMetalBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dark_metal_bgm.mp3")));
+		addMusic("jumpyBgm", Gdx.audio.newMusic(Gdx.files.internal("music/jumpy_bgm.mp3")));
+		addMusic("minigameBgm", Gdx.audio.newMusic(Gdx.files.internal("music/minigame_bgm.mp3")));
+		addMusic("quietBgm", Gdx.audio.newMusic(Gdx.files.internal("music/quiet_bgm.mp3")));
+		addMusic("quietStraightBgm", Gdx.audio.newMusic(Gdx.files.internal("music/quiet_straight_bgm.mp3")));
+		addMusic("scaryBgm", Gdx.audio.newMusic(Gdx.files.internal("music/scary_bgm.mp3")));
+		addMusic("straightBgm", Gdx.audio.newMusic(Gdx.files.internal("music/straight_bgm.mp3")));
+		addMusic("straight2Bgm", Gdx.audio.newMusic(Gdx.files.internal("music/straight2_bgm.mp3")));
 	}
 	
 	

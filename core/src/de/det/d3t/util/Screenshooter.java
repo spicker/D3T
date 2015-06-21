@@ -50,4 +50,10 @@ public class Screenshooter {
 	        return pixmap;
 	    }
 
+		public static int getCounter() {
+			return counter;
+		}
+	    
+	    
+
 }

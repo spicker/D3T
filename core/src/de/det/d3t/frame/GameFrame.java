@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -76,6 +78,7 @@ public class GameFrame extends InputListener implements Screen {
 	
 	private Image escMenu;
 	private Image uiback;
+	private Image uiShadow;
 	private BitmapFont font;
 	private TextButtonStyle textButtonStyle;
 	private Button ingameButtonMenu;
@@ -86,7 +89,12 @@ public class GameFrame extends InputListener implements Screen {
 	private Image ingameTime;
 	private Label ingameGoldLabel;
 	private Label ingameTimeLabel;
+	
+	private Label buildTower;
 	private LabelStyle ls;
+	
+	private Music bgmMusic;
+	private Sound buttonClickSound;
 	
 	
 	public GameFrame(Game game){
@@ -103,6 +111,12 @@ public class GameFrame extends InputListener implements Screen {
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
 		
+		bgmMusic = TextureFactory.getMusic("dubstepBgm");
+		bgmMusic.setLooping(true);
+		bgmMusic.setVolume(Settings.getBgm());
+		bgmMusic.play();
+		buttonClickSound = TextureFactory.getSound("buttonClick");
+		
 		//teststuff
 		/*Texture texture = new Texture("badlogic.jpg");
 		Image i = new Image(texture);
@@ -118,6 +132,9 @@ public class GameFrame extends InputListener implements Screen {
 		//UI
 		uiback = new Image(TextureFactory.getTexture("uiskin2_d"));
 		uiback.setBounds(0,0,width, height);		
+		uiShadow = new Image(TextureFactory.getTexture("uiskin2Shadow"));
+		uiShadow.setBounds(0,0,width, height);
+		
 		
 		font = TextureFactory.getFont("emmett",200, Color.valueOf("DDDCE0"));
 		textButtonStyle = new TextButtonStyle();
@@ -161,7 +178,11 @@ public class GameFrame extends InputListener implements Screen {
 		
 		
 		
+
+		
+		
 		ui.addActor(uiback);
+		ui.addActor(uiShadow);
 		ui.addActor(ingameButtonMenu);
 		ui.addActor(ingameButtonOptions);
 		ui.addActor(ingameButtonRestart);
@@ -171,7 +192,20 @@ public class GameFrame extends InputListener implements Screen {
 		ui.addActor(ingameGoldLabel);
 		ui.addActor(ingameTimeLabel);
 		
+		for(int i = 0; i<4;i++){			
+			for(int j = 0; j<4; j++){
+				Image img = new Image(TextureFactory.getTexture("iconBackground"));
+				img.setBounds(width/2 + width/4 + width/13 + width/260 +(j * 650), height/3 + height/7 +(i*650) , 500, 500);
+				ui.addActor(img);
+			}
+		}
 		
+		ls.font = TextureFactory.getFont("emmett",350, Color.valueOf("DDDCE0"));
+		
+		buildTower = new Label("Turm bauen",ls);
+		buildTower.setBounds(width/2 + width/4 + width/10 - width/200, height/2 + height/4 + height/55, 1200, 500);
+		
+		ui.addActor(buildTower);
 		
 		//escMenuStage
 		escMenu = new Image(TextureFactory.getTexture("escMenu"));
@@ -301,11 +335,13 @@ public class GameFrame extends InputListener implements Screen {
 		stageCamera.update();
 		tileMapRenderer.setView(stageCamera);
 		tileMapRenderer.render();
-		stage.act(Gdx.graphics.getDeltaTime());
-		Entity.checkCollisions();
-		Enemy.checkForIntersection(lavaDetector, Gdx.graphics.getDeltaTime());
+		if(!escMenuShowing){
+			stage.act(Gdx.graphics.getDeltaTime());
+			Entity.checkCollisions();
+			Enemy.checkForIntersection(lavaDetector, Gdx.graphics.getDeltaTime());
+			ui.act(Gdx.graphics.getDeltaTime());;
+		}
 		stage.draw();
-		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
 		/*ui.getBatch().begin();
 		Image i =  new Image(TextureFactory.getTexture("hpbarback"));
@@ -340,8 +376,28 @@ public class GameFrame extends InputListener implements Screen {
 
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
+		if(event.getListenerActor().equals(ingameButtonMenu)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		if(event.getListenerActor().equals(ingameButtonHelp)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		if(event.getListenerActor().equals(ingameButtonOptions)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		if(event.getListenerActor().equals(ingameButtonRestart)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		
+		
+		return false;
+		
 	}
+		
 
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
