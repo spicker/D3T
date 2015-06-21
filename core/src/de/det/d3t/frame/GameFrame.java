@@ -88,6 +88,8 @@ public class GameFrame extends InputListener implements Screen {
 	private Image ingameTime;
 	private Label ingameGoldLabel;
 	private Label ingameTimeLabel;
+	
+	private Label buildTower;
 	private LabelStyle ls;
 	
 	private Music bgmMusic;
@@ -175,6 +177,9 @@ public class GameFrame extends InputListener implements Screen {
 		
 		
 		
+
+		
+		
 		ui.addActor(uiback);
 		ui.addActor(uiShadow);
 		ui.addActor(ingameButtonMenu);
@@ -186,7 +191,20 @@ public class GameFrame extends InputListener implements Screen {
 		ui.addActor(ingameGoldLabel);
 		ui.addActor(ingameTimeLabel);
 		
+		for(int i = 0; i<4;i++){			
+			for(int j = 0; j<4; j++){
+				Image img = new Image(TextureFactory.getTexture("iconBackground"));
+				img.setBounds(width/2 + width/4 + width/13 + width/260 +(j * 650), height/3 + height/7 +(i*650) , 500, 500);
+				ui.addActor(img);
+			}
+		}
 		
+		ls.font = TextureFactory.getFont("emmett",350, Color.valueOf("DDDCE0"));
+		
+		buildTower = new Label("Turm bauen",ls);
+		buildTower.setBounds(width/2 + width/4 + width/10 - width/200, height/2 + height/4 + height/55, 1200, 500);
+		
+		ui.addActor(buildTower);
 		
 		//escMenuStage
 		escMenu = new Image(TextureFactory.getTexture("escMenu"));
