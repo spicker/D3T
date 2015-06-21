@@ -8,7 +8,7 @@ import de.det.d3t.TextureFactory;
 
 public class SingleShotTower extends Tower {
 	public float knockStrength = 2000;
-	private float cd = 1f;
+	private float cd = 0.3f;
 	RotatingImage deco;
 	RotatingImage deco2;
 
@@ -27,7 +27,7 @@ public class SingleShotTower extends Tower {
 	public void act(float delta) {
 		cd -= delta;
 		if(cd < 0){
-			cd = 1f;
+			cd = 0.3f;
 			shoot();
 		}
 		super.act(delta);
@@ -51,7 +51,6 @@ public class SingleShotTower extends Tower {
 				targetX /= length;
 				targetY /= length;
 				e.addForce(targetX * knockStrength, targetY * knockStrength);
-				System.out.println("hit");
 			}
 		});
 	}

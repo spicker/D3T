@@ -39,6 +39,7 @@ import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.model.AntiGravityTower;
+import de.det.d3t.model.Connection;
 import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
@@ -187,7 +188,7 @@ public class GameFrame extends InputListener implements Screen {
 
 		
 		
-		stage.addActor(new Enemy(0, 4500, 1, true));
+		stage.addActor(new Connection(2000, 2000, 5000, 5000, TextureFactory.getTexture("testLine"), 1, 2f));
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
 		stage.addActor(new DummyTower(3000,4500,2));
 		stage.addActor(new AntiGravityTower(2500,4500,2));

@@ -38,7 +38,7 @@ public class TextureFactory {
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2+7.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
 		addTexture("singleShotMissle", new Texture("textures/gameElements/towers/tower_cannon_ball.png"));
-		
+		addTexture("testLine", new Texture("textures/thunder.png"));
 		//UI:
 		//addTexture("uiskin_small", new Texture("textures/ui/ingame/uiskin_small.png"));
 		//addTexture("uiskin2_small", new Texture("textures/ui/ingame/uiskin2_small.png"));

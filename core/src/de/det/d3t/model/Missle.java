@@ -25,7 +25,7 @@ public class Missle extends Image {
 	public void act(float delta) {
 		float x = getX() + getWidth() / 2;
 		float y = getY() + getHeight() / 2;
-		if(target == null){
+		if(target == null || target.getStage() == null){
 			target = start.getNearest(Enemy.getAllEnemys());
 			//no enemys left
 			if(target == null){
@@ -36,7 +36,7 @@ public class Missle extends Image {
 		float difX = target.getCenterX() - x;
 		float difY = target.getCenterY() - y;	
 		float length = (float) Math.sqrt(difX * difX + difY * difY);
-		System.out.println(length);
+		
 		if(length < getHeight() / 2 + target.getRadius()){
 			action.onHit(target);
 			remove();
