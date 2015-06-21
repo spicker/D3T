@@ -109,6 +109,7 @@ public class GameFrame extends InputListener implements Screen {
 		
 		bgmMusic = TextureFactory.getMusic("dubstepBgm");
 		bgmMusic.setLooping(true);
+		bgmMusic.setVolume(Settings.getBgm());
 		bgmMusic.play();
 		buttonClickSound = TextureFactory.getSound("buttonClick");
 		
@@ -350,19 +351,19 @@ public class GameFrame extends InputListener implements Screen {
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		if(event.getListenerActor().equals(ingameButtonMenu)){
-			buttonClickSound.play();
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(ingameButtonHelp)){
-			buttonClickSound.play();
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(ingameButtonOptions)){
-			buttonClickSound.play();
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(ingameButtonRestart)){
-			buttonClickSound.play();
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		
