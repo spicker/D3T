@@ -77,6 +77,7 @@ public class GameFrame extends InputListener implements Screen {
 	
 	private Image escMenu;
 	private Image uiback;
+	private Image uiShadow;
 	private BitmapFont font;
 	private TextButtonStyle textButtonStyle;
 	private Button ingameButtonMenu;
@@ -128,6 +129,9 @@ public class GameFrame extends InputListener implements Screen {
 		//UI
 		uiback = new Image(TextureFactory.getTexture("uiskin2_d"));
 		uiback.setBounds(0,0,width, height);		
+		uiShadow = new Image(TextureFactory.getTexture("uiskin2Shadow"));
+		uiShadow.setBounds(0,0,width, height);
+		
 		
 		font = TextureFactory.getFont("emmett",200, Color.valueOf("DDDCE0"));
 		textButtonStyle = new TextButtonStyle();
@@ -172,6 +176,7 @@ public class GameFrame extends InputListener implements Screen {
 		
 		
 		ui.addActor(uiback);
+		ui.addActor(uiShadow);
 		ui.addActor(ingameButtonMenu);
 		ui.addActor(ingameButtonOptions);
 		ui.addActor(ingameButtonRestart);
@@ -311,11 +316,13 @@ public class GameFrame extends InputListener implements Screen {
 		stageCamera.update();
 		tileMapRenderer.setView(stageCamera);
 		tileMapRenderer.render();
-		stage.act(Gdx.graphics.getDeltaTime());
-		Entity.checkCollisions();
-		Enemy.checkForIntersection(lavaDetector, Gdx.graphics.getDeltaTime());
+		if(!escMenuShowing){
+			stage.act(Gdx.graphics.getDeltaTime());
+			Entity.checkCollisions();
+			Enemy.checkForIntersection(lavaDetector, Gdx.graphics.getDeltaTime());
+			ui.act(Gdx.graphics.getDeltaTime());;
+		}
 		stage.draw();
-		ui.act(Gdx.graphics.getDeltaTime());;
 		ui.draw();
 		/*ui.getBatch().begin();
 		Image i =  new Image(TextureFactory.getTexture("hpbarback"));

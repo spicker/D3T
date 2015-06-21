@@ -47,6 +47,7 @@ public class TextureFactory {
 		//addTexture("uiskin_small", new Texture("textures/ui/ingame/uiskin_small.png"));
 		//addTexture("uiskin2_small", new Texture("textures/ui/ingame/uiskin2_small.png"));
 		addTexture("uiskin2_d", new Texture("textures/ui/ingame/uiskin2_d.png"));
+		addTexture("uiskin2Shadow", new Texture("textures/ui/ingame/uiskin2_shadow.png"));
 		//addTexture("uiskin2_r", new Texture("textures/ui/ingame/uiskin2_r.png"));
 		addTexture("escMenu", new Texture("textures/ui/ingame/escMenu_boiling.png"));
 		addTexture("ingameButton1", new Texture("textures/ui/ingame/ingameButton1.png"));
