@@ -55,6 +55,10 @@ public class TextureFactory {
 		addTexture("ingameButton1", new Texture("textures/ui/ingame/ingameButton1.png"));
 		addTexture("ingameButton1_down", new Texture("textures/ui/ingame/ingameButton1_down.png"));
 		addTexture("ingameButton1_over", new Texture("textures/ui/ingame/ingameButton1_over.png"));
+		
+		//addTexture("buttonLong_brown", new Texture("textures/ui/buttons/buttonLong_brown.png"));
+		//addTexture("buttonLong_brown_down", new Texture("textures/ui/buttons/buttonLong_brown_pressed.png"));
+		//addTexture("buttonLong_brown_over", new Texture("textures/ui/buttons/buttonLong_brown_over.png"));
 	
 		addTexture("iconBackground", new Texture("textures/ui/ingame/icon_background.png"));
 		//addTexture("iconBackground2", new Texture("textures/ui/ingame/icon_background2.png"));
