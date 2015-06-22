@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="Cave_Lava" tilewidth="64" tileheight="64">
+  <image source="WC3/Dungeon/Cave_Lava.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="Lava" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain=",0,,"/>
+  <tile id="5" terrain=",0,,0"/>
+  <tile id="6" terrain=",0,0,"/>
+  <tile id="7" terrain=",0,0,0"/>
+  <tile id="8" terrain="0,,,"/>
+  <tile id="9" terrain="0,,,0"/>
+  <tile id="10" terrain="0,,0,"/>
+  <tile id="11" terrain="0,,0,0"/>
+  <tile id="12" terrain="0,0,,"/>
+  <tile id="13" terrain="0,0,,0"/>
+  <tile id="14" terrain="0,0,0,"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="17" name="Cave_SquareTiles" tilewidth="64" tileheight="64">
+  <image source="WC3/Dungeon/Cave_SquareTiles.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="Terrain" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain=",,,0"/>
+  <tile id="2" terrain=",,0,"/>
+  <tile id="3" terrain=",,0,0"/>
+  <tile id="4" terrain=",0,,"/>
+  <tile id="5" terrain=",0,,0"/>
+  <tile id="6" terrain=",0,0,"/>
+  <tile id="7" terrain=",0,0,0"/>
+  <tile id="8" terrain="0,,,"/>
+  <tile id="9" terrain="0,,,0"/>
+  <tile id="10" terrain="0,,0,"/>
+  <tile id="11" terrain="0,,0,0"/>
+  <tile id="12" terrain="0,0,,"/>
+  <tile id="13" terrain="0,0,,0"/>
+  <tile id="14" terrain="0,0,0,"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <layer name="Kachelebene 1" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJytlFuO5EgQw3puMPc/7WB/GymSYexHocqudDwkyn9/fn7+/vr8+fX7df1nPGf/v+q/6lLf13+XuV91fv9e+77mXfu+tKG9Vw2ad81VNFjekLd23rR4zVtmK/quZ5ZW5LHpTQwQozYfMVA1fPWz3us/8458XHPb/laDvLju9NprcWE5+ZKhqqHlxTSnjBamjfdLlo0ne85yTzvRLNfPJV/lfPG5+GR+Uy4v2l16GivEeZmL2CyaXpgrWTX912zED/lAtazfhcnaj/JKLJQcmW+XTF8yVvxfu5MnZXdjrupMPFFmL5zWDJn2thPlqua8/CbPLJclp7ZLzV3Jj9UuXpKmlx0sB8ZE0cQ8u+SBNDPWC6uvHuW63CvPF81eZ81785N6WravvJPW5D/l9suulp3iJbFZMkN8mna1z8oC1SwZ+5Lt5WvRauWn6LI4LhoZ92u2V801u3lBfNfMl3prZpq9crzyRvqVnBhTZbfq2YUdY+6yB2Xo6knNDLFdmTJtKwvr3v/J5hdu6Sx5b1qaxpVN28F2NWZIR9uDZqk+2DtizVz0Wmfs+dcshcHXM8Urexes59duljHK79qjMHI9U+rXGVe+bLaip2m5etNZy4S9B2iGlS3SkHJKmTJWvmatak/7UA4vfct/q7ft+sX/5YNlw3ayudeZawZIQ+LZNDANFzc0B/lF+a2ZKToVFgoXpNuFI/O/+GYfy5Sxa88RD8X/knfzkmobx4Wz4lmdsXJDPUibyrj5bfWLd+WdYDNQ7ixDa07Tre5W8lt1KByRB4tF06wyZdlatarXl1yXOe2e6UozlNyvfcmHwt36fMln3eXis3Fl+psmlEG7rrksdQvnxqlxXXwk5iiz1od2M15N47qb6V1yU7RYXFbGCst2xuYnpm1P89nmtXdFyXnVgzyyWSgTRWPayd4PhXV6V1TOaN6lMe1ZcnHN49qdskqallolt1XXpR/patxQzdXjmi9itORt7WWZLJrZzMR42aUwZzkirqyenTefSi/iwTSlXotFYt/yv+6RH5eMf+GneE/9F4Pr2ZK9WvPrueXr5Xt5Yf2L15XhwiSxUvck3da8xBTpcq1VNKI+hVmr+/q99l7+mFZf8kWc064lj2smY5B61fcDZY9muXJOGTJtLHOWX3t23SO+yH+a7TJPyTrpb3kruhkvqz9ltnhnfhSeim7FU8pqYZ/yad9rjjVP7U26r3PFx8UAMfKqWftcPCkMW0bI3+KPXRe/rxpUTWot0pNqWkYKE8YsXV92uObHslsYXtekMe1iHhb2iaGlB7Fs7wt7B9Dz1Oe/63+4AYcR
+  </data>
+ </layer>
+ <layer name="Kachelebene 2" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJztWtmOwyAM5Be6l3a1l///K7c8oFru+GhD0tgbSxaUI2EIzJikrR122GGHHTbTns7+stCfNx/1PHs7+4k5gTxPuY+yz81GO986fmrXWBF+VN69Gn7pslzORQX8J+DUYnsgO35t71u/K61/bV9b2CuufzLyGv9VWP/U4nugIv9bWL04oMLzR5isVOYr4I/yPoH2lfAjfvfqs+Onpu/tkVoxQAX8VsznlWfHb61zVC7LsuOndv2cuVvcVw2/x3XU6uFHOu/pIS/Pjp+ajj/Cg9nx3xLzVox/qdnYUTnPZ8cfwU2gvKL+aftA2wOV8BNwbR3wPpnxv579W/GfdsH5a7T72HrQGxnnxszP2DLr+9d7u+D/Mtpl/f7VsXeMlr7zck0D+9xkmwOEnbsV+6LfmeZgYKdmxzjeeUDms8wB57Xh3h6Ivh/JwJOW5t2jf1W1sJL+3fM/j6j+7V0XOd8hHo+cdajhPa+9K+jpHviQ65x2xvHmwEstvnzkHETjm8jz1dqi/F7WgfZt03rG3vNGrsVHj35HENU5T/+6R/Wvki7y9ZNF/2b8n1Hq3+CxWdddiwtkXC89Gt9bmqa1R/20PmvwITrTaOP26j2uk6nl6Lqz58A7y1o4EK7I+FFKTjt5rRlzYJ1lLa3z2lt5rZ8VB6ExzJgD7f8b6P5WLKPpvLamtPlAdSg/KzZYqvGzz7+VYoMM59+Zeo/0n3PVWvdZuv+p2XuaQJnHaXRjf4t3ZBvZfsnainy/9/hZ62/Vyzp0XY8Tx++l/Md5Co05oofROms+UB9PbzuvLuU/OQfevQm4p1moLKq56B6zsA8bc6CNR44X1cnxIiyRPRaJDWZiH7ZmLPBfNP+ww/Zof0LQjT0=
+  </data>
+ </layer>
+</map>
