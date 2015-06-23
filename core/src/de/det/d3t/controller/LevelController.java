@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Level;
@@ -19,6 +20,73 @@ import de.det.d3t.model.Wave;
 public class LevelController {
 
 	private ArrayList<Level> levelList = new ArrayList<>();
+
+	int currentLevel = 0;
+	float timer = 0;
+	float limit;
+
+	boolean buildingPhase = true;
+
+	private Stage stage;
+
+	public void startGame(Stage stage) {
+		this.stage = stage;
+
+		limit = getCurrentLevel().getInitialDelay();
+	}
+
+	public void update(float delta) {
+		timer += delta;
+
+		if (buildingPhase) {
+			if (timer >= limit) {
+				buildingPhase = false;
+			} else {
+				return;
+			}
+		}
+
+		if (getCurrentLevel().hasStarted() == false) {
+			getCurrentLevel().start();
+			timer = 0;
+			limit = getCurrentLevel().getCurrentWave().getDelayAfter();
+			spawnWave(getCurrentLevel().getCurrentWave());
+			return;
+		}
+
+		if (timer >= limit) {
+			if (getCurrentLevel().hasNextWave()) {
+				Wave wave = getCurrentLevel().nextWave();
+				spawnWave(wave);
+				timer = 0;
+				limit = wave.getDelayAfter();
+			} else {
+				limit = Float.POSITIVE_INFINITY;
+			}
+		}
+
+	}
+
+	private void spawnWave(Wave wave) {
+		System.out.println("LevelController: Spawning wave. Size: " + wave.size());
+		for (Enemy enemy : wave) {
+			stage.addActor(enemy);
+		}
+	}
+
+	/**
+	 * Adds the level at the position in the level list. If the position is
+	 * greater than the current number of levels, it will be added to the end
+	 * 
+	 * @param level
+	 * @param pos
+	 */
+	public void addLevelAtPosition(Level level, int pos) {
+		if (levelList.size() <= pos)
+			levelList.add(pos, level);
+		else
+			levelList.add(level);
+	}
 
 	public boolean loadLevelsFromFile() {
 
@@ -53,7 +121,7 @@ public class LevelController {
 					break;
 				}
 
-				if (curLine.isEmpty())
+				if (curLine.isEmpty() || curLine.startsWith("#"))
 					continue;
 
 				if (curLine.equals("LEVEL")) {
@@ -147,6 +215,40 @@ public class LevelController {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Returns the nth level in the loaded level list
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public Level getLevel(int n) {
+		return levelList.get(n);
+	}
+
+	public Level getCurrentLevel() {
+		return levelList.get(currentLevel);
+	}
+
+	public Level nextLevel() {
+		currentLevel++;
+		return levelList.get(currentLevel);
+	}
+
+	public boolean hasNextLevel() {
+		if (levelList.size() - currentLevel >= 2)
+			return true;
+		else
+			return false;
+	}
+
+	public int getNumberOfLevels() {
+		return levelList.size();
+	}
+
+	public void addLevel(Level level) {
+		levelList.add(level);
 	}
 
 }

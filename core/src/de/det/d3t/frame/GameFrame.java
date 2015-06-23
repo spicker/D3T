@@ -41,6 +41,7 @@ import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.model.AntiGravityTower;
+import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.Connection;
 import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
@@ -239,6 +240,9 @@ public class GameFrame extends InputListener implements Screen {
 ////			}
 //		}
 		//new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
+		
+		levelController.startGame(stage);
+		
 	}
 	
 	private void setupLevels() {
@@ -326,9 +330,11 @@ public class GameFrame extends InputListener implements Screen {
 				escReleased = true;
 			}
 		}
+		/**
 		if(Math.random() < 0.01f){
 			stage.addActor(new Enemy(0, 4500, 1, true));
 		}
+		*/
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stageCamera.update();
 		tileMapRenderer.setView(stageCamera);
@@ -364,8 +370,10 @@ public class GameFrame extends InputListener implements Screen {
 		}
 		//fpsLogger.log();
 		
+		levelController.update(delta);
+		
 	}
-
+	
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub

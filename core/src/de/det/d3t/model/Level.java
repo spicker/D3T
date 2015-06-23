@@ -24,7 +24,7 @@ public class Level {
 	private float initialDelay;
 	
 	private Wave currentWave;
-	private int curWaveId;
+	private int curWaveId = -1;
 
 	/**
 	 * Creates a new level with an empty wavelist
@@ -111,19 +111,28 @@ public class Level {
 		return currentWave;
 	}
 	
+	public boolean hasStarted(){
+		return curWaveId != -1;
+	}
+	
+	public boolean hasNextWave(){
+		if(curWaveId + 1 < waveList.size())
+			return true;
+		else
+			return false;
+	}
+	
 	/**
 	 * Sets the current wave to the next wave
 	 * @return The next wave, or null if there is no next wave
 	 */
 	public Wave nextWave(){
 		curWaveId++;
-		Wave nextWave = waveList.get(curWaveId);;
-		if(nextWave == null){
+		if(curWaveId >= waveList.size()){
 			System.err.println("Level: Can not go to the next(" + curWaveId + "nth) wave in level " + name + "[" + id + "] - Wave is null");
-			curWaveId--;
 			return null;
 		}
-		
+		Wave nextWave = waveList.get(curWaveId);
 		currentWave = nextWave;
 		return currentWave;
 	}
