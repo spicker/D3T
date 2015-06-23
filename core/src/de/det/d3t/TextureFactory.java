@@ -56,6 +56,18 @@ public class TextureFactory {
 		addTexture("ingameButton1_down", new Texture("textures/ui/ingame/ingameButton1_down.png"));
 		addTexture("ingameButton1_over", new Texture("textures/ui/ingame/ingameButton1_over.png"));
 		
+		addTexture("blueButtonNew", new Texture("textures/ui/ingame/blueButtonNew.png"));
+		addTexture("blueButtonNew_down", new Texture("textures/ui/ingame/blueButtonNewDown.png"));
+		addTexture("blueButtonNew_over", new Texture("textures/ui/ingame/blueButtonNewOver.png"));
+		
+		addTexture("orangeButtonNew", new Texture("textures/ui/ingame/orangeButtonNew.png"));
+		addTexture("orangeButtonNew_down", new Texture("textures/ui/ingame/orangeButtonNewDown.png"));
+		addTexture("orangeButtonNew_over", new Texture("textures/ui/ingame/orangeButtonNewOver.png"));
+		
+		addTexture("greenButtonNew", new Texture("textures/ui/ingame/greenButtonNew.png"));
+		addTexture("greenButtonNew_down", new Texture("textures/ui/ingame/greenButtonNewDown.png"));
+		addTexture("greenButtonNew_over", new Texture("textures/ui/ingame/greenButtonNewOver.png"));
+		
 		//addTexture("buttonLong_brown", new Texture("textures/ui/buttons/buttonLong_brown.png"));
 		//addTexture("buttonLong_brown_down", new Texture("textures/ui/buttons/buttonLong_brown_pressed.png"));
 		//addTexture("buttonLong_brown_over", new Texture("textures/ui/buttons/buttonLong_brown_over.png"));

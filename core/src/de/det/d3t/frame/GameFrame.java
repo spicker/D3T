@@ -135,10 +135,10 @@ public class GameFrame extends InputListener implements Screen {
 		
 		font = TextureFactory.getFont("emmett",200, Color.valueOf("DDDCE0"));
 		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameButton1")));
-		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameButton1_down")));
+		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("blueButtonNew")));
+		textButtonStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("blueButtonNew_down")));
 		textButtonStyle.font = font;
-		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("ingameButton1_over")));
+		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("blueButtonNew_over")));
 		
 	    ingameButtonMenu = new TextButton("Menü [ESC]", textButtonStyle);
 	    ingameButtonMenu.setBounds(width/2 -(1900/2), height/2  + height/3 + height/10, 1900, 500);
@@ -190,9 +190,9 @@ public class GameFrame extends InputListener implements Screen {
 		ui.addActor(ingameTimeLabel);
 		
 		for(int i = 0; i<4;i++){			
-			for(int j = 0; j<4; j++){
+			for(int j = 0; j<3; j++){
 				Image img = new Image(TextureFactory.getTexture("iconBackground"));
-				img.setBounds(width/2 + width/4 + width/13 + width/260 +(j * 650), height/3 + height/7 +(i*650) , 500, 500);
+				img.setBounds(width/2 + width/4 + width/12 + width/150 +(j * 750), height/3 + height/7 +(i*650) , 600, 600);
 				ui.addActor(img);
 			}
 		}
@@ -341,6 +341,9 @@ public class GameFrame extends InputListener implements Screen {
 			Entity.checkCollisions();
 			Enemy.checkForIntersection(lavaDetector, Gdx.graphics.getDeltaTime());
 			ui.act(Gdx.graphics.getDeltaTime());;
+			levelController.update(delta);
+			timekeeper.update(delta);
+			ingameTimeLabel.setText(timekeeper.timeAsString());
 		}
 		stage.draw();
 		ui.draw();
@@ -367,9 +370,7 @@ public class GameFrame extends InputListener implements Screen {
 		}
 		//fpsLogger.log();
 		
-		levelController.update(delta);
-		timekeeper.update(delta);
-		ingameTimeLabel.setText(timekeeper.timeAsString());
+
 	}
 	
 	@Override
