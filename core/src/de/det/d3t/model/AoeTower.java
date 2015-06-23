@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 
 public class AoeTower extends Tower {
-	private float pingSize = 10000;
-	private float pingDuration = 1;
+	private float pingSize = 500;
+	private float pingDuration = 1.5f;
 	private float pingTime = 3;
-	private float knockStrength = 500;
+	private float knockStrength = 100;
 	private float time = pingTime;
 	private float time_knockback = pingDuration;
-	
+	private ArrayList<Enemy> hasBeenHit = new ArrayList<Enemy>();
 
 	public AoeTower(float x, float y, float scale) {
 		super(x, y, scale);
@@ -44,17 +44,17 @@ public class AoeTower extends Tower {
 	}
 
 	private void aoeKnockback(float curDist) {
-		
-		for (int i = 0; i < 10; i++) {
+		hasBeenHit.clear();
+		for (int i = 0; i < 20; i++) {
 			Enemy e = getNearest(Enemy.getAllEnemys());
 
-			if (e != null) {
+			if (e != null && !hasBeenHit.contains(e)) {
 				float targetX = e.getCenterX() - getCenterX();
 				float targetY = e.getCenterY() - getCenterY();
 				float length = (float) Math.sqrt(targetX * targetX + targetY
 						* targetY);
 				if (length < curDist) {
-					
+					hasBeenHit.add(e);
 					targetX /= length;
 					targetY /= length;
 					System.out.println(targetX);
