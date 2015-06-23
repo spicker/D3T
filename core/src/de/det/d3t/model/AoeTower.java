@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 
 public class AoeTower extends Tower {
-	private float pingSize = 500;
+	private float pingSize = 1000;
 	private float pingDuration = 1.5f;
 	private float pingTime = 3;
-	private float knockStrength = 100;
+	private float knockStrength = 500;
 	private float time = pingTime;
 	private float time_knockback = pingDuration;
 	private ArrayList<Enemy> hasBeenHit = new ArrayList<Enemy>();
@@ -16,12 +16,10 @@ public class AoeTower extends Tower {
 	public AoeTower(float x, float y, float scale) {
 		super(x, y, scale);
 
-		
 	}
 
 	@Override
 	public void act(float delta) {
-		
 
 		time -= delta;
 		if (time < 0) {
@@ -38,30 +36,29 @@ public class AoeTower extends Tower {
 				}
 			}
 		}
-		
+
 		super.act(delta);
 
 	}
 
 	private void aoeKnockback(float curDist) {
-		hasBeenHit.clear();
-		for (int i = 0; i < 20; i++) {
-			Enemy e = getNearest(Enemy.getAllEnemys());
 
-			if (e != null && !hasBeenHit.contains(e)) {
+		ArrayList<Enemy> list = getAllInRange(Enemy.getAllEnemys(), curDist);
+		for (Enemy e : list) {
+
+			if (e != null) {
 				float targetX = e.getCenterX() - getCenterX();
 				float targetY = e.getCenterY() - getCenterY();
 				float length = (float) Math.sqrt(targetX * targetX + targetY
 						* targetY);
-				if (length < curDist) {
-					hasBeenHit.add(e);
-					targetX /= length;
-					targetY /= length;
-					System.out.println(targetX);
-					Gdx.app.debug("AoeTower", "" + targetX);
-					e.addForce(targetX * knockStrength, targetY * knockStrength);
-				}
+
+				targetX /= length;
+				targetY /= length;
+				System.out.println(targetX);
+				Gdx.app.debug("AoeTower", "" + targetX);
+				e.addForce(targetX * knockStrength, targetY * knockStrength);
 			}
+
 		}
 	}
 
