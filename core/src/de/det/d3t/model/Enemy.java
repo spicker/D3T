@@ -11,14 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.util.RadialSprite;
 
 public class Enemy extends Circle{
 	private static ArrayList<Enemy> allEnemys = new ArrayList<Enemy>();
 	private float scale;
 	private float acceleration = 1000.f;
+	private float accelerationGrow = 100f;
 	private float maxHp = 100;
-	private float hp = 100;
+	private float hp = 100; 
 	private float glideFactor = 0.90f;
 	private float mass = 1f;
 	private float velocityX = 0;
@@ -50,31 +52,13 @@ public class Enemy extends Circle{
 	
 	@Override
 	protected void setStage(Stage stage) {
-		stage.addActor(hpBarBack);
-		stage.addActor(hpBarFront);
+		if(stage != null){
+			stage.addActor(hpBarBack);
+			stage.addActor(hpBarFront);
+		}
 		super.setStage(stage);
 	}
-	
-	public void setVelocityX(float velocityX) {
-		this.velocityX = velocityX;
-	}
-	
-	public void setVelocityY(float velocityY) {
-		this.velocityY = velocityY;
-	}
-	
-	public float getVelocityX() {
-		return velocityX;
-	}
-	
-	public float getVelocityY() {
-		return velocityY;
-	}
-	
-	public float getMass() {
-		return mass;
-	}
-	
+
 	public void addForce(float x, float y){
 		velocityX += x;
 		velocityY += y;
@@ -103,6 +87,7 @@ public class Enemy extends Circle{
 		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
 		targetX /= length;
 		targetY /= length;
+		acceleration += accelerationGrow * delta;
 		targetX *= acceleration * delta;
 		targetY *= acceleration * delta;
 		velocityX += targetX;
@@ -113,10 +98,143 @@ public class Enemy extends Circle{
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
 		
 		
-		//TEST
-		hp-=0.1f;
-		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
+
+
 		
 	}
+	
+	@Override
+	public boolean remove() {
+		allEnemys.remove(this);
+		hpBarBack.remove();
+		hpBarFront.remove();
+		return super.remove();
+	}
+	
+	public static void checkForIntersection(TileMapIntersectionDetector detector, float delta){
+		ArrayList<Enemy> toRemove = new ArrayList<>();
+		for(Enemy e : allEnemys){
+			if(!detector.hasIntersectAt(e.getCenterX(), e.getCenterY())){
+				e.hp -= 5 * delta;
+				e.hpBarFrontSprite.setAngle(360 * (1 -(e.hp / e.maxHp)));
+				if(e.hp < 0){
+					toRemove.add(e);
+				}
+			}
+		}
+		for(Enemy e : toRemove){
+			e.remove();
+		}
+	}
 
+	public float getScale() {
+		return scale;
+	}
+
+	public float getAcceleration() {
+		return acceleration;
+	}
+
+	public float getAccelerationGrow() {
+		return accelerationGrow;
+	}
+
+	public float getMaxHp() {
+		return maxHp;
+	}
+
+	public float getHp() {
+		return hp;
+	}
+
+	public float getGlideFactor() {
+		return glideFactor;
+	}
+
+	public Image getHpBarBack() {
+		return hpBarBack;
+	}
+
+	public Image getHpBarFront() {
+		return hpBarFront;
+	}
+
+	public boolean isIngame() {
+		return ingame;
+	}
+
+	public RadialSprite getHpBarFrontSprite() {
+		return hpBarFrontSprite;
+	}
+
+	
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+	
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
+	}
+	
+	public float getVelocityX() {
+		return velocityX;
+	}
+	
+	public float getVelocityY() {
+		return velocityY;
+	}
+	
+	public float getMass() {
+		return mass;
+	}
+
+	public static void setAllEnemys(ArrayList<Enemy> allEnemys) {
+		Enemy.allEnemys = allEnemys;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+
+	public void setAcceleration(float acceleration) {
+		this.acceleration = acceleration;
+	}
+
+	public void setAccelerationGrow(float accelerationGrow) {
+		this.accelerationGrow = accelerationGrow;
+	}
+
+	public void setMaxHp(float maxHp) {
+		this.maxHp = maxHp;
+	}
+
+	public void setHp(float hp) {
+		this.hp = hp;
+	}
+
+	public void setGlideFactor(float glideFactor) {
+		this.glideFactor = glideFactor;
+	}
+
+	public void setMass(float mass) {
+		this.mass = mass;
+	}
+
+	public void setHpBarBack(Image hpBarBack) {
+		this.hpBarBack = hpBarBack;
+	}
+
+	public void setHpBarFront(Image hpBarFront) {
+		this.hpBarFront = hpBarFront;
+	}
+
+	public void setIngame(boolean ingame) {
+		this.ingame = ingame;
+	}
+
+	public void setHpBarFrontSprite(RadialSprite hpBarFrontSprite) {
+		this.hpBarFrontSprite = hpBarFrontSprite;
+	}
+	
+	
 }

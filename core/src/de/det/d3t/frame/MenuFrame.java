@@ -7,6 +7,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
@@ -95,6 +97,9 @@ public class MenuFrame extends InputListener implements Screen {
 	private ParticleEffectPool pool;
 	private Array<PooledEffect> effects;
 	
+	private Music bgmMusic;
+	private Sound buttonClickSound;
+	
 	private Game game;
 	
 	
@@ -112,6 +117,13 @@ public class MenuFrame extends InputListener implements Screen {
 		fpsLogger = new FPSLogger();
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
+		//bgmMusic = TextureFactory.getMusic("menuBgm");
+		bgmMusic = TextureFactory.getMusic("happyBgm");
+		bgmMusic.setLooping(true);
+		bgmMusic.setVolume(Settings.getBgm());
+		bgmMusic.play();
+		buttonClickSound = TextureFactory.getSound("buttonClick");
+		buttonClickSound.setVolume(0, Settings.getSfx());
 
 		timeOld = System.currentTimeMillis();
 		
@@ -383,27 +395,31 @@ public class MenuFrame extends InputListener implements Screen {
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		if(event.getListenerActor() == startGameButton){
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}	
 		if(event.getListenerActor() == startOptionsButton){
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}		
 		if(event.getListenerActor() == startCreditsButton){
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}		
 		if(event.getListenerActor() == helpButton){
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}		
 		if(event.getListenerActor() == closeGameButton){
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}		
-		
-		
-		
 		if(event.getListenerActor() == backButton){
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}	
 		if(event.getListenerActor() == acceptButton){
+			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}	
 		
@@ -414,6 +430,7 @@ public class MenuFrame extends InputListener implements Screen {
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		if(event.getListenerActor() == startGameButton){
             game.setScreen(new GameFrame(game));
+            bgmMusic.stop();
 		}
 		
 		if(event.getListenerActor() == startOptionsButton){
@@ -442,6 +459,7 @@ public class MenuFrame extends InputListener implements Screen {
 			Settings.setSfx(sfxToSet);
 			inSettings = false;
 			inMenu = true;
+			bgmMusic.setVolume(Settings.getBgm());
 		}
 		
 

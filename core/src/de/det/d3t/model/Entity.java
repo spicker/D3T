@@ -35,4 +35,10 @@ public abstract class Entity extends Image {
 		}
 	}
 	
+	@Override
+	public boolean remove() {
+		content.remove(this);
+		return super.remove();
+	}
+	
 }

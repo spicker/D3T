@@ -40,5 +40,33 @@ public abstract class Circle extends Entity {
 		}
 		return minC;
 	}
+	
+	public <T extends Circle> T getNearestInRange(ArrayList<T> list, float range){
+		float min = Float.MAX_VALUE;
+		T minC = null;
+		for(T c : list){
+			float x = getCenterX() - c.getCenterX();
+			float y = getCenterY() - c.getCenterY();
+			float dist = (float) Math.sqrt(x*x + y*y);
+			if(dist < min && dist < range){
+				min = dist;
+				minC = c;
+			}
+		}
+		return minC;
+	}
+	
+	public <T extends Circle> ArrayList<T> getAllInRange(ArrayList<T> list, float range){
+		ArrayList<T> res = new ArrayList<>();
+		for(T c : list){
+			float x = getCenterX() - c.getCenterX();
+			float y = getCenterY() - c.getCenterY();
+			float dist = (float) Math.sqrt(x*x + y*y);
+			if(dist < range){
+				res.add(c);
+			}
+		}
+		return res;
+	}
 
 }
