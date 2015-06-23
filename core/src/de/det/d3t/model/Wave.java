@@ -42,7 +42,17 @@ public class Wave extends ArrayList<Enemy>{
 	 */
 	public void addMultiple(int n, Enemy enemy){
 		for(int i = 0; i < n; i++){
-			//add(enemy.clone());
+			Enemy clonedEnemy = new Enemy(enemy.getCenterX(), enemy.getCenterY(), enemy.getScaleX(), enemy.isIngame());
+			clonedEnemy.setAcceleration(enemy.getAcceleration());
+			clonedEnemy.setAccelerationGrow(enemy.getAccelerationGrow());
+			clonedEnemy.setGlideFactor(enemy.getGlideFactor());
+			clonedEnemy.setHp(enemy.getHp());
+			clonedEnemy.setMaxHp(enemy.getMaxHp());
+			clonedEnemy.setMass(enemy.getMass());
+			clonedEnemy.setHpBarBack(enemy.getHpBarBack());
+			clonedEnemy.setHpBarFront(enemy.getHpBarFront());
+			clonedEnemy.setHpBarFrontSprite(enemy.getHpBarFrontSprite());
+			add(clonedEnemy);
 		}
 	}
 

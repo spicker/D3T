@@ -58,27 +58,7 @@ public class Enemy extends Circle{
 		}
 		super.setStage(stage);
 	}
-	
-	public void setVelocityX(float velocityX) {
-		this.velocityX = velocityX;
-	}
-	
-	public void setVelocityY(float velocityY) {
-		this.velocityY = velocityY;
-	}
-	
-	public float getVelocityX() {
-		return velocityX;
-	}
-	
-	public float getVelocityY() {
-		return velocityY;
-	}
-	
-	public float getMass() {
-		return mass;
-	}
-	
+
 	public void addForce(float x, float y){
 		velocityX += x;
 		velocityY += y;
@@ -147,4 +127,114 @@ public class Enemy extends Circle{
 		}
 	}
 
+	public float getScale() {
+		return scale;
+	}
+
+	public float getAcceleration() {
+		return acceleration;
+	}
+
+	public float getAccelerationGrow() {
+		return accelerationGrow;
+	}
+
+	public float getMaxHp() {
+		return maxHp;
+	}
+
+	public float getHp() {
+		return hp;
+	}
+
+	public float getGlideFactor() {
+		return glideFactor;
+	}
+
+	public Image getHpBarBack() {
+		return hpBarBack;
+	}
+
+	public Image getHpBarFront() {
+		return hpBarFront;
+	}
+
+	public boolean isIngame() {
+		return ingame;
+	}
+
+	public RadialSprite getHpBarFrontSprite() {
+		return hpBarFrontSprite;
+	}
+
+	
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+	
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
+	}
+	
+	public float getVelocityX() {
+		return velocityX;
+	}
+	
+	public float getVelocityY() {
+		return velocityY;
+	}
+	
+	public float getMass() {
+		return mass;
+	}
+
+	public static void setAllEnemys(ArrayList<Enemy> allEnemys) {
+		Enemy.allEnemys = allEnemys;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+
+	public void setAcceleration(float acceleration) {
+		this.acceleration = acceleration;
+	}
+
+	public void setAccelerationGrow(float accelerationGrow) {
+		this.accelerationGrow = accelerationGrow;
+	}
+
+	public void setMaxHp(float maxHp) {
+		this.maxHp = maxHp;
+	}
+
+	public void setHp(float hp) {
+		this.hp = hp;
+	}
+
+	public void setGlideFactor(float glideFactor) {
+		this.glideFactor = glideFactor;
+	}
+
+	public void setMass(float mass) {
+		this.mass = mass;
+	}
+
+	public void setHpBarBack(Image hpBarBack) {
+		this.hpBarBack = hpBarBack;
+	}
+
+	public void setHpBarFront(Image hpBarFront) {
+		this.hpBarFront = hpBarFront;
+	}
+
+	public void setIngame(boolean ingame) {
+		this.ingame = ingame;
+	}
+
+	public void setHpBarFrontSprite(RadialSprite hpBarFrontSprite) {
+		this.hpBarFrontSprite = hpBarFrontSprite;
+	}
+	
+	
 }
