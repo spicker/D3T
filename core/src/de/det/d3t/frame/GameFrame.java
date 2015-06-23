@@ -1,6 +1,5 @@
 package de.det.d3t.frame;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -14,9 +13,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -42,16 +39,12 @@ import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
 import de.det.d3t.model.AntiGravityTower;
-import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.Connection;
 import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
 import de.det.d3t.model.MagnetTower;
 import de.det.d3t.model.SingleShotTower;
-import de.det.d3t.model.Tower;
-import de.det.d3t.util.RadialSprite;
-import de.det.d3t.util.Screenshooter;
 
 
 public class GameFrame extends InputListener implements Screen {
@@ -105,8 +98,8 @@ public class GameFrame extends InputListener implements Screen {
 		setupStage();
 		setupUI();
 		setupEscMenuStage();
-		setupTilemap();
 		setupLevels();
+		setupTilemap();
 		manageInputs();
 		fpsLogger = new FPSLogger();
 		
@@ -273,7 +266,7 @@ public class GameFrame extends InputListener implements Screen {
 	}
 	
 	public void setupTilemap(){
-		TiledMap map = new TmxMapLoader().load("tilemap/map.tmx");
+		TiledMap map = levelController.getCurrentLevel().getTiledMap();
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(1);
 		lavaDetector = new TileMapIntersectionDetector(layer);
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));

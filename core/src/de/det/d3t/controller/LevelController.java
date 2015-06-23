@@ -89,8 +89,6 @@ public class LevelController {
 			}
 			alreadySpawned.add(enemy);
 			stage.addActor(enemy);
-			System.out.println("LevelController: Spawned enemy at x" + x
-					+ ", y:" + y);
 		}
 
 		for (Enemy enemy : wave) {
@@ -104,11 +102,9 @@ public class LevelController {
 		for (Enemy spawnedEnemy : alreadySpawned) {
 			if ((spawnedEnemy.getX() - enemy.getX() < 150 && spawnedEnemy.getX()
 					- enemy.getX() > -150)){
-				System.out.println("spawned x:"+spawnedEnemy.getX()+" enemy x:" + enemy.getX());
 				return false;}
 			if ((spawnedEnemy.getY() - enemy.getY() < 150 && spawnedEnemy.getY()
 					- enemy.getY() > -150)) {
-				System.out.println("spawned y:"+spawnedEnemy.getY()+" enemy y:" + enemy.getY());
 				return false;
 			}
 		}
