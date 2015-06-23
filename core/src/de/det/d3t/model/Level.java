@@ -3,6 +3,7 @@ package de.det.d3t.model;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Represents one level of the game, containing information about waves and such
@@ -16,6 +17,7 @@ public class Level {
 	private TiledMap tiledMap;
 	private int id;
 	private ArrayList<Wave> waveList = new ArrayList<Wave>();
+	private ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
 
 	/**
 	 * Number of seconds to pass between starting the map and starting the first
@@ -51,16 +53,15 @@ public class Level {
 	 * @param initialDelay Number of seconds to pass between starting the map and starting the first wave
 	 */
 	public Level(String name, TiledMap tiledMap, int id,
-			ArrayList<Wave> waveList, float initialDelay) {
+			ArrayList<Wave> waveList, ArrayList<Rectangle> spawnAreaList, float initialDelay) {
 		super();
 		this.name = name;
 		this.tiledMap = tiledMap;
 		this.id = id;
 		this.waveList = waveList;
 		this.initialDelay = initialDelay;
+		this.spawnAreaList = spawnAreaList;
 	}
-
-
 
 	/**
 	 * Adds the wave after the current last wave
@@ -169,6 +170,14 @@ public class Level {
 
 	public Wave getCurrentWave() {
 		return currentWave;
+	}
+
+	public ArrayList<Rectangle> getSpawnAreaList() {
+		return spawnAreaList;
+	}
+
+	public void setSpawnAreaList(ArrayList<Rectangle> spawnAreaList) {
+		this.spawnAreaList = spawnAreaList;
 	}
 	
 	

@@ -7,10 +7,12 @@ import static java.lang.Float.parseFloat;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import de.det.d3t.model.Enemy;
@@ -68,10 +70,50 @@ public class LevelController {
 	}
 
 	private void spawnWave(Wave wave) {
-		System.out.println("LevelController: Spawning wave. Size: " + wave.size());
+		Random random = new Random();
+		ArrayList<Enemy> alreadySpawned = new ArrayList<>();
+		System.out.println("LevelController: Spawning wave. Size: "
+				+ wave.size());
 		for (Enemy enemy : wave) {
+			Rectangle spawnarea = getCurrentLevel().getSpawnAreaList()
+					.get(random.nextInt(getCurrentLevel().getSpawnAreaList()
+							.size()));
+			float x = spawnarea.x + random.nextFloat() * spawnarea.width;
+			float y = spawnarea.y + random.nextFloat() * spawnarea.height;
+			enemy.setX(x);
+			enemy.setY(y);
+
+			while (isValidSpawn(enemy, alreadySpawned) == false) {
+				enemy.setX(enemy.getX() + 20);
+				enemy.setY(enemy.getY() + 20);
+			}
+			alreadySpawned.add(enemy);
 			stage.addActor(enemy);
+			System.out.println("LevelController: Spawned enemy at x" + x
+					+ ", y:" + y);
 		}
+
+		for (Enemy enemy : wave) {
+			enemy.setAcceleration(0);
+			enemy.setVelocityX(0);
+			enemy.setVelocityY(0);
+		}
+	}
+
+	private boolean isValidSpawn(Enemy enemy, ArrayList<Enemy> alreadySpawned) {
+		for (Enemy spawnedEnemy : alreadySpawned) {
+			if ((spawnedEnemy.getX() - enemy.getX() < 150 && spawnedEnemy.getX()
+					- enemy.getX() > -150)){
+				System.out.println("spawned x:"+spawnedEnemy.getX()+" enemy x:" + enemy.getX());
+				return false;}
+			if ((spawnedEnemy.getY() - enemy.getY() < 150 && spawnedEnemy.getY()
+					- enemy.getY() > -150)) {
+				System.out.println("spawned y:"+spawnedEnemy.getY()+" enemy y:" + enemy.getY());
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -113,6 +155,7 @@ public class LevelController {
 			String levelMapPath = "No path";
 			float levelInitDelay = 0;
 			ArrayList<Wave> waveList = new ArrayList<>();
+			ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
 
 			while (curLine != null) {
 				curLine = buffReader.readLine();
@@ -121,7 +164,8 @@ public class LevelController {
 					break;
 				}
 
-				if (curLine.isEmpty() || curLine.startsWith("#"))
+				if (curLine.isEmpty() || curLine.startsWith("#")
+						|| curLine.equals("D3T"))
 					continue;
 
 				if (curLine.equals("LEVEL")) {
@@ -136,6 +180,7 @@ public class LevelController {
 								new TmxMapLoader().load("tilemap/"
 										+ levelMapPath), levelList.size(),
 								levelInitDelay);
+						curLevel.setSpawnAreaList(spawnAreaList);
 						for (Wave curWave : waveList)
 							curLevel.addWave(curWave);
 
@@ -162,6 +207,11 @@ public class LevelController {
 						levelInitDelay = Float.parseFloat(value[1].replace(',',
 								'.'));
 						continue;
+					} else if (value[0].equals("spawn")) {
+						spawnAreaList.add(new Rectangle(parseFloat(value[1]),
+								parseFloat(value[2]), parseFloat(value[3]),
+								parseFloat(value[4])));
+						continue;
 					} else if (value[0].equals("wave")) {
 						inWaveTag = true;
 						waveList.add(new Wave(parseFloat(value[1]),
@@ -187,10 +237,7 @@ public class LevelController {
 					String[] value = curLine.split(":");
 					if (value[0].equals("enemy")) {
 						waveList.get(waveList.size() - 1).addMultiple(
-								parseInt(value[1]),
-								new Enemy(parseInt(value[2]),
-										parseInt(value[3]), parseInt(value[4]),
-										true));
+								parseInt(value[1]), new Enemy(0, 0, 1, true));
 					}
 				} else {
 					// if you reach this point you have read something you

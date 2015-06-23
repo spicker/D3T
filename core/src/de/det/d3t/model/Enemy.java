@@ -17,14 +17,14 @@ import de.det.d3t.util.RadialSprite;
 public class Enemy extends Circle{
 	private static ArrayList<Enemy> allEnemys = new ArrayList<Enemy>();
 	private float scale;
-	private float acceleration = 1000.f;
+	private float acceleration = 0f;
 	private float accelerationGrow = 100f;
 	private float maxHp = 100;
 	private float hp = 100; 
 	private float glideFactor = 0.90f;
 	private float mass = 1f;
 	private float velocityX = 0;
-	private float velocityY = -1000; 
+	private float velocityY = 0; 
 	private Image hpBarBack;
 	private Image hpBarFront;
 	private boolean ingame;

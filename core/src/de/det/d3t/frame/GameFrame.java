@@ -382,6 +382,8 @@ public class GameFrame extends InputListener implements Screen {
 
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		
+		
 		if(event.getListenerActor().equals(ingameButtonMenu)){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
@@ -398,7 +400,6 @@ public class GameFrame extends InputListener implements Screen {
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		
 		
 		return false;
 		
@@ -420,7 +421,6 @@ public class GameFrame extends InputListener implements Screen {
 
 	@Override
 	public boolean mouseMoved(InputEvent event, float x, float y) {
-		// TODO Auto-generated method stub
 		return super.mouseMoved(event, x, y);
 	}
 
