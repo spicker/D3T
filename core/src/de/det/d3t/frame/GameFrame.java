@@ -91,6 +91,7 @@ public class GameFrame extends InputListener implements Screen {
 	private Music bgmMusic;
 	private Sound buttonClickSound;
 	
+	private TimeKeeper timekeeper;
 	
 	public GameFrame(Game game){
 		this.game = game;
@@ -102,6 +103,7 @@ public class GameFrame extends InputListener implements Screen {
 		setupTilemap();
 		manageInputs();
 		fpsLogger = new FPSLogger();
+		timekeeper = new TimeKeeper();
 		
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
@@ -366,7 +368,8 @@ public class GameFrame extends InputListener implements Screen {
 		//fpsLogger.log();
 		
 		levelController.update(delta);
-		
+		timekeeper.update(delta);
+		ingameTimeLabel.setText(timekeeper.timeAsString());
 	}
 	
 	@Override
@@ -454,7 +457,25 @@ public class GameFrame extends InputListener implements Screen {
 		return super.keyTyped(event, character);
 	}
 	
-	
-	
-	
+	private class TimeKeeper{
+		
+		float seconds = 0;
+		
+		public void update(float delta){
+			seconds += delta;
+		}
+		
+		public String timeAsString(){
+			String minutesString = String.valueOf((int) java.lang.Math.floor(seconds / 60));
+			String secondsString = String.valueOf((int) java.lang.Math.floor(seconds));
+			if(minutesString.length() == 1){
+				minutesString = "0" + minutesString;
+			}
+			if(secondsString.length() == 1){
+				secondsString = "0" + secondsString;
+			}
+			
+			return minutesString + ":" + secondsString;
+		}
+	}
 }
