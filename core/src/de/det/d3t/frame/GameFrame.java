@@ -40,6 +40,7 @@ import de.det.d3t.TextureFactory;
 import de.det.d3t.TileMapIntersectionDetector;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
+import de.det.d3t.controller.UIController;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.Connection;
@@ -281,6 +282,7 @@ public class GameFrame extends InputListener implements Screen {
 	
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
+		inputMultiplexer.addProcessor(new UIController());
 		inputMultiplexer.addProcessor(ui);
 		inputMultiplexer.addProcessor(new CameraInputController(stageCamera)); //TODO Add some real controller here
 		inputMultiplexer.addProcessor(stage);
@@ -415,7 +417,12 @@ public class GameFrame extends InputListener implements Screen {
 
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) {
-		// TODO Auto-generated method stub
+		Pixmap ui = new Pixmap(new FileHandle("textures/ui/ingame/uiskin2_d.png"));	
+		float fx = ui.getWidth() / Gdx.graphics.getWidth();
+		float fy = ui.getHeight() / Gdx.graphics.getHeight();		
+		
+		Color newColor = new Color(ui.getPixel((int)(x/fx),(int)(y/fy)));
+		System.out.println(newColor);
 		super.touchDragged(event, x, y, pointer);
 	}
 
