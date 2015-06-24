@@ -205,8 +205,8 @@ public class GameFrame extends InputListener implements Screen {
 		ui.addActor(buildTower);
 		
 		//escMenuStage
-		escMenu = new Image(TextureFactory.getTexture("escMenu"));
-		escMenu.setBounds(width/2-(4000/2),height/2-(7000/2), 4000, 7000);
+		escMenu = new Image(TextureFactory.getTexture("escMenuNew"));
+		escMenu.setBounds(width/2-(4000/2),height/2-(7000/2), 5000, 7000);
 		
 		//TODO: add Buttons
         
