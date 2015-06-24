@@ -127,10 +127,10 @@ public class GameFrame extends InputListener implements Screen {
 		
 		
 		//UI
-		uiback = new Image(TextureFactory.getTexture("uiskin2_d"));
+		uiback = new Image(TextureFactory.getTexture("uiNew"));
 		uiback.setBounds(0,0,width, height);		
-		uiShadow = new Image(TextureFactory.getTexture("uiskin2Shadow"));
-		uiShadow.setBounds(0,0,width, height);
+		//uiShadow = new Image(TextureFactory.getTexture("uiskin2Shadow"));
+		//uiShadow.setBounds(0,0,width, height);
 		
 		
 		font = TextureFactory.getFont("emmett",200, Color.valueOf("DDDCE0"));
@@ -179,7 +179,7 @@ public class GameFrame extends InputListener implements Screen {
 		
 		
 		ui.addActor(uiback);
-		ui.addActor(uiShadow);
+		//ui.addActor(uiShadow);
 		ui.addActor(ingameButtonMenu);
 		ui.addActor(ingameButtonOptions);
 		ui.addActor(ingameButtonRestart);
@@ -192,15 +192,15 @@ public class GameFrame extends InputListener implements Screen {
 		for(int i = 0; i<4;i++){			
 			for(int j = 0; j<3; j++){
 				Image img = new Image(TextureFactory.getTexture("iconBackground"));
-				img.setBounds(width/2 + width/4 + width/12 + width/150 +(j * 750), height/3 + height/7 +(i*650) , 600, 600);
+				img.setBounds(width/2 + width/4 + width/12 + width/30 - width/450 +(j * 700), height/10 + height/180 +(i*700) , 550, 550);
 				ui.addActor(img);
 			}
 		}
 		
-		ls.font = TextureFactory.getFont("emmett",350, Color.valueOf("DDDCE0"));
+		ls.font = TextureFactory.getFont("emmett",320, Color.valueOf("DDDCE0"));
 		
 		buildTower = new Label("Turm bauen",ls);
-		buildTower.setBounds(width/2 + width/4 + width/10 - width/200, height/2 + height/4 + height/55, 1200, 500);
+		buildTower.setBounds(width/2 + width/4 + width/8 - width/150, height/2 - height/20 , 1200, 500);
 		
 		ui.addActor(buildTower);
 		
