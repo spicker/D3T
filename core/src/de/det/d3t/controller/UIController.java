@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 
 public class UIController implements InputProcessor {
 
-	private FileHandle handle = Gdx.files.internal("textures/ui/ingame/uiskin2_d.png");
+	private FileHandle handle = Gdx.files.internal("textures/ui/ingame/uiNew.png");
 	private Pixmap ui = new Pixmap(handle);	
 	private boolean startedValid;
 	private boolean startedInvalid;

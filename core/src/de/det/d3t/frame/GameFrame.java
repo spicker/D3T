@@ -85,6 +85,12 @@ public class GameFrame extends InputListener implements Screen {
 	private Label ingameGoldLabel;
 	private Label ingameTimeLabel;
 	
+	private Button escButtonCloseGame;
+	private Button escButtonMainMenu;
+	private Button escButtonLevelSelect;
+	private Button escButtonSaveGame;
+	private Button escButtonLoadGame;
+	
 	private Label buildTower;
 	private LabelStyle ls;
 	
@@ -170,7 +176,7 @@ public class GameFrame extends InputListener implements Screen {
 		
 		ls.font = TextureFactory.getFont("emmett",200, Color.valueOf("DDDCE0"));
 		
-		ingameTimeLabel = new Label("00:00:15",ls);
+		ingameTimeLabel = new Label("00:00:00",ls);
 		ingameTimeLabel.setBounds(width/2 - (1900/2) + 4000, height/2  + height/3 + height/10, 1000, 400);
 		
 		
@@ -208,13 +214,37 @@ public class GameFrame extends InputListener implements Screen {
 		escMenu = new Image(TextureFactory.getTexture("escMenuNew"));
 		escMenu.setBounds(width/2-(4000/2),height/2-(7000/2), 5000, 7000);
 		
-		//TODO: add Buttons
-        
-		escMenuStage.addActor(escMenu);
+		textButtonStyle.font = TextureFactory.getFont("emmett",270, Color.valueOf("DDDCE0"));
 		
-		//Pixmap map = new Pixmap(new FileHandle("textures/ui/ingame/uiBack.png"));
-//		map.getPixel(x, y)
-//				uiCamera.unproject(screenCoords)
+		escButtonCloseGame = new TextButton("Spiel Beenden", textButtonStyle);
+		escButtonCloseGame.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9, 2500, 650);
+		escButtonCloseGame.addListener(this);
+		
+		escButtonSaveGame = new TextButton("Spiel Speichern", textButtonStyle);
+		escButtonSaveGame.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8, 2500, 650);
+		escButtonSaveGame.addListener(this);
+		
+		escButtonLoadGame = new TextButton("Spiel Laden", textButtonStyle);
+		escButtonLoadGame.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8 + height/8, 2500, 650);
+		escButtonLoadGame.addListener(this);
+		
+		escButtonLevelSelect = new TextButton("Level Auswahl", textButtonStyle);
+		escButtonLevelSelect.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8 + height/8 + height/8, 2500, 650);
+		escButtonLevelSelect.addListener(this);
+		
+		escButtonMainMenu = new TextButton("Hauptmenü", textButtonStyle);
+		escButtonMainMenu.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8 + height/8+ height/8 + height/8, 2500, 650);
+		escButtonMainMenu.addListener(this);
+		
+		escMenuStage.addActor(escMenu);
+		escMenuStage.addActor(escButtonCloseGame);
+		escMenuStage.addActor(escButtonSaveGame);
+		escMenuStage.addActor(escButtonLoadGame);
+		escMenuStage.addActor(escButtonLevelSelect);
+		escMenuStage.addActor(escButtonMainMenu);
+		
+		
+
 		
 
 		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory.getTexture("testLine"), 4f, 2f, 200f));
@@ -399,6 +429,27 @@ public class GameFrame extends InputListener implements Screen {
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
+		if(event.getListenerActor().equals(escButtonCloseGame)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		if(event.getListenerActor().equals(escButtonMainMenu)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		if(event.getListenerActor().equals(escButtonLoadGame)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		if(event.getListenerActor().equals(escButtonSaveGame)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		if(event.getListenerActor().equals(escButtonLevelSelect)){
+			buttonClickSound.play(Settings.getSfx());
+			return true;
+		}
+		
 		
 		return false;
 		
@@ -410,16 +461,31 @@ public class GameFrame extends InputListener implements Screen {
 		if(event.getListenerActor().equals(ingameButtonMenu)){
 			escMenuShowing = !escMenuShowing;
 		}
+		
+		
+		
+		
+		
+		
+		//ESC MENU
+		if(event.getListenerActor().equals(escButtonCloseGame)){
+			//TODO: show dialog "Unsaved progress won't be saved! Do you want to save your game before closing? "
+			Gdx.app.exit();
+		}
+		
+		
+		
+		
 	}
 
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) {
-		Pixmap ui = new Pixmap(new FileHandle("textures/ui/ingame/uiskin2_d.png"));	
+		/*Pixmap ui = new Pixmap(new FileHandle("textures/ui/ingame/uiNew.png"));	
 		float fx = ui.getWidth() / Gdx.graphics.getWidth();
 		float fy = ui.getHeight() / Gdx.graphics.getHeight();		
 		
 		Color newColor = new Color(ui.getPixel((int)(x/fx),(int)(y/fy)));
-		System.out.println(newColor);
+		System.out.println(newColor);*/
 		super.touchDragged(event, x, y, pointer);
 	}
 
