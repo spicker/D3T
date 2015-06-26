@@ -123,6 +123,11 @@ public class TextureFactory {
 		addTexture("arrows_anim_green_9", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green9.png"));
 		addTexture("arrows_anim_green_10", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green10.png"));
 		
+		addTexture("falling_fireball", new Texture("textures/gameElements/towers/labels/falling_fireball.png"));
+		addTexture("fire", new Texture("textures/gameElements/towers/labels/fire.png"));
+		addTexture("labe_tower2", new Texture("textures/gameElements/towers/labels/labe_tower2.png"));
+		addTexture("label_tower1", new Texture("textures/gameElements/towers/labels/label_tower1.png"));
+		
 		TextureRegion[] animReg = new TextureRegion[11];
 		TextureRegion[] animReg2 = new TextureRegion[11];
 		for(int i = 0; i<11;i++){

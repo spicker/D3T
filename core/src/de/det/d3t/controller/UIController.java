@@ -42,7 +42,7 @@ public class UIController implements InputProcessor {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Color startPoint = new Color(ui.getPixel((int)(screenX*fx),(int)(screenY*fy)));
 		if (startPoint.a == 0){
-		startedValid = true;
+			startedValid = true;
 		}
 		// TODO Auto-generated method stub
 		return false;

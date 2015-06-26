@@ -51,8 +51,10 @@ public class LevelController {
 		if (getCurrentLevel().hasStarted() == false) {
 			getCurrentLevel().start();
 			timer = 0;
-			limit = getCurrentLevel().getCurrentWave().getDelayAfter();
-			spawnWave(getCurrentLevel().getCurrentWave());
+			if(getCurrentLevel().hasNextWave()){
+				limit = getCurrentLevel().getCurrentWave().getDelayAfter();
+				spawnWave(getCurrentLevel().getCurrentWave());
+			}
 			return;
 		}
 
