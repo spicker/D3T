@@ -104,6 +104,7 @@ public class Level {
 	public Wave start(){
 		if(waveList.size() == 0){
 			System.err.println("Level: Can not start level " + name + "[" + id + "] - Wavelist is empty");
+			curWaveId = 0;
 			return null;
 		}
 		
