@@ -534,7 +534,7 @@ public class GameFrame extends InputListener implements Screen {
 		
 		public String timeAsString(){
 			String minutesString = String.valueOf((int) java.lang.Math.floor(seconds / 60));
-			String secondsString = String.valueOf((int) java.lang.Math.floor(seconds));
+			String secondsString = String.valueOf((int) java.lang.Math.floor(seconds) % 60);
 			if(minutesString.length() == 1){
 				minutesString = "0" + minutesString;
 			}
