@@ -35,6 +35,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.TileMapIntersectionDetector;
+import de.det.d3t.controller.BuildingController;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
@@ -64,6 +65,7 @@ public class GameFrame extends InputListener implements Screen {
 	
 	private Game game;
 	private LevelController levelController;
+	private BuildingController buildingController;
 	
 	private boolean escMenuShowing = false;
 	private boolean escReleased = true;
@@ -203,6 +205,10 @@ public class GameFrame extends InputListener implements Screen {
 			}
 		}
 		
+
+		setupBuilding();
+		
+		
 		ls.font = TextureFactory.getFont("emmett",320, Color.valueOf("DDDCE0"));
 		
 		buildTower = new Label("Turm bauen",ls);
@@ -246,12 +252,13 @@ public class GameFrame extends InputListener implements Screen {
 		
 
 		
-
+		/**
 		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory.getTexture("testLine"), 4f, 2f, 200f));
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
 		stage.addActor(new DummyTower(3000,4500,2));
 		stage.addActor(new AntiGravityTower(2500,4500,2));
 		stage.addActor(new MagnetTower(6000,6000,2));
+		*/	
 //		for(int j = 1; j <= 100; j++){
 //			float x = (float) (Math.random() * Settings.viewportWidth);
 //			float y = (float) (Math.random() * Settings.viewportHeight);
@@ -266,7 +273,7 @@ public class GameFrame extends InputListener implements Screen {
 ////			}
 //		}
 		//new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
-		
+
 		levelController.startGame(stage);
 		
 	}
@@ -304,6 +311,27 @@ public class GameFrame extends InputListener implements Screen {
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
 	}
 	
+	public void setupBuilding(){
+		buildingController = new BuildingController();
+		int i = 0;
+		int j = 0;
+		
+		for(BuildingController.TowerDescription towerDesc : buildingController.getTowerDescList()){
+			
+			towerDesc.image.setX(width/2 + width/4 + width/12 + width/30 - width/450 +(i * 700));
+			towerDesc.image.setY(height/10 + height/180 +(j*700));
+			towerDesc.image.scaleBy(10);
+			((InputMultiplexer) Gdx.input.getInputProcessor()).addProcessor(towerDesc);
+			ui.addActor(towerDesc.image);
+			
+			i++;
+			if(i == 3){
+				i = 0;
+				j++;
+			}
+			
+		}
+	}
 	
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
