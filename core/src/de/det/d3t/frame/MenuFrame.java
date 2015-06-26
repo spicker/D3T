@@ -70,12 +70,6 @@ public class MenuFrame extends InputListener implements Screen {
 	private Image menuBg;
 	private Image menuTitle;
 	
-	private Button escButtonCloseGame;
-	private Button escButtonMainMenu;
-	private Button escButtonLevelSelect;
-	private Button escButtonSaveGame;
-	private Button escButtonLoadGame;
-	
 	
 	private Slider bgmSlider;
 	private Slider sfxSlider;
