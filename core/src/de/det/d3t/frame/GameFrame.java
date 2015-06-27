@@ -458,22 +458,27 @@ public class GameFrame extends InputListener implements Screen {
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonCloseGame)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonMainMenu)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonLoadGame)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonSaveGame)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonLevelSelect)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
@@ -489,18 +494,57 @@ public class GameFrame extends InputListener implements Screen {
 		if(event.getListenerActor().equals(ingameButtonMenu)){
 			escMenuShowing = !escMenuShowing;
 		}
+		if(event.getListenerActor().equals(ingameButtonHelp)){
+
+		}
+		if(event.getListenerActor().equals(ingameButtonOptions)){
+
+		}
+		if(event.getListenerActor().equals(ingameButtonRestart)){
+
+		}
+
+
 		
 		
 		
+
 		
 		
 		
 		//ESC MENU
 		if(event.getListenerActor().equals(escButtonCloseGame)){
 			//TODO: show dialog "Unsaved progress won't be saved! Do you want to save your game before closing? "
+			if(escMenuShowing)
 			Gdx.app.exit();
 		}
 		
+		if(event.getListenerActor().equals(escButtonMainMenu)){
+			//TODO: add dialog: "You are going back to the main menu. Unsaved progress will be lost! Do you want to save before leaving the game to the Main Menu?"
+			if(escMenuShowing){
+				game.setScreen(new MenuFrame(game));
+				bgmMusic.stop();
+			}
+			
+		}
+		if(event.getListenerActor().equals(escButtonLoadGame)){
+			if(escMenuShowing){
+				
+			}			
+		}
+		if(event.getListenerActor().equals(escButtonSaveGame)){
+			if(escMenuShowing){
+				
+			}
+			
+		}
+		if(event.getListenerActor().equals(escButtonLevelSelect)){
+			if(escMenuShowing){
+				//TODO: add dialog: "You are going back to the level Selection. Unsaved progress of the running level will be lost! Do you want to save before leaving the running level to the level selection?"
+				game.setScreen(new SetupGameFrame(game));
+				bgmMusic.stop();
+			}
+		}
 		
 		
 		

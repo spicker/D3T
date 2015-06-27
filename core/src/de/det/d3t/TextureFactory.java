@@ -206,7 +206,21 @@ public class TextureFactory {
 	public static void loadALlSetupGameRessources(){
 		
 		
-	
+		
+		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
+		addMusic("quietStraightBgm", Gdx.audio.newMusic(Gdx.files.internal("music/quiet_straight_bgm.mp3")));
+		
+		addTexture("blueButtonNew", new Texture("textures/ui/ingame/blueButtonNew.png"));
+		addTexture("blueButtonNew_down", new Texture("textures/ui/ingame/blueButtonNewDown.png"));
+		addTexture("blueButtonNew_over", new Texture("textures/ui/ingame/blueButtonNewOver.png"));
+		
+		addTexture("setupGameBackground", new Texture("textures/background/iceBgProvisional.jpg"));
+		
+		
+		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));
+		
+		
+		
 	}
 	
 	

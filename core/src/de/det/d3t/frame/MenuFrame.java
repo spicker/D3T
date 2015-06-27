@@ -332,7 +332,7 @@ public class MenuFrame extends InputListener implements Screen {
 	}
 	@Override
 	public void dispose() {
-		batch.dispose();
+		//batch.dispose();
 		particleEffect.dispose();
 	}
 
@@ -429,7 +429,7 @@ public class MenuFrame extends InputListener implements Screen {
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		if(event.getListenerActor() == startGameButton){
-            game.setScreen(new GameFrame(game));
+            game.setScreen(new SetupGameFrame(game));
             bgmMusic.stop();
 		}
 		
