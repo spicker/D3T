@@ -215,6 +215,8 @@ public class TextureFactory {
 		addTexture("blueButtonNew_over", new Texture("textures/ui/ingame/blueButtonNewOver.png"));
 		
 		addTexture("setupGameBackground", new Texture("textures/background/iceBgProvisional.jpg"));
+		addTexture("setupGameBackground2", new Texture("textures/background/worldmap1.jpg"));
+		addTexture("setupGameBackground3", new Texture("textures/background/worldmap2.jpg"));
 		
 		
 		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));

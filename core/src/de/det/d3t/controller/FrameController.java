@@ -14,10 +14,11 @@ public class FrameController extends Game implements ApplicationListener {
 
 	private Screen currentScreen;
 	private boolean released =true;
+	private boolean startup = true;
 	
 	@Override
 	public void create() {
-		System.out.println("Screen set to MenuFrame by default");
+		System.out.println("FrameController: Screen set to MenuFrame by default");
         setScreen(new MenuFrame(this));		
         currentScreen = (Screen) getScreen();
 	}
@@ -42,17 +43,6 @@ public class FrameController extends Game implements ApplicationListener {
 				released = true;
 			}
 		}
-		
-		
-		if(currentScreen==null){
-
-		}
-	    else{
-	    	if(!currentScreen.getClass().toString().equals(getScreen().getClass().toString())){
-	    		System.out.println("Screen set to" + currentScreen.getClass().getSimpleName() + " by user");
-
-	    	}
-	    }
 		
 	}
 
@@ -84,6 +74,12 @@ public class FrameController extends Game implements ApplicationListener {
 	        }
 	      currentScreen = screen;
 	      currentScreen.show();
+	      if(startup == false){
+	    	  System.out.println("FrameController: Screen set to " + currentScreen.getClass().getSimpleName() + " by user");
+	      }
+	      else{
+	    	  startup = false;
+	      }
 	      this.screen = currentScreen;
 	      
 	}
