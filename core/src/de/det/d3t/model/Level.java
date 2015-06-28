@@ -18,6 +18,7 @@ public class Level {
 	private int id;
 	private ArrayList<Wave> waveList = new ArrayList<Wave>();
 	private ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
+	private int gold;
 
 	/**
 	 * Number of seconds to pass between starting the map and starting the first
@@ -180,7 +181,29 @@ public class Level {
 	public void setSpawnAreaList(ArrayList<Rectangle> spawnAreaList) {
 		this.spawnAreaList = spawnAreaList;
 	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
 	
-	
+	public void updateGold(){
+		for (Wave v : waveList){
+			int temp = v.getDeceased();
+			v.updateDeceased();
+			if (v.getDeceased() > temp){
+				int diff = v.getDeceased() - temp;
+				setGold(getGold()+(int)(diff*v.getIncomePerMinute()));
+			}
+			if (!v.isCompleted() && v.getDeceased() == v.size()){
+				gold += v.getIncomeForCompletion();
+				v.complete();
+			}
+			
+		}
+	}
 	
 }

@@ -1,5 +1,6 @@
 package de.det.d3t.frame;
 
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -40,13 +41,13 @@ import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
 import de.det.d3t.model.AntiGravityTower;
+import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.Connection;
 import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
 import de.det.d3t.model.MagnetTower;
 import de.det.d3t.model.SingleShotTower;
-
 
 public class GameFrame extends InputListener implements Screen {
 	private Stage stage;
@@ -251,6 +252,8 @@ public class GameFrame extends InputListener implements Screen {
 		
 		
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
+		stage.addActor(new AntiGravityTower(2500,4500,2));
+		stage.addActor(new AoeTower(3500,4500,2));
 		
 
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
@@ -404,6 +407,9 @@ public class GameFrame extends InputListener implements Screen {
 			timekeeper.update(delta);
 			ingameTimeLabel.setText(timekeeper.timeAsString());
 		}
+		
+		ingameGoldLabel.setText(levelController.getGold()+"");
+		
 		stage.draw();
 		ui.draw();
 		/*ui.getBatch().begin();

@@ -20,6 +20,9 @@ public class Wave extends ArrayList<Enemy> {
 	 * The income the player receives per minute
 	 */
 	private float incomePerMinute;
+	
+	private int deceased = 0;
+	private boolean waveCompleted = false;
 
 	/**
 	 * 
@@ -51,6 +54,14 @@ public class Wave extends ArrayList<Enemy> {
 			add(clonedEnemy);
 		}
 	}
+	
+	public boolean isCompleted(){
+		return waveCompleted;
+	}
+	
+	public void complete(){
+		waveCompleted = true;
+	}
 
 	public float getDelayAfter() {
 		return delayAfter;
@@ -75,5 +86,20 @@ public class Wave extends ArrayList<Enemy> {
 	public void setIncomePerMinute(float incomePerMinute) {
 		this.incomePerMinute = incomePerMinute;
 	}
+
+	public int getDeceased() {
+		return deceased;
+	}
+
+	public void updateDeceased() {
+		deceased = 0;
+		for (Enemy e : this){
+			if (e.getHp() < 0.1f){
+				deceased++;
+			}
+		}
+	}
+	
+	
 
 }
