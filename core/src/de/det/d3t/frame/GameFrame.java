@@ -35,6 +35,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.TileMapIntersectionDetector;
+import de.det.d3t.controller.BuildingController;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
@@ -64,6 +65,7 @@ public class GameFrame extends InputListener implements Screen {
 	
 	private Game game;
 	private LevelController levelController;
+	private BuildingController buildingController;
 	
 	private boolean escMenuShowing = false;
 	private boolean escReleased = true;
@@ -203,6 +205,10 @@ public class GameFrame extends InputListener implements Screen {
 			}
 		}
 		
+
+		setupBuilding();
+		
+		
 		ls.font = TextureFactory.getFont("emmett",320, Color.valueOf("DDDCE0"));
 		
 		buildTower = new Label("Turm bauen",ls);
@@ -244,14 +250,16 @@ public class GameFrame extends InputListener implements Screen {
 		escMenuStage.addActor(escButtonMainMenu);
 		
 		
-
+		stage.addActor(new SingleShotTower(2000, 4500, 2));
 		
 
-		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory.getTexture("testLine"), 4f, 2f, 500f));
 		stage.addActor(new SingleShotTower(2000, 4500, 2));
-		stage.addActor(new DummyTower(3000,4500,2));
-		stage.addActor(new AntiGravityTower(2500,4500,2));
-		stage.addActor(new MagnetTower(6000,6000,2));
+
+		
+		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory.getTexture("testLine"), 4f, 2f, 200f));
+//		stage.addActor(new DummyTower(3000,4500,2));
+//		stage.addActor(new AntiGravityTower(2500,4500,2));
+//		stage.addActor(new MagnetTower(6000,6000,2));
 //		for(int j = 1; j <= 100; j++){
 //			float x = (float) (Math.random() * Settings.viewportWidth);
 //			float y = (float) (Math.random() * Settings.viewportHeight);
@@ -266,7 +274,7 @@ public class GameFrame extends InputListener implements Screen {
 ////			}
 //		}
 		//new RadialSprite(new TextureRegion(TextureFactory.getTexture("basic")));
-		
+
 		levelController.startGame(stage);
 		
 	}
@@ -304,6 +312,27 @@ public class GameFrame extends InputListener implements Screen {
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
 	}
 	
+	public void setupBuilding(){
+		buildingController = new BuildingController();
+		int i = 0;
+		int j = 0;
+		
+		for(BuildingController.TowerDescription towerDesc : buildingController.getTowerDescList()){
+			
+			towerDesc.image.setX(width/2 + width/4 + width/12 + width/30 - width/450 +(i * 700));
+			towerDesc.image.setY(height/10 + height/180 +(j*700));
+			towerDesc.image.scaleBy(10);
+			((InputMultiplexer) Gdx.input.getInputProcessor()).addProcessor(towerDesc);
+			ui.addActor(towerDesc.image);
+			
+			i++;
+			if(i == 3){
+				i = 0;
+				j++;
+			}
+			
+		}
+	}
 	
 	public void manageInputs(){
 		inputMultiplexer = new InputMultiplexer();
@@ -430,22 +459,27 @@ public class GameFrame extends InputListener implements Screen {
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonCloseGame)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonMainMenu)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonLoadGame)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonSaveGame)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if(event.getListenerActor().equals(escButtonLevelSelect)){
+			if(escMenuShowing)
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
@@ -461,18 +495,57 @@ public class GameFrame extends InputListener implements Screen {
 		if(event.getListenerActor().equals(ingameButtonMenu)){
 			escMenuShowing = !escMenuShowing;
 		}
+		if(event.getListenerActor().equals(ingameButtonHelp)){
+
+		}
+		if(event.getListenerActor().equals(ingameButtonOptions)){
+
+		}
+		if(event.getListenerActor().equals(ingameButtonRestart)){
+
+		}
+
+
 		
 		
 		
+
 		
 		
 		
 		//ESC MENU
 		if(event.getListenerActor().equals(escButtonCloseGame)){
 			//TODO: show dialog "Unsaved progress won't be saved! Do you want to save your game before closing? "
+			if(escMenuShowing)
 			Gdx.app.exit();
 		}
 		
+		if(event.getListenerActor().equals(escButtonMainMenu)){
+			//TODO: add dialog: "You are going back to the main menu. Unsaved progress will be lost! Do you want to save before leaving the game to the Main Menu?"
+			if(escMenuShowing){
+				game.setScreen(new MenuFrame(game));
+				bgmMusic.stop();
+			}
+			
+		}
+		if(event.getListenerActor().equals(escButtonLoadGame)){
+			if(escMenuShowing){
+				
+			}			
+		}
+		if(event.getListenerActor().equals(escButtonSaveGame)){
+			if(escMenuShowing){
+				
+			}
+			
+		}
+		if(event.getListenerActor().equals(escButtonLevelSelect)){
+			if(escMenuShowing){
+				//TODO: add dialog: "You are going back to the level Selection. Unsaved progress of the running level will be lost! Do you want to save before leaving the running level to the level selection?"
+				game.setScreen(new SetupGameFrame(game));
+				bgmMusic.stop();
+			}
+		}
 		
 		
 		
@@ -534,7 +607,7 @@ public class GameFrame extends InputListener implements Screen {
 		
 		public String timeAsString(){
 			String minutesString = String.valueOf((int) java.lang.Math.floor(seconds / 60));
-			String secondsString = String.valueOf((int) java.lang.Math.floor(seconds));
+			String secondsString = String.valueOf((int) java.lang.Math.floor(seconds) % 60);
 			if(minutesString.length() == 1){
 				minutesString = "0" + minutesString;
 			}
