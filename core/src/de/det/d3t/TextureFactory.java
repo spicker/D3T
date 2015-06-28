@@ -37,6 +37,11 @@ public class TextureFactory {
 		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2+7.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
+		
+		addTexture("hpbarTower", new Texture("textures/gameElements/hpBar/towerHp_Full.png"));
+		addTexture("hpbarbackTower", new Texture("textures/gameElements/hpBar/towerHp_Empty.png"));
+		addTexture("towerBackground", new Texture("textures/gameElements/towers/towerBackground.png"));
+		
 		addTexture("singleShotMissle", new Texture("textures/gameElements/towers/tower_cannon_ball.png"));
 		addTexture("testLine", new Texture("textures/thunder.png"));
 		
@@ -218,6 +223,31 @@ public class TextureFactory {
 		addTexture("setupGameBackground2", new Texture("textures/background/worldmap1.jpg"));
 		addTexture("setupGameBackground3", new Texture("textures/background/worldmap2.jpg"));
 		
+		addTexture("setupGameBackgroundExample", new Texture("textures/ui/setupGame/worldMapExample.png"));
+		
+		addTexture("conquered1", new Texture("textures/ui/setupGame/conquered1.png"));
+		addTexture("conquered2", new Texture("textures/ui/setupGame/conquered2.png"));
+		addTexture("conquered3", new Texture("textures/ui/setupGame/conquered3.png"));
+		addTexture("conquered4", new Texture("textures/ui/setupGame/conquered4.png"));
+		addTexture("conquered5", new Texture("textures/ui/setupGame/conquered5.png"));
+		addTexture("conquered6", new Texture("textures/ui/setupGame/conquered6.png"));
+		addTexture("conquered7", new Texture("textures/ui/setupGame/conquered7.png"));
+		
+		
+		addTexture("level1Red", new Texture("textures/ui/setupGame/level1Red.png"));
+		addTexture("level1Green", new Texture("textures/ui/setupGame/level1Green.png"));
+		addTexture("level2Red", new Texture("textures/ui/setupGame/level2Red.png"));
+		addTexture("level2Green", new Texture("textures/ui/setupGame/level2Green.png"));
+		addTexture("level3Red", new Texture("textures/ui/setupGame/level3Red.png"));
+		addTexture("level3Green", new Texture("textures/ui/setupGame/level3Green.png"));
+		addTexture("level4Red", new Texture("textures/ui/setupGame/level4Red.png"));
+		addTexture("level4Green", new Texture("textures/ui/setupGame/level4Green.png"));
+		addTexture("level5Red", new Texture("textures/ui/setupGame/level5Red.png"));
+		addTexture("level5Green", new Texture("textures/ui/setupGame/level5Green.png"));
+		addTexture("level6Red", new Texture("textures/ui/setupGame/level6Red.png"));
+		addTexture("level6Green", new Texture("textures/ui/setupGame/level6Green.png"));
+		addTexture("level7Red", new Texture("textures/ui/setupGame/level7Red.png"));
+		addTexture("level7Green", new Texture("textures/ui/setupGame/level7Green.png"));
 		
 		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));
 		

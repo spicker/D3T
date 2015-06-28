@@ -23,17 +23,17 @@ public class Tower extends Circle{
 	private RadialSprite hpBarFrontSprite;
 	
 	public Tower(float x, float y, float scale) {
-		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
+		super(TextureFactory.getTexture("towerBackground"), (TextureFactory.getTexture("towerBackground").getHeight() / 4) * scale);
 		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;
 		this.components = new Group();
-		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
-		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
+		hpBarBack = new Image(TextureFactory.getTexture("hpbarbackTower"));
+		hpBarBack.setBounds(x - TextureFactory.getTexture("towerBackground").getWidth()/2*0.5f, y - TextureFactory.getTexture("towerBackground").getHeight()/2*0.5f, TextureFactory.getTexture("towerBackground").getWidth()/2 * scale*1.5f, TextureFactory.getTexture("towerBackground").getHeight()/2 * scale*1.5f);
 		components.addActor(hpBarBack);
-		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
+		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbarTower")));
 		hpBarFront = new Image(hpBarFrontSprite);
 		hpBarFrontSprite.setColor(Color.valueOf("00FF00"));
-		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale , TextureFactory.getTexture("enemy").getHeight() * scale);
+		hpBarFront.setBounds(x - TextureFactory.getTexture("towerBackground").getWidth()/2*0.5f, y - TextureFactory.getTexture("towerBackground").getHeight()/2*0.5f, TextureFactory.getTexture("towerBackground").getWidth()/2 * scale*1.5f , TextureFactory.getTexture("towerBackground").getHeight()/2 * scale*1.5f);
 		components.addActor(hpBarFront);
 	}
 		

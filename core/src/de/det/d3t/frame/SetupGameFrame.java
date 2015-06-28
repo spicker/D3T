@@ -121,7 +121,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		
 		
-		stageBackground = new Image(TextureFactory.getTexture("setupGameBackground2"));
+		stageBackground = new Image(TextureFactory.getTexture("setupGameBackgroundExample")); //setupGameBackground2"));
 		stageBackground.setBounds(0, 0, width, height);
 		
 		
