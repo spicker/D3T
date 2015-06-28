@@ -403,6 +403,9 @@ public class GameFrame extends InputListener implements Screen {
 			timekeeper.update(delta);
 			ingameTimeLabel.setText(timekeeper.timeAsString());
 		}
+		
+		ingameGoldLabel.setText(levelController.getGold()+"");
+		
 		stage.draw();
 		ui.draw();
 		/*ui.getBatch().begin();

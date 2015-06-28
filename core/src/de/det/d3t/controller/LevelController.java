@@ -68,6 +68,8 @@ public class LevelController {
 				limit = Float.POSITIVE_INFINITY;
 			}
 		}
+		
+		getCurrentLevel().updateGold();
 
 	}
 
@@ -296,4 +298,7 @@ public class LevelController {
 		levelList.add(level);
 	}
 
+	public int getGold(){
+		return getCurrentLevel().getGold();
+	}
 }
