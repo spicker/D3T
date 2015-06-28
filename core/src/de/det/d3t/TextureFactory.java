@@ -132,6 +132,7 @@ public class TextureFactory {
 		addTexture("fire", new Texture("textures/gameElements/towers/labels/fire.png"));
 		addTexture("labe_tower2", new Texture("textures/gameElements/towers/labels/labe_tower2.png"));
 		addTexture("label_tower1", new Texture("textures/gameElements/towers/labels/label_tower1.png"));
+		addTexture("singleShotIcon", new Texture("textures/gameElements/towers/labels/singleShotIcon.png"));
 		
 		TextureRegion[] animReg = new TextureRegion[11];
 		TextureRegion[] animReg2 = new TextureRegion[11];
@@ -248,6 +249,10 @@ public class TextureFactory {
 		addTexture("level6Green", new Texture("textures/ui/setupGame/level6Green.png"));
 		addTexture("level7Red", new Texture("textures/ui/setupGame/level7Red.png"));
 		addTexture("level7Green", new Texture("textures/ui/setupGame/level7Green.png"));
+		
+		
+		addTexture("lock_open", new Texture("textures/ui/setupGame/lock_open.png"));
+		addTexture("lock_locked", new Texture("textures/ui/setupGame/lock_locked.png"));
 		
 		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));
 		

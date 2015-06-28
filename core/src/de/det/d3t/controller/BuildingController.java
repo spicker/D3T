@@ -27,18 +27,21 @@ public class BuildingController {
 		TowerDescription current;
 
 		current = new TowerDescription("Anti Gravity", "Will pull stuff",
-				TextureFactory.getTexture("labe_tower2"));
+				TextureFactory.getTexture("singleShotIcon"));
+		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		towerToDescMap.put(AntiGravityTower.class, current);
 
 		
 		current = new TowerDescription("AOE", "Will push more stuff",
-				TextureFactory.getTexture("labe_tower2"));
+				TextureFactory.getTexture("singleShotIcon"));
+		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		towerToDescMap.put(AoeTower.class, current);
 
 		current = new TowerDescription("Single Shot", "Will push 1 stuff",
-				TextureFactory.getTexture("labe_tower2"));
+				TextureFactory.getTexture("singleShotIcon"));
+		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		towerToDescMap.put(SingleShotTower.class, current);
 
@@ -149,6 +152,11 @@ public class BuildingController {
 		@Override
 		public boolean scrolled(int amount) {
 			return false;
+		}
+		
+		public void setImageBounds( int width, int height){
+			this.image.setWidth(width);
+			this.image.setHeight(height);
 		}
 
 	}
