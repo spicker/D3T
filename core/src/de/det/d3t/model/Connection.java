@@ -22,7 +22,6 @@ public class Connection extends Actor {
 	private float difY;
 	private float distance;
 	private float angle;
-	private float movedDistance = 0;
 	private float x1;
 	private float y1;
 	private float x2;
@@ -50,15 +49,8 @@ public class Connection extends Actor {
 		angle = (float) Math.atan2(difY, difX);
 		angle = (float) Math.toDegrees(angle);
 		int c = 0;
-		Sprite s;
-		s = new Sprite(TextureFactory.getTexture("basic"));
-		s.setBounds(x1 - 25, y1 - 25, 50, 50);
-		segments.add(s);
-		s = new Sprite(TextureFactory.getTexture("basic"));
-		s.setBounds(x2 - 25, y2 - 25, 50, 50);
-		segments.add(s);
 		for(float lx = 0; lx < distance; lx += step){
-			s = new Sprite(t);
+			Sprite s = new Sprite(t);
 			s.setU2(0);
 			s.setV2(0);
 			s.setV(1f);
@@ -103,36 +95,43 @@ public class Connection extends Actor {
 	
 	@Override
 	public void act(float delta) {
+		boolean first = true;
 		for(Sprite s : segments){
-			s.setPosition(s.getX() + difX * delta * speed, s.getY() + difY * delta * speed);
+			if(!first){
+				s.setPosition(s.getX() + difX * delta * speed, s.getY() + difY * delta * speed);
+			}else{
+				first = false;
+			}
 		}
 		Sprite s = segments.get(segments.size() - 1);
 		float stx = s.getX() + step * difX;
-		float sty = s.getY() + step * difY - width / 2;
+		float sty = s.getY() + step * difY;
 		stx -= x2;
 		sty -= y2;
 		float distance =  (float) Math.sqrt(stx * stx + sty * sty);
 		if(distance > step){
 			segments.remove(s);
 		}else{
-			s.setU2((distance / step));
+			s.setU2(1 - (distance / step));
 			s.setSize(step - distance, width);
 		}
 		
 		
 		s = segments.get(0);
 		Sprite s2 = segments.get(1);
-		stx = x1 - s2.getX();
-		sty = y1 - s2.getY();
+		stx = s2.getX() - x1;
+		sty = s2.getY() - y1;
 		distance =  (float) Math.sqrt(stx * stx + sty * sty);
 		if(distance > step){
+			s.setSize(step + 1, width);
 			Sprite s3 = new Sprite(texture);
-			s3.setBounds(x1, y1 - width / 2, step, width);
+			s3.setBounds(x1, y1, distance - step, width);
+			s3.setOrigin(0, width / 2f);
 			s3.setRotation(angle);
 			segments.add(0, s3);
 		}else{
-			s.setU((distance / step));
-			s.setSize(step - distance, width);
+			s.setU(1 - (distance / step));
+			s.setSize(step - (step - distance), width);
 		}
 		
 		
