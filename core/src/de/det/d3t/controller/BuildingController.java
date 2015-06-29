@@ -27,7 +27,7 @@ public class BuildingController {
 		TowerDescription current;
 
 		current = new TowerDescription("Anti Gravity", "Will pull stuff",
-				TextureFactory.getTexture("singleShotIcon"));
+				TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		towerToDescMap.put(AntiGravityTower.class, current);

@@ -322,8 +322,8 @@ public class GameFrame extends InputListener implements Screen {
 		
 		for(BuildingController.TowerDescription towerDesc : buildingController.getTowerDescList()){
 			
-			towerDesc.image.setX(width/2 + width/4 + width/12 + width/30 - width/450 +(i * 700));
-			towerDesc.image.setY(height/10 + height/180 +(j*700));
+			towerDesc.image.setX(width/2 + width/4 + width/12 + width/28 +(i * 700));
+			towerDesc.image.setY(height/10 + height/60 +(j*700));
 			towerDesc.image.scaleBy(10);
 			((InputMultiplexer) Gdx.input.getInputProcessor()).addProcessor(towerDesc);
 			ui.addActor(towerDesc.image);
