@@ -211,7 +211,7 @@ public class TextureFactory {
 	
 	
 	
-	public static void loadALlSetupGameRessources(){
+	public static void loadAllSetupGameRessources(){
 		
 		
 		
@@ -255,6 +255,11 @@ public class TextureFactory {
 		
 		addTexture("lock_open", new Texture("textures/ui/setupGame/lock_open.png"));
 		addTexture("lock_locked", new Texture("textures/ui/setupGame/lock_locked.png"));
+		
+		addTexture("level_red", new Texture("textures/ui/setupGame/level_red.png"));
+		addTexture("level_green", new Texture("textures/ui/setupGame/level_green.png"));
+		addTexture("level_green_over", new Texture("textures/ui/setupGame/level_green_over.png"));
+		addTexture("level_green_down", new Texture("textures/ui/setupGame/level_green_down.png"));
 		
 		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));
 		
