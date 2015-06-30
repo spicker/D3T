@@ -35,6 +35,15 @@ public abstract class Entity extends Image {
 		}
 	}
 	
+	public static boolean isPlaceable(float x, float y, float radius){
+		for(Entity t : content){
+			if(CollisionFactory.hasIntersect(t, x, y, radius)){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public boolean remove() {
 		content.remove(this);

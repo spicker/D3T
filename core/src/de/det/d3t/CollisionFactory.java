@@ -89,4 +89,16 @@ public class CollisionFactory{
 	    b.setVelocityX(b.getVelocityX() - (impulseX * im2));
 	    b.setVelocityY(b.getVelocityY() - (impulseY * im2));
 	}
+	
+	public static boolean hasIntersect(Entity t, float x, float y, float radius){
+		if(t instanceof Circle){
+			Circle c = (Circle) t;
+			float difX = x - c.getCenterX();
+			float difY = y - c.getCenterY();
+			float distance = (float) Math.sqrt(difX*difX + difY*difY);
+			return distance < (radius + c.getRadius());
+		}else{
+			return false;
+		}
+	}
 }

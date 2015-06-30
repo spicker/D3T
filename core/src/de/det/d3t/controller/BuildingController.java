@@ -21,8 +21,12 @@ public class BuildingController {
 
 	private ArrayList<TowerDescription> towerDescList = new ArrayList<>();
 	private HashMap<Class<? extends Tower>, TowerDescription> towerToDescMap = new HashMap<>();
-	
+	private LabelStyle labelstyle;
+
 	public BuildingController() {
+
+		labelstyle = new LabelStyle();
+		labelstyle.font = TextureFactory.getFont("emmett", 200, Color.YELLOW);
 
 		TowerDescription current;
 
@@ -32,7 +36,6 @@ public class BuildingController {
 		towerDescList.add(current);
 		towerToDescMap.put(AntiGravityTower.class, current);
 
-		
 		current = new TowerDescription("AOE", "Will push more stuff",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
@@ -58,16 +61,18 @@ public class BuildingController {
 			this.name = name;
 			this.tooltip = tooltip;
 			this.image = new Image(texture);
+			label = new Label(name + "\n" + tooltip, labelstyle);
 		}
 
 		public String name;
 		public String tooltip;
+		public Label label;
 		public Image image;
-		
+
 		private boolean isHoveredOver = false;
 		private Image hoverImage = null;
 		private Label hoverLabel = null;
-		
+
 		@Override
 		public boolean keyDown(int keycode) {
 			return false;
@@ -105,42 +110,49 @@ public class BuildingController {
 					new Vector2(screenX, screenY));
 			float stagex = stageCoords.x;
 			float stagey = stageCoords.y;
-			
+
 			if (stagex > image.getX()
-					&& stagex < (image.getX() + image.getWidth() * image.getScaleX())
+					&& stagex < (image.getX() + image.getWidth()
+							* image.getScaleX())
 					&& stagey > image.getY()
-					&& stagey < (image.getY() + image.getHeight() * image.getScaleY())) {
-				
-				if(isHoveredOver == false){
-					System.out.println("Du bist mit der Maus auf dem Symbol für " + name);
+					&& stagey < (image.getY() + image.getHeight()
+							* image.getScaleY())) {
+
+				if (isHoveredOver == false) {
 					isHoveredOver = true;
-					
-					hoverImage = new Image(TextureFactory.getTexture("ingameButton1"));
-					hoverImage.setX(image.getX() + (image.getWidth() * image.getScaleX()/2));
-					hoverImage.setY(image.getY() + (image.getHeight() * image.getScaleY()/2));
+
+					hoverImage = new Image(
+							TextureFactory.getTexture("ingameButton1"));
+					hoverImage.setX(image.getX()
+							+ (image.getWidth() * image.getScaleX() / 2));
+					hoverImage.setY(image.getY()
+							+ (image.getHeight() * image.getScaleY() / 2));
 					hoverImage.setScale(7);
-					
-					if(hoverImage.getX() + (hoverImage.getWidth() * hoverImage.getScaleX()) > image.getStage().getWidth()){
-						hoverImage.setX(hoverImage.getX() - (hoverImage.getWidth() * hoverImage.getScaleX()));
+
+					if (hoverImage.getX()
+							+ (hoverImage.getWidth() * hoverImage.getScaleX()) > image
+							.getStage().getWidth()) {
+						hoverImage.setX(hoverImage.getX()
+								- (hoverImage.getWidth() * hoverImage
+										.getScaleX()));
 					}
 					
-					LabelStyle ls = new LabelStyle();
-					ls.font = TextureFactory.getFont("emmett",200, Color.YELLOW);
-					
-					hoverLabel = new Label(name + "\n" + tooltip, ls);
+					hoverLabel = label;
 					hoverLabel.setX(hoverImage.getX() + 100);
-					hoverLabel.setY(hoverImage.getY() + (hoverImage.getHeight() * hoverImage.getScaleY()) - hoverLabel.getHeight() - 50);
-					
+					hoverLabel.setY(hoverImage.getY()
+							+ (hoverImage.getHeight() * hoverImage.getScaleY())
+							- hoverLabel.getHeight() - 50);
+
 					image.getStage().addActor(hoverImage);
 					image.getStage().addActor(hoverLabel);
-					
+
 				}
-				
+
 				return true;
 			}
-			
+
 			isHoveredOver = false;
-			if(hoverImage != null){
+			if (hoverImage != null) {
 				hoverImage.remove();
 				hoverImage = null;
 				hoverLabel.remove();
@@ -153,8 +165,8 @@ public class BuildingController {
 		public boolean scrolled(int amount) {
 			return false;
 		}
-		
-		public void setImageBounds( int width, int height){
+
+		public void setImageBounds(int width, int height) {
 			this.image.setWidth(width);
 			this.image.setHeight(height);
 		}

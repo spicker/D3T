@@ -196,7 +196,7 @@ public class Level {
 			v.updateDeceased();
 			if (v.getDeceased() > temp){
 				int diff = v.getDeceased() - temp;
-				setGold(getGold()+(int)(diff*v.getIncomePerMinute()));
+				setGold(getGold()+(int)(diff*v.getIncomePerKill()));
 			}
 			if (!v.isCompleted() && v.getDeceased() == v.size()){
 				gold += v.getIncomeForCompletion();

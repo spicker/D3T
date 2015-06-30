@@ -185,7 +185,6 @@ public class MenuFrame extends InputListener implements Screen {
 		uiStage.addActor(menuBg);
 		Texture texture = new Texture("badlogic.jpg");
 		Image i = new Image(texture);
-		uiStage.addActor(new Enemy(500, 610, 0.7f,false));
 		i = new Image(texture);
 		i.setBounds(0, 0, 500, 500);
 		i.rotateBy(180);

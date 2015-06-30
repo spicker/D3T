@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class particle extends Actor {
+public class Particle extends Actor {
 
 	private ParticleEffect particleEffect;
 	private int x = 400;
 	private int y = 600;
 
-	public particle(){
+	public Particle(){
 		createParticles();
 		adjustAngle();
 	}
