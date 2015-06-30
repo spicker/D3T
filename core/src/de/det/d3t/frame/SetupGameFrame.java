@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -71,7 +73,15 @@ public class SetupGameFrame extends InputListener implements Screen {
 	
 	
 	private Image uiBackground;
+	private Image uiMiddleLevel;
 	private Image stageBackground;
+	private Label levelLabel;
+	private Label levelTagLabel;
+	private Label levelInfo;
+	
+	private String selectedLevel = "1";
+	private LabelStyle ls;
+	private LabelStyle ls2;
 	
 	
 
@@ -104,11 +114,23 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		uiBackground = new Image(TextureFactory.getTexture("uiNewTop"));
 		uiBackground.setBounds(0, 0, width, height);
+		
+		uiMiddleLevel = new Image(TextureFactory.getTexture("uiLevelSelect"));
+		uiMiddleLevel.setBounds(width/2 - (5500/2), height/2 + height/5, 6000, 5500);
+		
+
+		
+		ls = new LabelStyle();
+		ls.font = TextureFactory.getFont("emmett",330, Color.valueOf("DDDCE0"));
+		
+		levelLabel = new Label("Level "  + selectedLevel, ls);
+		levelLabel.setBounds(width/2 - (700/2),7600 , 700, 800);
+		
+		
+		
+		ui.addActor(uiMiddleLevel);
 		ui.addActor(uiBackground);
-		
-		
-		
-		
+		ui.addActor(levelLabel);
 		
 		startLevelButton = new TextButton("Level Starten",textButtonStyle);
 		startLevelButton.setBounds(width/2 -(1900/2) + 4000, height/2  + height/3 + height/10, 1900, 500);

@@ -316,7 +316,7 @@ public class GameFrame extends InputListener implements Screen {
 	}
 	
 	public void setupBuilding(){
-		buildingController = new BuildingController();
+		buildingController = new BuildingController(stage, ui);
 		int i = 0;
 		int j = 0;
 		

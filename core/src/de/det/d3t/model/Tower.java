@@ -21,6 +21,7 @@ public class Tower extends Circle{
 	private Image hpBarBack;
 	private Image hpBarFront;
 	private RadialSprite hpBarFrontSprite;
+	private boolean active = true;
 	
 	public Tower(float x, float y, float scale) {
 		super(TextureFactory.getTexture("towerBackground"), (TextureFactory.getTexture("towerBackground").getHeight() / 4) * scale);
@@ -71,14 +72,31 @@ public class Tower extends Circle{
 	
 	@Override
 	protected void setStage(Stage stage) {
-		stage.addActor(components);
+		if(stage != null){
+			stage.addActor(components);
+		}
 		super.setStage(stage);
 	}
 	
+	public void removeHPbar(){
+		components.removeActor(hpBarFront);
+		components.removeActor(hpBarBack);
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public void act(float delta) {
-		hp-=0.1f;
-		hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
+		if(active){
+			hp-=0.1f;
+			hpBarFrontSprite.setAngle(360 * (1 -(hp / maxHp)));
+		}
 	}
 
 }
