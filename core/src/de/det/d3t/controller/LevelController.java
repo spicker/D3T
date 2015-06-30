@@ -237,7 +237,7 @@ public class LevelController {
 					String[] value = curLine.split(":");
 					if (value[0].equals("enemy")) {
 						waveList.get(waveList.size() - 1).addMultiple(
-								parseInt(value[1]), new Enemy(0, 0, 1, true));
+								parseInt(value[1]), new Enemy(0, 0, 1));
 					}
 				} else {
 					// if you reach this point you have read something you

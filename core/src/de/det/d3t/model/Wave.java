@@ -50,7 +50,7 @@ public class Wave extends ArrayList<Enemy> {
 	public void addMultiple(int n, Enemy enemy) {
 		for (int i = 0; i < n; i++) {
 			Enemy clonedEnemy = new Enemy(enemy.getCenterX(),
-					enemy.getCenterY(), enemy.getScaleX(), enemy.isIngame());
+					enemy.getCenterY(), enemy.getScaleX());
 			add(clonedEnemy);
 		}
 	}

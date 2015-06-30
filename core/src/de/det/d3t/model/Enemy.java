@@ -27,17 +27,13 @@ public class Enemy extends Circle{
 	private float velocityY = 0; 
 	private Image hpBarBack;
 	private Image hpBarFront;
-	private boolean ingame;
 	private RadialSprite hpBarFrontSprite;
 	
-	public Enemy(float x, float y, float scale, boolean ingame) {
+	public Enemy(float x, float y, float scale) {
 		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
-		if(ingame){
-			allEnemys.add(this);
-		}
+		allEnemys.add(this);
 		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;
-		this.ingame = ingame;
 		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
 		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
@@ -76,14 +72,8 @@ public class Enemy extends Circle{
 		delta = Math.min(delta, 0.03f);
 		float targetX = 0;
 		float targetY = 0;
-		if(ingame){
-			targetX = Settings.basePositionX - getX();
-			targetY = Settings.basePositionY - getY();
-		}
-		else{
-			targetX = Settings.getBasePositionMenuX() - getX();
-			targetY = Settings.getBasePositionMenuY() - getY();
-		}
+		targetX = Settings.basePositionX - getX();
+		targetY = Settings.basePositionY - getY();
 		float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
 		targetX /= length;
 		targetY /= length;
@@ -159,10 +149,6 @@ public class Enemy extends Circle{
 		return hpBarFront;
 	}
 
-	public boolean isIngame() {
-		return ingame;
-	}
-
 	public RadialSprite getHpBarFrontSprite() {
 		return hpBarFrontSprite;
 	}
@@ -226,10 +212,6 @@ public class Enemy extends Circle{
 
 	public void setHpBarFront(Image hpBarFront) {
 		this.hpBarFront = hpBarFront;
-	}
-
-	public void setIngame(boolean ingame) {
-		this.ingame = ingame;
 	}
 
 	public void setHpBarFrontSprite(RadialSprite hpBarFrontSprite) {
