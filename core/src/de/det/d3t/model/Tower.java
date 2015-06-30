@@ -16,7 +16,7 @@ import de.det.d3t.util.RadialSprite;
 public class Tower extends Circle{
 	private Group components;
 	private float scale;
-	private float maxHp = 100;
+	protected float maxHp = 100;
 	private float hp = 100;
 	private Image hpBarBack;
 	private Image hpBarFront;
