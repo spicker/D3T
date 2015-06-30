@@ -45,6 +45,7 @@ public class TextureFactory {
 		addTexture("singleShotMissle", new Texture("textures/gameElements/towers/tower_cannon_ball.png"));
 		addTexture("testLine", new Texture("textures/thunder.png"));
 		
+		addTexture("slowMissile",new Texture("textures/gameElements/towers/tower_green_ball.png"));
 		
 		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
 		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));

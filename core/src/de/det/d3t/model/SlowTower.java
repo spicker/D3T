@@ -7,7 +7,7 @@ import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 
 public class SlowTower extends Tower {
-	public float slowFactor = 3;
+	public float slowFactor = 2;
 	private float cd = 0.3f;
 	RotatingImage deco;
 	RotatingImage deco2;
@@ -41,12 +41,16 @@ public class SlowTower extends Tower {
 
 	
 	public void shoot(){
-		Missle m = new Missle(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);
+		Missle m = new Missle(TextureFactory.getTexture("slowMissile"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);
 		getStage().addActor(m);
 		m.setAction((Enemy e) -> {
 			if(e != null){
-				e.setAcceleration(e.getAcceleration() / slowFactor);
 				
+				//e.setAcceleration(e.getAcceleration() / slowFactor);
+				
+				e.setVelocityX(e.getVelocityX() / slowFactor);
+				e.setVelocityY(e.getVelocityY() / slowFactor);
+
 			}
 		});
 	}
