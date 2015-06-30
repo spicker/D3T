@@ -265,7 +265,7 @@ public class TextureFactory {
 		addTexture("level_green_down", new Texture("textures/ui/setupGame/level_green_down.png"));
 		
 		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));
-		
+		addTexture("uiLevelSelect", new Texture("textures/ui/ingame/uiLevelSelect.png"));
 		
 		
 	}
