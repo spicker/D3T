@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import de.det.d3t.model.Circle;
+import de.det.d3t.model.Connection;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
+import de.det.d3t.model.LineSegment;
 import de.det.d3t.model.Tower;
 
 public class CollisionFactory{
@@ -23,6 +25,13 @@ public class CollisionFactory{
 					}
 				}
 			}
+			if(a instanceof Enemy && b instanceof LineSegment){
+				collide((LineSegment) b, (Enemy) a);
+			}
+		}else if(a instanceof LineSegment){
+			if(b instanceof Enemy){
+				collide((LineSegment) a, (Enemy) b);
+			}
 		}
 	}
 	
@@ -33,6 +42,21 @@ public class CollisionFactory{
 		 float x = a.getCenterX() - b.getCenterX();
 		 float y = a.getCenterY() - b.getCenterY();
 		 return Math.sqrt((x * x) + (y * y)) < a.getRadius() + b.getRadius();
+	}
+	public static void collide(LineSegment s, Enemy e){
+		Connection con = s.getCon();
+		float l2 = con.getDistance();
+		float res;
+//		if(l2 == 0){
+//			float x = e.getCenterX() - 
+//			res = distToVecSquared(v1)
+//		}
+//		var t = ((this.x - v1.x) * (v2.x - v1.x) + (this.y - v1.y) * (v2.y - v1.y)) / l2
+//		if (t < 0) 
+//			return this.distToVecSquared(v1)
+//		if (t > 1) 
+//			return this.distToVecSquared(v2)
+//		return this.distToVecSquared( vec2( v1.x + t * (v2.x - v1.x), v1.y + t * (v2.y - v1.y) ) )
 	}
 	
 	public static void collide(Tower a, Enemy b){

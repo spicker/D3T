@@ -508,7 +508,8 @@ public class GameFrame extends InputListener implements Screen {
 
 		}
 		if(event.getListenerActor().equals(ingameButtonRestart)){
-
+			levelController.resetLevel();
+			timekeeper.seconds = 0f;
 		}
 
 

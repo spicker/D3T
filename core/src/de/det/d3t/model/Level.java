@@ -206,4 +206,12 @@ public class Level {
 		}
 	}
 	
+	public void remove(){
+		for (Wave v : waveList){
+			for (Enemy e : v){
+				e.remove();
+			}
+		}
+	}
+	
 }
