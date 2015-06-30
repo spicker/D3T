@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Wave extends ArrayList<Enemy> {
 
 	private static final long serialVersionUID = -2236476536541217050L;
-
+	private ArrayList<EnemyValues> queuedEnemyList = new ArrayList<>();
+	
 	/**
 	 * The delay in seconds after the wave before a new wave starts
 	 */
@@ -19,7 +20,7 @@ public class Wave extends ArrayList<Enemy> {
 	/**
 	 * The income the player receives per minute
 	 */
-	private float incomePerMinute;
+	private float incomePerKill;
 	
 	private int deceased = 0;
 	private boolean waveCompleted = false;
@@ -30,15 +31,15 @@ public class Wave extends ArrayList<Enemy> {
 	 *            The delay in seconds after the wave before a new wave starts
 	 * @param incomeForCompletion
 	 *            The income the player receives for killing all enemies
-	 * @param incomePerMinute
-	 *            The income the player receives per minute
+	 * @param incomePerKill
+	 *            The income the player receives per kill
 	 */
 	public Wave(float delayAfter, float incomeForCompletion,
-			float incomePerMinute) {
+			float incomePerKill) {
 		super();
 		this.delayAfter = delayAfter;
 		this.incomeForCompletion = incomeForCompletion;
-		this.incomePerMinute = incomePerMinute;
+		this.incomePerKill = incomePerKill;
 	}
 
 	/**
@@ -47,16 +48,43 @@ public class Wave extends ArrayList<Enemy> {
 	 * @param n
 	 * @param enemy
 	 */
-	public void addMultiple(int n, Enemy enemy) {
+	public void addMultiple(int n, float scale, float maxHp, float mass) {
 		for (int i = 0; i < n; i++) {
-			Enemy clonedEnemy = new Enemy(enemy.getCenterX(),
-					enemy.getCenterY(), enemy.getScaleX());
-			add(clonedEnemy);
+			EnemyValues enemy = new EnemyValues();
+			enemy.mass = mass;
+			enemy.scale = scale;
+			enemy.maxhp = maxHp;
+			queuedEnemyList.add(enemy);
+		}
+	}
+	
+	/**
+	 * Adds n clones of enemy to the list
+	 * 
+	 * @param n
+	 * @param enemy
+	 */
+	public void addMultiple(int n) {
+		for (int i = 0; i < n; i++) {
+			EnemyValues enemy = new EnemyValues();
+			queuedEnemyList.add(enemy);
 		}
 	}
 	
 	public boolean isCompleted(){
 		return waveCompleted;
+	}
+	
+	public void spawn(){
+		for(EnemyValues values : queuedEnemyList){
+			Enemy enemy = new Enemy(0, 0, 1);
+			enemy.setScale(values.scale);
+			enemy.setMaxHp(values.maxhp);
+			enemy.setHp(values.maxhp);
+			enemy.setMass(values.mass);
+			add(enemy);
+		}
+		
 	}
 	
 	public void complete(){
@@ -79,12 +107,12 @@ public class Wave extends ArrayList<Enemy> {
 		this.incomeForCompletion = incomeForCompletion;
 	}
 
-	public float getIncomePerMinute() {
-		return incomePerMinute;
+	public float getIncomePerKill() {
+		return incomePerKill;
 	}
 
-	public void setIncomePerMinute(float incomePerMinute) {
-		this.incomePerMinute = incomePerMinute;
+	public void setIncomePerKill(float incomePerKill) {
+		this.incomePerKill = incomePerKill;
 	}
 
 	public int getDeceased() {
@@ -100,6 +128,10 @@ public class Wave extends ArrayList<Enemy> {
 		}
 	}
 	
-	
+	private class EnemyValues{
+		protected float scale = 1;
+		protected float maxhp = 100;
+		protected float mass = 1;
+	}
 
 }

@@ -43,12 +43,32 @@ public class SetupGameFrame extends InputListener implements Screen {
 	
 	private BitmapFont font;
 	private TextButtonStyle textButtonStyle;
+	private TextButtonStyle levelStyle;
+	private TextButtonStyle levelStyleDisabled;
 	
 	private Button startLevelButton;
 	private Button mainMenuButton;
 	private Button saveGameButton;
 	private Button loadGameButton;
 	private Button closeGameButton;
+	
+	private Button level1Button;
+	private Button level2Button;
+	private Button level3Button;
+	private Button level4Button;
+	private Button level5Button;
+	private Button level6Button;
+	private Button level7Button;
+	
+	private Image conquered1;
+	private Image conquered2;
+	private Image conquered3;
+	private Image conquered4;
+	private Image conquered5;
+	private Image conquered6;
+	private Image conquered7;
+	
+	
 	
 	private Image uiBackground;
 	private Image stageBackground;
@@ -58,7 +78,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 	private Game game;
 	
 	public SetupGameFrame(Game game){
-		TextureFactory.loadALlSetupGameRessources();
+		TextureFactory.loadAllSetupGameRessources();
 		setupStage();
 		setupUI();
 		manageInputs();
@@ -121,13 +141,104 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		
 		
-		stageBackground = new Image(TextureFactory.getTexture("setupGameBackgroundExample")); //setupGameBackground2"));
+		stageBackground = new Image(TextureFactory.getTexture("setupGameBackground2")); //setupGameBackground2"));
 		stageBackground.setBounds(0, 0, width, height);
+		stageBackground.addListener(this);
+		
+		font = TextureFactory.getFont("emmett",290, Color.valueOf("484848"));
+		levelStyle = new TextButtonStyle();
+		levelStyle.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("level_green")));
+		levelStyle.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("level_green_down")));
+		levelStyle.font = font;
+		levelStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("level_green_over")));		
+		
+		font = TextureFactory.getFont("emmett",290, Color.valueOf("484848"));
+		levelStyleDisabled = new TextButtonStyle();
+		levelStyleDisabled.up = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("level_red")));
+		levelStyleDisabled.down = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("level_red")));
+		levelStyleDisabled.font = font;
+		levelStyleDisabled.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("level_red")));	
+		
+		level1Button = new TextButton("1",levelStyle);
+		level1Button.setBounds(width/2 - width/4 + width/40,height/2 + height/8 - height/80,500,500);
+		level1Button.addListener(this);
+		
+		level2Button = new TextButton("2",levelStyleDisabled);
+		level2Button.setBounds(width/2 - width/4 -width/20,height/2 - height/3 + 100,500,500);
+		level2Button.addListener(this);
+		
+		level3Button = new TextButton("3",levelStyleDisabled);
+		level3Button.setBounds(6800,4130,500,500);
+		level3Button.addListener(this);
+		
+		level4Button = new TextButton("4",levelStyleDisabled);
+		level4Button.setBounds(5450,2950,500,500);
+		level4Button.addListener(this);
+		
+		level5Button = new TextButton("5",levelStyleDisabled);
+		level5Button.setBounds(8700,2430,500,500);
+		level5Button.addListener(this);
+		
+		level6Button = new TextButton("6",levelStyleDisabled);
+		level6Button.setBounds(11500,6300,500,500);
+		level6Button.addListener(this);
+		
+		level7Button = new TextButton("7",levelStyleDisabled);
+		level7Button.setBounds(12200,3400,500,500);
+		level7Button.addListener(this);
+		
+		
+		conquered1=new Image(TextureFactory.getTexture("conquered1"));
+		conquered1.setBounds(0, 0, width, height);
+		conquered1.setVisible(false);
+		
+		conquered2=new Image(TextureFactory.getTexture("conquered2"));
+		conquered2.setBounds(0, 0, width, height);
+		conquered2.setVisible(false);
+
+		conquered3=new Image(TextureFactory.getTexture("conquered3"));
+		conquered3.setBounds(0, 0, width, height);
+		conquered3.setVisible(false);
+		
+		conquered4=new Image(TextureFactory.getTexture("conquered4"));
+		conquered4.setBounds(0, 0, width, height);
+		conquered4.setVisible(false);
+		
+		conquered5=new Image(TextureFactory.getTexture("conquered5"));
+		conquered5.setBounds(0, 0, width, height);
+		conquered5.setVisible(false);
+		
+		conquered6=new Image(TextureFactory.getTexture("conquered6"));
+		conquered6.setBounds(0, 0, width, height);
+		conquered6.setVisible(false);
+		
+		conquered7=new Image(TextureFactory.getTexture("conquered7"));
+		conquered7.setBounds(0, 0, width, height);
+		conquered7.setVisible(false);
+		
 		
 		
 		stage.addActor(stageBackground);
 		
-		//TODO: stage --> background image of world and levels a.s.o.
+		
+		
+		stage.addActor(conquered1);
+		stage.addActor(conquered2);
+		stage.addActor(conquered3);
+		stage.addActor(conquered4);
+		stage.addActor(conquered5);
+		stage.addActor(conquered6);
+		stage.addActor(conquered7);
+		
+		
+		stage.addActor(level1Button);
+		stage.addActor(level2Button);
+		stage.addActor(level3Button);
+		stage.addActor(level4Button);
+		stage.addActor(level5Button);
+		stage.addActor(level6Button);
+		stage.addActor(level7Button);
+		
 		
 	}
 	
@@ -268,7 +379,8 @@ public class SetupGameFrame extends InputListener implements Screen {
 
 	@Override
 	public boolean mouseMoved(InputEvent event, float x, float y) {
-		// TODO Auto-generated method stub
+		
+		System.out.println("X: " + x + " Y: " + y);
 		return super.mouseMoved(event, x, y);
 	}
 

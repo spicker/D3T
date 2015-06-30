@@ -45,6 +45,8 @@ public class TextureFactory {
 		addTexture("singleShotMissle", new Texture("textures/gameElements/towers/tower_cannon_ball.png"));
 		addTexture("testLine", new Texture("textures/thunder.png"));
 		
+		addTexture("slowMissile",new Texture("textures/gameElements/towers/tower_green_ball.png"));
+		
 		
 		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
 		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));
@@ -129,7 +131,6 @@ public class TextureFactory {
 		addTexture("arrows_anim_green_10", new Texture("textures/gameElements/towers/generation/blink/arrows_anim_green10.png"));
 		
 		addTexture("ping", new Texture("textures/gameElements/towers/generation/ping/ping.png"));
-		
 		addTexture("falling_fireball", new Texture("textures/gameElements/towers/labels/falling_fireball.png"));
 		addTexture("fire", new Texture("textures/gameElements/towers/labels/fire.png"));
 		addTexture("labe_tower2", new Texture("textures/gameElements/towers/labels/labe_tower2.png"));
@@ -213,7 +214,7 @@ public class TextureFactory {
 	
 	
 	
-	public static void loadALlSetupGameRessources(){
+	public static void loadAllSetupGameRessources(){
 		
 		
 		
@@ -257,6 +258,11 @@ public class TextureFactory {
 		
 		addTexture("lock_open", new Texture("textures/ui/setupGame/lock_open.png"));
 		addTexture("lock_locked", new Texture("textures/ui/setupGame/lock_locked.png"));
+		
+		addTexture("level_red", new Texture("textures/ui/setupGame/level_red.png"));
+		addTexture("level_green", new Texture("textures/ui/setupGame/level_green.png"));
+		addTexture("level_green_over", new Texture("textures/ui/setupGame/level_green_over.png"));
+		addTexture("level_green_down", new Texture("textures/ui/setupGame/level_green_down.png"));
 		
 		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));
 		

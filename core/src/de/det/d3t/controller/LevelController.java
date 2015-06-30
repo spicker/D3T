@@ -30,6 +30,14 @@ public class LevelController {
 	boolean buildingPhase = true;
 
 	private Stage stage;
+	
+	public void resetLevel(){
+		getCurrentLevel().remove();
+		loadLevelFromFile(getCurrentLevel().getName());
+		limit = getCurrentLevel().getInitialDelay();
+		buildingPhase = true;
+		timer = 0;
+	}
 
 	public void startGame(Stage stage) {
 		this.stage = stage;
@@ -130,6 +138,150 @@ public class LevelController {
 			levelList.add(level);
 	}
 
+	private boolean loadLevelFromFile(String restartedLevelName){
+		try {
+			FileHandle fileHandle = Gdx.files
+					.internal("configs/levels.properties");
+			if (fileHandle.exists() == false) {
+				System.err.println("File not found: " + fileHandle.path());
+				return false;
+			}
+			BufferedReader buffReader = new BufferedReader(fileHandle.reader());
+
+			String curLine = buffReader.readLine();
+
+			if (curLine == null || !curLine.equals("D3T")) {
+				System.err.println("Levels file empty or corrupted");
+				buffReader.close();
+				return false;
+			}
+
+			boolean inLevelTag = false;
+			boolean inWaveTag = false;
+			String levelName = "No name";
+			String levelMapPath = "No path";
+			float levelInitDelay = 0;
+			ArrayList<Wave> waveList = new ArrayList<>();
+			ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
+
+			while (curLine != null) {
+				curLine = buffReader.readLine();
+
+				if (curLine == null) {
+					break;
+				}
+
+				if (curLine.isEmpty() || curLine.startsWith("#")
+						|| curLine.equals("D3T"))
+					continue;
+
+				if (curLine.equals("LEVEL")) {
+					inLevelTag = true;
+					continue;
+				}
+
+				if (inLevelTag) {
+					if (curLine.equals("ENDLEVEL")) {
+						if (levelName.equals(restartedLevelName)){
+						Level curLevel = new Level(levelName,
+								new TmxMapLoader().load("tilemap/"
+										+ levelMapPath), levelList.size(),
+								levelInitDelay);
+						curLevel.setSpawnAreaList(spawnAreaList);
+						for (Wave curWave : waveList){
+							curWave.spawn();
+							curLevel.addWave(curWave);
+						}
+
+						int i;
+						for (i=0; i < levelList.size();i++){
+							if (levelList.get(i).getName().equals(restartedLevelName)){
+								break;
+							}
+						}
+						levelList.remove(i);
+						levelList.add(i,curLevel);
+						System.out.println(curLevel.getName() + "added on Position "+i);
+						}
+
+						inLevelTag = false;
+						levelName = "No name";
+						levelMapPath = "No path";
+						levelInitDelay = 0;
+
+						continue;
+					}
+
+					// split the two values
+					String[] value = curLine.split(":");
+
+					if (value[0].equals("name")) {
+						levelName = value[1];
+						continue;
+					} else if (value[0].equals("map")) {
+						levelMapPath = value[1];
+						continue;
+					} else if (value[0].equals("delay")) {
+						levelInitDelay = Float.parseFloat(value[1].replace(',',
+								'.'));
+						continue;
+					} else if (value[0].equals("spawn")) {
+						spawnAreaList.add(new Rectangle(parseFloat(value[1]),
+								parseFloat(value[2]), parseFloat(value[3]),
+								parseFloat(value[4])));
+						continue;
+					} else if (value[0].equals("wave")) {
+						inWaveTag = true;
+						waveList.add(new Wave(parseFloat(value[1]),
+								parseFloat(value[2]), parseFloat(value[3])));
+						continue;
+					}
+				} else {
+					// if you reach this point you have read something you
+					// werent prepared for
+					System.err.println("Levels corrupted or has errors. Read: "
+							+ curLine + " without previous 'LEVEL'");
+					buffReader.close();
+					return false;
+				}
+
+				if (inWaveTag) {
+					if (curLine.equals("waveend")) {
+						inWaveTag = false;
+						continue;
+					}
+
+					// split the two values
+					String[] value = curLine.split(":");
+					if (value[0].equals("enemy")) {
+						waveList.get(waveList.size() - 1).addMultiple(
+								parseInt(value[1]));
+					}
+				} else {
+					// if you reach this point you have read something you
+					// werent prepared for
+					System.err.println("Levels corrupted or has errors. Read: "
+							+ curLine + " without previous 'LEVEL'");
+					buffReader.close();
+					return false;
+				}
+			}
+
+			buffReader.close();
+
+		} catch (IOException ex) {
+			System.err
+					.println("Loading levels file failed: " + ex.getMessage());
+			ex.printStackTrace();
+			return false;
+		} catch (NumberFormatException ex) {
+			System.err.println("Only use numbers as delay!");
+			return false;
+		}
+
+		return true;
+	}
+	
 	public boolean loadLevelsFromFile() {
 
 		try {
@@ -181,8 +333,10 @@ public class LevelController {
 										+ levelMapPath), levelList.size(),
 								levelInitDelay);
 						curLevel.setSpawnAreaList(spawnAreaList);
-						for (Wave curWave : waveList)
+						for (Wave curWave : waveList){
+							curWave.spawn();
 							curLevel.addWave(curWave);
+						}
 
 						levelList.add(curLevel);
 
@@ -237,7 +391,7 @@ public class LevelController {
 					String[] value = curLine.split(":");
 					if (value[0].equals("enemy")) {
 						waveList.get(waveList.size() - 1).addMultiple(
-								parseInt(value[1]), new Enemy(0, 0, 1));
+								parseInt(value[1]));
 					}
 				} else {
 					// if you reach this point you have read something you

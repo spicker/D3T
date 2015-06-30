@@ -196,13 +196,21 @@ public class Level {
 			v.updateDeceased();
 			if (v.getDeceased() > temp){
 				int diff = v.getDeceased() - temp;
-				setGold(getGold()+(int)(diff*v.getIncomePerMinute()));
+				setGold(getGold()+(int)(diff*v.getIncomePerKill()));
 			}
 			if (!v.isCompleted() && v.getDeceased() == v.size()){
 				gold += v.getIncomeForCompletion();
 				v.complete();
 			}
 			
+		}
+	}
+	
+	public void remove(){
+		for (Wave v : waveList){
+			for (Enemy e : v){
+				e.remove();
+			}
 		}
 	}
 	
