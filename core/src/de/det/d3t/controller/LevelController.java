@@ -51,9 +51,11 @@ public class LevelController {
 		if (getCurrentLevel().hasStarted() == false) {
 			getCurrentLevel().start();
 			timer = 0;
-			if(getCurrentLevel().hasNextWave()){
+			if (getCurrentLevel().hasNextWave()) {
 				limit = getCurrentLevel().getCurrentWave().getDelayAfter();
-				spawnWave(getCurrentLevel().getCurrentWave());
+				Wave wave = getCurrentLevel().getCurrentWave();
+				wave.spawn();
+				spawnWave(wave);
 			}
 			return;
 		}
@@ -61,6 +63,7 @@ public class LevelController {
 		if (timer >= limit) {
 			if (getCurrentLevel().hasNextWave()) {
 				Wave wave = getCurrentLevel().nextWave();
+				wave.spawn();
 				spawnWave(wave);
 				timer = 0;
 				limit = wave.getDelayAfter();
@@ -68,7 +71,7 @@ public class LevelController {
 				limit = Float.POSITIVE_INFINITY;
 			}
 		}
-		
+
 		getCurrentLevel().updateGold();
 
 	}
@@ -104,11 +107,12 @@ public class LevelController {
 
 	private boolean isValidSpawn(Enemy enemy, ArrayList<Enemy> alreadySpawned) {
 		for (Enemy spawnedEnemy : alreadySpawned) {
-			if ((spawnedEnemy.getX() - enemy.getX() < 150 && spawnedEnemy.getX()
-					- enemy.getX() > -150)){
-				return false;}
-			if ((spawnedEnemy.getY() - enemy.getY() < 150 && spawnedEnemy.getY()
-					- enemy.getY() > -150)) {
+			if ((spawnedEnemy.getX() - enemy.getX() < 150 && spawnedEnemy
+					.getX() - enemy.getX() > -150)) {
+				return false;
+			}
+			if ((spawnedEnemy.getY() - enemy.getY() < 150 && spawnedEnemy
+					.getY() - enemy.getY() > -150)) {
 				return false;
 			}
 		}
@@ -237,7 +241,7 @@ public class LevelController {
 					String[] value = curLine.split(":");
 					if (value[0].equals("enemy")) {
 						waveList.get(waveList.size() - 1).addMultiple(
-								parseInt(value[1]), new Enemy(0, 0, 1));
+								parseInt(value[1]));
 					}
 				} else {
 					// if you reach this point you have read something you
@@ -298,7 +302,7 @@ public class LevelController {
 		levelList.add(level);
 	}
 
-	public int getGold(){
+	public int getGold() {
 		return getCurrentLevel().getGold();
 	}
 }
