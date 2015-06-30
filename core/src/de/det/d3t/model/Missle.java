@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Missle extends Image {
-	private Tower start;
-	private Enemy target;
-	private float velocity;
+	protected Tower start;
+	protected Enemy target;
+	protected float velocity;
 	private HitAction action;
 	
 	public Missle(Texture texture, Tower start, Enemy target, float velocity, float radius) {
