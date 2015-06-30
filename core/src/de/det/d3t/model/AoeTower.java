@@ -4,17 +4,26 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 
+import de.det.d3t.TextureFactory;
+
 public class AoeTower extends Tower {
-	private float pingSize = 1000;
-	private float pingDuration = 1.5f;
-	private float pingTime = 3;
+	private float pingSize = 2000;
+	private float pingDuration = 0.5f;
+	private float pingTime = 1;
 	private float knockStrength = 500;
 	private float time = pingTime;
-	private float time_knockback = pingDuration;
-	private ArrayList<Enemy> hasBeenHit = new ArrayList<Enemy>();
+	private float pingCurSize = pingSize;
+	private float size;
+	private PingImage deco;
 
 	public AoeTower(float x, float y, float scale) {
 		super(x, y, scale);
+		this.size = TextureFactory
+				.getTexture("enemy").getWidth() * scale;
+		deco = new PingImage(TextureFactory.getTexture("ping"), size, pingSize, pingTime,pingDuration, this);
+		addComponent(deco);
+		// deco.setBounds(0, 0, TextureFactory.getTexture("enemy").getWidth()
+		// * scale, TextureFactory.getTexture("enemy").getWidth() * scale);
 
 	}
 
@@ -26,13 +35,14 @@ public class AoeTower extends Tower {
 			time = pingTime;
 		} else {
 			if (time < pingTime - pingDuration) {
-				time_knockback = pingDuration;
 
+				pingCurSize = size;
 			} else {
 				if (time < pingTime) {
-					time_knockback -= delta;
-					float curDist = (time_knockback / pingDuration) * pingSize;
-					aoeKnockback(curDist);
+
+					pingCurSize += (delta / pingDuration) * pingSize;
+
+					aoeKnockback(pingCurSize);
 				}
 			}
 		}
@@ -43,7 +53,7 @@ public class AoeTower extends Tower {
 
 	private void aoeKnockback(float curDist) {
 
-		ArrayList<Enemy> list = getAllInRange(Enemy.getAllEnemys(), curDist);
+		ArrayList<Enemy> list = getAllInRange(Enemy.getAllEnemys(), curDist/2);
 		for (Enemy e : list) {
 
 			if (e != null) {
@@ -60,6 +70,10 @@ public class AoeTower extends Tower {
 			}
 
 		}
+	}
+
+	public float getPingCurSize() {
+		return pingCurSize;
 	}
 
 }
