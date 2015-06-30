@@ -20,7 +20,7 @@ public class Wave extends ArrayList<Enemy> {
 	/**
 	 * The income the player receives per minute
 	 */
-	private float incomePerMinute;
+	private float incomePerKill;
 	
 	private int deceased = 0;
 	private boolean waveCompleted = false;
@@ -31,15 +31,15 @@ public class Wave extends ArrayList<Enemy> {
 	 *            The delay in seconds after the wave before a new wave starts
 	 * @param incomeForCompletion
 	 *            The income the player receives for killing all enemies
-	 * @param incomePerMinute
-	 *            The income the player receives per minute
+	 * @param incomePerKill
+	 *            The income the player receives per kill
 	 */
 	public Wave(float delayAfter, float incomeForCompletion,
-			float incomePerMinute) {
+			float incomePerKill) {
 		super();
 		this.delayAfter = delayAfter;
 		this.incomeForCompletion = incomeForCompletion;
-		this.incomePerMinute = incomePerMinute;
+		this.incomePerKill = incomePerKill;
 	}
 
 	/**
@@ -107,12 +107,12 @@ public class Wave extends ArrayList<Enemy> {
 		this.incomeForCompletion = incomeForCompletion;
 	}
 
-	public float getIncomePerMinute() {
-		return incomePerMinute;
+	public float getIncomePerKill() {
+		return incomePerKill;
 	}
 
-	public void setIncomePerMinute(float incomePerMinute) {
-		this.incomePerMinute = incomePerMinute;
+	public void setIncomePerKill(float incomePerKill) {
+		this.incomePerKill = incomePerKill;
 	}
 
 	public int getDeceased() {
