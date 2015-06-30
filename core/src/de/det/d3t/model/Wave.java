@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Wave extends ArrayList<Enemy> {
 
 	private static final long serialVersionUID = -2236476536541217050L;
-
+	private ArrayList<EnemyValues> queuedEnemyList = new ArrayList<>();
+	
 	/**
 	 * The delay in seconds after the wave before a new wave starts
 	 */
@@ -47,16 +48,43 @@ public class Wave extends ArrayList<Enemy> {
 	 * @param n
 	 * @param enemy
 	 */
-	public void addMultiple(int n, Enemy enemy) {
+	public void addMultiple(int n, float scale, float maxHp, float mass) {
 		for (int i = 0; i < n; i++) {
-			Enemy clonedEnemy = new Enemy(enemy.getCenterX(),
-					enemy.getCenterY(), enemy.getScaleX());
-			add(clonedEnemy);
+			EnemyValues enemy = new EnemyValues();
+			enemy.mass = mass;
+			enemy.scale = scale;
+			enemy.maxhp = maxHp;
+			queuedEnemyList.add(enemy);
+		}
+	}
+	
+	/**
+	 * Adds n clones of enemy to the list
+	 * 
+	 * @param n
+	 * @param enemy
+	 */
+	public void addMultiple(int n) {
+		for (int i = 0; i < n; i++) {
+			EnemyValues enemy = new EnemyValues();
+			queuedEnemyList.add(enemy);
 		}
 	}
 	
 	public boolean isCompleted(){
 		return waveCompleted;
+	}
+	
+	public void spawn(){
+		for(EnemyValues values : queuedEnemyList){
+			Enemy enemy = new Enemy(0, 0, 1);
+			enemy.setScale(values.scale);
+			enemy.setMaxHp(values.maxhp);
+			enemy.setHp(values.maxhp);
+			enemy.setMass(values.mass);
+			add(enemy);
+		}
+		
 	}
 	
 	public void complete(){
@@ -100,6 +128,10 @@ public class Wave extends ArrayList<Enemy> {
 		}
 	}
 	
-	
+	private class EnemyValues{
+		protected float scale = 1;
+		protected float maxhp = 100;
+		protected float mass = 1;
+	}
 
 }
