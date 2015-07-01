@@ -15,6 +15,10 @@ public class Settings {
 	private static float bgm = 1f;
 	private static float sfx = 1f;
 	
+	private static boolean levelConquered[] = {false,false,false,false,false,false,false};
+	
+	private static boolean levelUnlocked[] = {true,false,false,false,false,false,false};
+	
 	public static float getBgm() {
 		return bgm;
 	}
@@ -38,6 +42,18 @@ public class Settings {
 	}
 	public static void setBasePositionMenuY(float basePositionMenuY) {
 		Settings.basePositionMenuY = basePositionMenuY;
+	}
+	public static boolean[] getLevelConquered() {
+		return levelConquered;
+	}
+	public static void setLevelConquered(boolean[] levelConquered) {
+		Settings.levelConquered = levelConquered;
+	}
+	public static boolean[] getLevelUnlocked() {
+		return levelUnlocked;
+	}
+	public static void setLevelUnlocked(boolean[] levelUnlocked) {
+		Settings.levelUnlocked = levelUnlocked;
 	}
 	
 	

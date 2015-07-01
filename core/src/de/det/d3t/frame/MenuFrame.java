@@ -138,11 +138,11 @@ public class MenuFrame extends InputListener implements Screen {
 		
 		
 		PooledEffect effect = pool.obtain();
-		effect.setPosition(310, 690);
+		effect.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/4 + Gdx.graphics.getWidth()/150  , Gdx.graphics.getHeight()/2 + Gdx.graphics.getHeight()/4 + Gdx.graphics.getHeight()/9);
 		effect.setDuration(2000000000);
 		effects.add(effect);
 		PooledEffect effect2 = pool.obtain();
-		effect2.setPosition(855, 670);
+		effect2.setPosition(Gdx.graphics.getWidth()/2 + Gdx.graphics.getWidth()/4 - Gdx.graphics.getWidth()/30, Gdx.graphics.getHeight()/2 + Gdx.graphics.getHeight()/3 + Gdx.graphics.getHeight()/120);
 		effect2.setDuration(2000000000);
 		effects.add(effect2);
 		

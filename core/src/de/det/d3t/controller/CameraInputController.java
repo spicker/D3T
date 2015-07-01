@@ -72,7 +72,8 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) {
-		cam.zoom += amount / 10f;
+		cam.zoom = Math.max(0.1f, cam.zoom+(amount/10f));
+		//cam.zoom += amount / 10f;
 		return false;
 	}
 

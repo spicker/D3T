@@ -266,7 +266,7 @@ public class TextureFactory {
 		
 		addTexture("uiNewTop", new Texture("textures/ui/ingame/uiNewTop.png"));
 		addTexture("uiLevelSelect", new Texture("textures/ui/ingame/uiLevelSelect.png"));
-		
+		addTexture("uiSelectedLevelBackground", new Texture("textures/ui/ingame/selectedLevelBackground.png"));
 		
 	}
 	

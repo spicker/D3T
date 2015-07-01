@@ -99,11 +99,13 @@ public class GameFrame extends InputListener implements Screen {
 	
 	private Music bgmMusic;
 	private Sound buttonClickSound;
+	private int selectedLevel;
 	
 	private TimeKeeper timekeeper;
 	
-	public GameFrame(Game game){
+	public GameFrame(Game game, int selectedLevel){
 		this.game = game;
+		this.selectedLevel = selectedLevel;
 		TextureFactory.loadAllGameRessources();
 		setupStage();
 		setupUI();
