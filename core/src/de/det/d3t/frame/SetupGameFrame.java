@@ -503,30 +503,37 @@ public class SetupGameFrame extends InputListener implements Screen {
 		if(event.getListenerActor().equals(level1Button) && levelUnlocked[0]){
 			levelLabel.setText("Level 1");
 			levelInfo.setText("Gegner: schwach, Wellen: 10, Boss: ---");
+			selectedLevel = 1;
 		}
 		if(event.getListenerActor().equals(level2Button) && levelUnlocked[1]){
 			levelLabel.setText("Level 2");
 			levelInfo.setText("Gegner: schwach, Wellen: 10, Boss: EYE");
+			selectedLevel = 2;
 		}
 		if(event.getListenerActor().equals(level3Button) && levelUnlocked[2]){
 			levelLabel.setText("Level 3");
 			levelInfo.setText("Gegner: medium, Wellen: 15, Boss: ---");
+			selectedLevel = 3;
 		}
 		if(event.getListenerActor().equals(level4Button) && levelUnlocked[3]){
 			levelLabel.setText("Level 4");
 			levelInfo.setText("Gegner: medium, Wellen: 15, Boss: ---");
+			selectedLevel = 4;
 		}
 		if(event.getListenerActor().equals(level5Button) && levelUnlocked[4]){
 			levelLabel.setText("Level 5");
 			levelInfo.setText("Gegner: stark, Wellen: 10, Boss: ---");
+			selectedLevel = 5;
 		}
 		if(event.getListenerActor().equals(level6Button) && levelUnlocked[5]){
 			levelLabel.setText("Level 6");
 			levelInfo.setText("Gegner: medium, Wellen: 10, Boss: LEO");
+			selectedLevel = 6;
 		}
 		if(event.getListenerActor().equals(level7Button) && levelUnlocked[6]){
 			levelLabel.setText("Level 7");
 			levelInfo.setText("Gegner: stark, Wellen: 20, Boss: SUN");
+			selectedLevel = 7;
 		}
 		
 	

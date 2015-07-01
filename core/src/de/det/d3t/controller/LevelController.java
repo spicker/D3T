@@ -443,6 +443,10 @@ public class LevelController {
 		else
 			return false;
 	}
+	
+	public void setCurrentLevel(int level){
+		currentLevel = level;
+	}
 
 	public int getNumberOfLevels() {
 		return levelList.size();

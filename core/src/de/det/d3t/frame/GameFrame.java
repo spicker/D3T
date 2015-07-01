@@ -287,6 +287,15 @@ public class GameFrame extends InputListener implements Screen {
 	private void setupLevels() {
 		levelController = new LevelController();
 		levelController.loadLevelsFromFile();
+		switch(selectedLevel){
+			case 1:	levelController.setCurrentLevel(0);	break;
+			case 2:	levelController.setCurrentLevel(1);	break;
+			case 3:	levelController.setCurrentLevel(2);	break;
+			case 4:	levelController.setCurrentLevel(3);	break;
+			case 5:	levelController.setCurrentLevel(4);	break;
+			case 6:	levelController.setCurrentLevel(5);	break;
+			case 7:	levelController.setCurrentLevel(6);	break;
+		}
 	}
 	
 	public void setupStage(){
