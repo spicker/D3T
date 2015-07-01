@@ -41,7 +41,7 @@ public class SingleShotTower extends Tower {
 
 	
 	public void shoot(){
-		Missle m = new Missle(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);
+		Missile m = new Missile(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);
 		getStage().addActor(m);
 		m.setAction((Enemy e) -> {
 			if(e != null){
