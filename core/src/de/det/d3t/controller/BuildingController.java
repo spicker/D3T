@@ -4,26 +4,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-
+import de.det.d3t.CollisionFactory;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
+import de.det.d3t.model.Enemy;
 import de.det.d3t.model.SingleShotTower;
 import de.det.d3t.model.Tower;
 
 public class BuildingController {
 
 	private ArrayList<TowerDescription> towerDescList = new ArrayList<>();
-	private HashMap<Class<? extends Tower>, TowerDescription> towerToDescMap = new HashMap<>();
+	private HashMap<TowerDescription, Class<? extends Tower>> descToTowerMap = new HashMap<>();
 	private LabelStyle labelstyle;
+	private boolean buildingSelected = false;
+	private Tower buildTower = null;
+	private TowerDescription buildDesc = null;
+	private Stage gameStage, uiStage;
 
-	public BuildingController() {
+	public BuildingController(Stage gameStage, Stage uiStage) {
 
 		labelstyle = new LabelStyle();
 		labelstyle.font = TextureFactory.getFont("emmett", 200, Color.YELLOW);
@@ -34,20 +42,23 @@ public class BuildingController {
 				TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
-		towerToDescMap.put(AntiGravityTower.class, current);
+		descToTowerMap.put(current, AntiGravityTower.class);
 
 		current = new TowerDescription("AOE", "Will push more stuff",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
-		towerToDescMap.put(AoeTower.class, current);
+		descToTowerMap.put(current, AoeTower.class);
 
 		current = new TowerDescription("Single Shot", "Will push 1 stuff",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
-		towerToDescMap.put(SingleShotTower.class, current);
+		descToTowerMap.put(current, SingleShotTower.class);
 
+		this.gameStage = gameStage;
+		this.uiStage = uiStage;
+		
 	}
 
 	public ArrayList<TowerDescription> getTowerDescList() {
@@ -61,12 +72,14 @@ public class BuildingController {
 			this.name = name;
 			this.tooltip = tooltip;
 			this.image = new Image(texture);
+			this.texture = texture;
 			label = new Label(name + "\n" + tooltip, labelstyle);
 		}
 
 		public String name;
 		public String tooltip;
 		public Label label;
+		public Texture texture;
 		public Image image;
 
 		private boolean isHoveredOver = false;
@@ -96,6 +109,50 @@ public class BuildingController {
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+			if(buildingSelected && !hasCollisionWithGameObjects(buildTower)){
+				
+				Vector2 target = gameStage.screenToStageCoordinates(new Vector2(screenX, screenY));
+				
+				buildingSelected = false;
+				buildTower.remove();
+				buildTower = null;
+				
+				if(descToTowerMap.get(buildDesc) == SingleShotTower.class){
+					gameStage.addActor(new SingleShotTower(target.x,target.y, 2));
+				}
+				else if(descToTowerMap.get(buildDesc) == AoeTower.class){
+					gameStage.addActor(new AoeTower(target.x,target.y, 2));
+				}
+				else if(descToTowerMap.get(buildDesc) == AntiGravityTower.class){
+					gameStage.addActor(new AntiGravityTower(target.x,target.y, 2));
+				}
+				
+				
+				buildDesc = null;
+				
+				return true;
+			}
+			
+			if (button == Buttons.LEFT && isMouseOverMe(screenX, screenY)) {
+
+				Vector2 target = new Vector2(screenX, screenY);
+				
+				buildingSelected = true;
+				buildDesc = this;
+				buildTower = new Tower(target.x, target.y, 2);
+				buildTower.getColor().a = 0.5f;
+				buildTower.setActive(false);
+				buildTower.removeHPbar();
+				image.getStage().addActor(buildTower);
+				return true;
+			}
+
+			buildingSelected = false;
+			buildDesc = null;
+			if (buildTower != null) {
+				buildTower.remove();
+				buildTower = null;
+			}
 			return false;
 		}
 
@@ -104,19 +161,47 @@ public class BuildingController {
 			return false;
 		}
 
+		private boolean hasCollisionWithGameObjects(Tower tower){
+			for(Actor curActor : gameStage.getActors()){
+				
+				if(curActor instanceof Enemy || curActor instanceof Tower && curActor != buildTower){
+					
+					if(CollisionFactory.hasIntersect(buildTower, curActor.getX(), curActor.getY(), curActor.getWidth()/2)){
+						return true;
+					}
+				}
+				
+			}
+			
+			return false;
+		}
+		
 		@Override
 		public boolean mouseMoved(int screenX, int screenY) {
-			Vector2 stageCoords = image.getStage().screenToStageCoordinates(
-					new Vector2(screenX, screenY));
-			float stagex = stageCoords.x;
-			float stagey = stageCoords.y;
+			if(buildingSelected){
+				
+				Vector2 target = gameStage.screenToStageCoordinates(new Vector2(screenX, screenY));
+				
+				buildTower.setX(target.x - (buildTower.getWidth() / 2));
+				buildTower.setY(target.y - (buildTower.getHeight() / 2));
+				
+				boolean coll = hasCollisionWithGameObjects(buildTower);
+				
+				if(coll){
+					buildTower.getColor().r = 1f;
+					buildTower.getColor().g = 0.1f;
+					buildTower.getColor().b = 0.1f;
+				}
+				else{
+					buildTower.getColor().r = 0.1f;
+					buildTower.getColor().g = 1f;
+					buildTower.getColor().b = 0.1f;
+				}
+				
+				return true;
+			}
 
-			if (stagex > image.getX()
-					&& stagex < (image.getX() + image.getWidth()
-							* image.getScaleX())
-					&& stagey > image.getY()
-					&& stagey < (image.getY() + image.getHeight()
-							* image.getScaleY())) {
+			if(isMouseOverMe(screenX, screenY)){
 
 				if (isHoveredOver == false) {
 					isHoveredOver = true;
@@ -148,7 +233,7 @@ public class BuildingController {
 
 				}
 
-				return true;
+				return false;
 			}
 
 			isHoveredOver = false;
@@ -169,6 +254,23 @@ public class BuildingController {
 		public void setImageBounds(int width, int height) {
 			this.image.setWidth(width);
 			this.image.setHeight(height);
+		}
+
+		private boolean isMouseOverMe(float screenX, float screenY) {
+			Vector2 stageCoords = image.getStage().screenToStageCoordinates(
+					new Vector2(screenX, screenY));
+			float stagex = stageCoords.x;
+			float stagey = stageCoords.y;
+
+			if (stagex > image.getX()
+					&& stagex < (image.getX() + image.getWidth()
+							* image.getScaleX())
+					&& stagey > image.getY()
+					&& stagey < (image.getY() + image.getHeight()
+							* image.getScaleY()))
+				return true;
+
+			return false;
 		}
 
 	}

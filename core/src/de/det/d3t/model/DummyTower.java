@@ -90,6 +90,23 @@ public class DummyTower extends Tower {
 	}
 	
 	@Override
+	public boolean remove() {
+		deco.remove();
+		deco2.remove();
+		deco21.remove();
+		deco22.remove();
+		deco3.remove();
+		deco4.remove();
+		deco5.remove();
+		deco6.remove();
+		deco7.remove();
+		deco8.remove();
+		deco9.remove();
+		return super.remove();
+	}
+	
+	
+	@Override
 	public void act(float delta) {
 		/*cd -= delta;
 		if(cd < 0){

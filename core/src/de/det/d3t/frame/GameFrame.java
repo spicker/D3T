@@ -312,11 +312,11 @@ public class GameFrame extends InputListener implements Screen {
 		TiledMap map = levelController.getCurrentLevel().getTiledMap();
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(1);
 		lavaDetector = new TileMapIntersectionDetector(layer);
-		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
+		tileMapRenderer = new OrthogonalTiledMapRenderer(map, 2);
 	}
 	
 	public void setupBuilding(){
-		buildingController = new BuildingController();
+		buildingController = new BuildingController(stage, ui);
 		int i = 0;
 		int j = 0;
 		
@@ -508,7 +508,8 @@ public class GameFrame extends InputListener implements Screen {
 
 		}
 		if(event.getListenerActor().equals(ingameButtonRestart)){
-
+			levelController.resetLevel();
+			timekeeper.seconds = 0f;
 		}
 
 
