@@ -64,7 +64,7 @@ public class AoeTower extends Tower {
 
 				targetX /= length;
 				targetY /= length;
-				System.out.println(targetX);
+				//System.out.println(targetX);
 				Gdx.app.debug("AoeTower", "" + targetX);
 				e.addForce(targetX * knockStrength, targetY * knockStrength);
 			}

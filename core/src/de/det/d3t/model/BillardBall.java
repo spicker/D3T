@@ -2,26 +2,32 @@ package de.det.d3t.model;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import de.det.d3t.TextureFactory;
+public class BillardBall extends Circle {
 
-public class BillardBall extends Missile {
+	private float velocityX, velocityY, length;
 
-	private float scale = 1;
-	private float difX, difY, length;
+	private float radius;
+	private float velocity = 6000;
+	private float mass = 100000f;
 
-	public BillardBall(Texture texture, Tower start, Enemy target, float velocity, float radius) {
-		super(texture,start,target,velocity,radius);
-		setBounds(start.getCenterX() - radius / 2, start.getCenterY() - radius
-				/ 2, TextureFactory.getTexture("enemy").getWidth() * scale,
-				TextureFactory.getTexture("enemy").getHeight() * scale);
+	public BillardBall(Texture texture, Tower start, Enemy target, float scale) {
+		super(texture, (texture.getWidth() / 2) * scale);
+		this.radius = (texture.getWidth() / 2) * scale;
+		setBounds(start.getCenterX() - radius, start.getCenterY() - radius,
+				texture.getWidth() * scale, texture.getHeight() * scale);
 
 		if (target != null) {
-			difX = target.getCenterX() - getX() + getWidth() / 2;
-			difY = target.getCenterY() - getY() + getWidth() / 2;
-			length = (float) Math.sqrt(difX * difX + difY * difY);
-			difX /= length;
-			difY /= length;
-		}else{
+			velocityX = target.getCenterX() - getCenterX();
+			velocityY = target.getCenterY() - getCenterY();
+			length = (float) Math.sqrt(velocityX * velocityX + velocityY
+					* velocityY);
+//			System.out.println("BillardBall: " + ", difX: " + velocityX
+//					+ ", difY: " + velocityY + ", length: " + length);
+			velocityX /= length;
+			velocityY /= length;
+//			System.out.println("BillardBall: " + " difX: " + velocityX
+//					+ ", difY: " + velocityY);
+		} else {
 			remove();
 		}
 	}
@@ -29,12 +35,47 @@ public class BillardBall extends Missile {
 	@Override
 	public void act(float delta) {
 
-		if (target == null || target.getStage() == null) {
-			target = start.getNearest(Enemy.getAllEnemys());
-		} else {
+		if (Enemy.getAllEnemys().isEmpty()) {
+			remove();
 
-			setPosition(getX() + difX * velocity * delta, getY() + difY
-					* velocity * delta);
+		} else {
+			// System.out.println("BillardBall: "+"move");
+			setPosition(getX() + velocityX * velocity * delta, getY()
+					+ velocityY * velocity * delta);
+
 		}
 	}
+
+	public float getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(float velocity) {
+		this.velocity = velocity;
+	}
+
+	public float getMass() {
+		return mass;
+	}
+
+	public void setMass(float mass) {
+		this.mass = mass;
+	}
+
+	public float getVelocityX() {
+		return velocityX;
+	}
+
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+
+	public float getVelocityY() {
+		return velocityY;
+	}
+
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
+	}
+
 }

@@ -7,7 +7,7 @@ public class Missile extends Image {
 	protected Tower start;
 	protected Enemy target;
 	protected float velocity;
-	private HitAction action;
+	protected HitAction action;
 	
 	public Missile(Texture texture, Tower start, Enemy target, float velocity, float radius) {
 		super(texture);
