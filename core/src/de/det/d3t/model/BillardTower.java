@@ -8,9 +8,7 @@ public class BillardTower extends Tower {
 
 	private float shootTime = 1;
 	private float time = shootTime;
-	private float missileVel = 2000;
-	private float missileSize = 200;
-	private float knockStrength = 1000;
+	private float missileSize = 2;
 
 	public BillardTower(float x, float y, float scale) {
 		super(x, y, scale);
@@ -28,25 +26,15 @@ public class BillardTower extends Tower {
 	}
 
 	public void shoot() {
-		Missile m = new BillardBall(
-				TextureFactory.getTexture("singleShotMissle"), this,
-				getNearest(Enemy.getAllEnemys()), missileVel, missileSize);
-		// BillardBall b = new
-		// BillardBall(getCenterX(),getCenterY(),2,getNearest(Enemy.getAllEnemys()));
-		getStage().addActor(m);
-		m.setAction((Enemy e) -> {
-
-			if (e != null) {
-				float targetX = e.getCenterX() - getCenterX();
-				float targetY = e.getCenterY() - getCenterY();
-				float length = (float) Math.sqrt(targetX * targetX + targetY
-						* targetY);
-				targetX /= length;
-				targetY /= length;
-				e.addForce(targetX * knockStrength, targetY * knockStrength);
-			}
-
-		});
+		Enemy target = getNearest(Enemy.getAllEnemys());
+		if (target != null && target.getStage() != null) {
+			BillardBall m = new BillardBall(
+					TextureFactory.getTexture("singleShotMissle"), this,
+					getNearest(Enemy.getAllEnemys()), missileSize);
+			// BillardBall b = new
+			// BillardBall(getCenterX(),getCenterY(),2,getNearest(Enemy.getAllEnemys()));
+			getStage().addActor(m);
+		}
 	}
 
 	@Override
