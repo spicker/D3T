@@ -3,13 +3,13 @@ package de.det.d3t.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Missle extends Image {
+public class Missile extends Image {
 	protected Tower start;
 	protected Enemy target;
 	protected float velocity;
 	private HitAction action;
 	
-	public Missle(Texture texture, Tower start, Enemy target, float velocity, float radius) {
+	public Missile(Texture texture, Tower start, Enemy target, float velocity, float radius) {
 		super(texture);
 		this.start = start;
 		this.target = target;

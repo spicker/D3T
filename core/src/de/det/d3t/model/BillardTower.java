@@ -28,7 +28,7 @@ public class BillardTower extends Tower {
 	}
 	
 	public void shoot(){
-		Missle m = new BillardBall(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()),  missileVel, missileSize);
+		Missile m = new BillardBall(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()),  missileVel, missileSize);
 		//BillardBall b = new BillardBall(getCenterX(),getCenterY(),2,getNearest(Enemy.getAllEnemys()));
 		getStage().addActor(m);
 		m.setAction((Enemy e) -> {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import de.det.d3t.TextureFactory;
 
-public class BillardBall extends Missle {
+public class BillardBall extends Missile {
 
 	private float scale = 1;
 	private float difX, difY, length;
