@@ -42,6 +42,7 @@ import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
+import de.det.d3t.model.BillardTower;
 import de.det.d3t.model.Connection;
 import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
@@ -151,7 +152,7 @@ public class GameFrame extends InputListener implements Screen {
 		textButtonStyle.font = font;
 		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("blueButtonNew_over")));
 		
-	    ingameButtonMenu = new TextButton("Menü [ESC]", textButtonStyle);
+	    ingameButtonMenu = new TextButton("Menï¿½ [ESC]", textButtonStyle);
 	    ingameButtonMenu.setBounds(width/2 -(1900/2), height/2  + height/3 + height/10, 1900, 500);
 	    ingameButtonMenu.addListener(this);
 	    
@@ -241,7 +242,7 @@ public class GameFrame extends InputListener implements Screen {
 		escButtonLevelSelect.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8 + height/8 + height/8, 2500, 650);
 		escButtonLevelSelect.addListener(this);
 		
-		escButtonMainMenu = new TextButton("Hauptmenü", textButtonStyle);
+		escButtonMainMenu = new TextButton("Hauptmenï¿½", textButtonStyle);
 		escButtonMainMenu.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8 + height/8+ height/8 + height/8, 2500, 650);
 		escButtonMainMenu.addListener(this);
 		
@@ -253,12 +254,10 @@ public class GameFrame extends InputListener implements Screen {
 		escMenuStage.addActor(escButtonMainMenu);
 		
 		
-		stage.addActor(new SingleShotTower(2000, 4500, 2));
-		stage.addActor(new AntiGravityTower(2500,4500,2));
-		stage.addActor(new AoeTower(3500,4500,2));
+		stage.addActor(new BillardTower(2000, 4500, 2));
+		//stage.addActor(new AntiGravityTower(2500,4500,2));
+		//stage.addActor(new AoeTower(3500,4500,2));
 		
-
-		stage.addActor(new SingleShotTower(2000, 4500, 2));
 
 		
 		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory.getTexture("testLine"), 4f, 2f, 200f));
