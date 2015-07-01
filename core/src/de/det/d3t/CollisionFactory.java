@@ -25,12 +25,8 @@ public class CollisionFactory {
 						collide((Tower) b, (Enemy) a);
 					} else if (a instanceof Enemy && b instanceof BillardBall) {
 						collide((Enemy) a, (BillardBall) b);
-						System.out.println("CollisionFactory: "
-								+ "BillardBall collision");
 					} else if (b instanceof Enemy && a instanceof BillardBall) {
-						collide( (Enemy) b, (BillardBall) a);
-						System.out.println("CollisionFactory: "
-								+ "BillardBall collision");
+						collide((Enemy) b, (BillardBall) a);
 					}
 				}
 			}

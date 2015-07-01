@@ -1,41 +1,32 @@
 package de.det.d3t.model;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.Texture;
-
-import de.det.d3t.TextureFactory;
 
 public class BillardBall extends Circle {
 
 	private float velocityX, velocityY, length;
 
 	private float radius;
-	private Enemy target;
-	private Tower start;
 	private float velocity = 6000;
 	private float mass = 100000f;
 
 	public BillardBall(Texture texture, Tower start, Enemy target, float scale) {
 		super(texture, (texture.getWidth() / 2) * scale);
 		this.radius = (texture.getWidth() / 2) * scale;
-		setBounds(start.getCenterX()-radius, start.getCenterY()-radius, texture.getWidth()
-				* scale, texture.getHeight() * scale);
+		setBounds(start.getCenterX() - radius, start.getCenterY() - radius,
+				texture.getWidth() * scale, texture.getHeight() * scale);
 
-		this.target = target;
-		this.start = start;
-
-		if (target != null ) {
+		if (target != null) {
 			velocityX = target.getCenterX() - getCenterX();
 			velocityY = target.getCenterY() - getCenterY();
 			length = (float) Math.sqrt(velocityX * velocityX + velocityY
 					* velocityY);
-			System.out.println("BillardBall: " + ", difX: " + velocityX
-					+ ", difY: " + velocityY + ", length: " + length);
+//			System.out.println("BillardBall: " + ", difX: " + velocityX
+//					+ ", difY: " + velocityY + ", length: " + length);
 			velocityX /= length;
 			velocityY /= length;
-			System.out.println("BillardBall: " + " difX: " + velocityX
-					+ ", difY: " + velocityY);
+//			System.out.println("BillardBall: " + " difX: " + velocityX
+//					+ ", difY: " + velocityY);
 		} else {
 			remove();
 		}
@@ -44,7 +35,7 @@ public class BillardBall extends Circle {
 	@Override
 	public void act(float delta) {
 
-		if (target.getStage() == null) {
+		if (Enemy.getAllEnemys().isEmpty()) {
 			remove();
 
 		} else {

@@ -1,7 +1,5 @@
 package de.det.d3t.model;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import de.det.d3t.TextureFactory;
 
 public class BillardTower extends Tower {
@@ -37,9 +35,4 @@ public class BillardTower extends Tower {
 		}
 	}
 
-	@Override
-	public boolean remove() {
-		// TODO Auto-generated method stub
-		return super.remove();
-	}
 }
