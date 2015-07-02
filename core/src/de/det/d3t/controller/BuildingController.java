@@ -58,7 +58,7 @@ public class BuildingController {
 
 		this.gameStage = gameStage;
 		this.uiStage = uiStage;
-		
+
 	}
 
 	public ArrayList<TowerDescription> getTowerDescList() {
@@ -109,41 +109,42 @@ public class BuildingController {
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-			if(buildingSelected && button != Buttons.LEFT){
+			if (buildingSelected && button != Buttons.LEFT) {
 				buildingSelected = false;
 				buildTower.remove();
 				buildTower = null;
 				buildDesc = null;
 			}
-			
-			if(button == Buttons.LEFT && buildingSelected && !hasCollisionWithGameObjects(buildTower)){
-				
-				Vector2 target = gameStage.screenToStageCoordinates(new Vector2(screenX, screenY));
-				
+
+			if (button == Buttons.LEFT && buildingSelected
+					&& !hasCollisionWithGameObjects(buildTower)) {
+
+				Vector2 target = gameStage
+						.screenToStageCoordinates(new Vector2(screenX, screenY));
+
 				buildingSelected = false;
 				buildTower.remove();
 				buildTower = null;
-				
-				if(descToTowerMap.get(buildDesc) == SingleShotTower.class){
-					gameStage.addActor(new SingleShotTower(target.x,target.y, 2));
+
+				if (descToTowerMap.get(buildDesc) == SingleShotTower.class) {
+					gameStage.addActor(new SingleShotTower(target.x, target.y,
+							2));
+				} else if (descToTowerMap.get(buildDesc) == AoeTower.class) {
+					gameStage.addActor(new AoeTower(target.x, target.y, 2));
+				} else if (descToTowerMap.get(buildDesc) == AntiGravityTower.class) {
+					gameStage.addActor(new AntiGravityTower(target.x, target.y,
+							2));
 				}
-				else if(descToTowerMap.get(buildDesc) == AoeTower.class){
-					gameStage.addActor(new AoeTower(target.x,target.y, 2));
-				}
-				else if(descToTowerMap.get(buildDesc) == AntiGravityTower.class){
-					gameStage.addActor(new AntiGravityTower(target.x,target.y, 2));
-				}
-				
-				
+
 				buildDesc = null;
-				
+
 				return true;
 			}
-			
+
 			if (button == Buttons.LEFT && isMouseOverMe(screenX, screenY)) {
 
 				Vector2 target = new Vector2(screenX, screenY);
-				
+
 				buildingSelected = true;
 				buildDesc = this;
 				buildTower = new Tower(target.x, target.y, 2);
@@ -168,47 +169,54 @@ public class BuildingController {
 			return false;
 		}
 
-		private boolean hasCollisionWithGameObjects(Tower tower){
-			for(Actor curActor : gameStage.getActors()){
-				
-				if(curActor instanceof Enemy || curActor instanceof Tower && curActor != buildTower){
-					
-					if(CollisionFactory.hasIntersect(buildTower, curActor.getX(), curActor.getY(), (curActor.getWidth()*curActor.getScaleX())/2 )){
-						return true;
+		private boolean hasCollisionWithGameObjects(Tower tower) {
+			for (Actor curActor : gameStage.getActors()) {
+
+				if (curActor != buildTower) {
+					if (curActor instanceof Enemy) {
+						Enemy curEnemy = (Enemy) curActor;
+						if(CollisionFactory.checkCollision(buildTower, curEnemy)){
+							return true;
+						}
+					} else if (curActor instanceof Tower) {
+						Tower curTower = (Tower) curActor;
+						if(CollisionFactory.checkCollision(buildTower, curTower)){
+							return true;
+						}
 					}
 				}
-				
+
 			}
-			
+
 			return false;
 		}
-		
+
 		@Override
 		public boolean mouseMoved(int screenX, int screenY) {
-			if(buildingSelected){
-				
-				Vector2 target = gameStage.screenToStageCoordinates(new Vector2(screenX, screenY));
-				
+			if (buildingSelected) {
+
+				Vector2 target = gameStage
+						.screenToStageCoordinates(new Vector2(screenX, screenY));
+
 				buildTower.setX(target.x - (buildTower.getWidth() / 2));
 				buildTower.setY(target.y - (buildTower.getHeight() / 2));
-				
+
 				boolean coll = hasCollisionWithGameObjects(buildTower);
-				
-				if(coll){
+
+				if (coll) {
 					buildTower.getColor().r = 1f;
 					buildTower.getColor().g = 0.1f;
 					buildTower.getColor().b = 0.1f;
-				}
-				else{
+				} else {
 					buildTower.getColor().r = 0.1f;
 					buildTower.getColor().g = 1f;
 					buildTower.getColor().b = 0.1f;
 				}
-				
+
 				return true;
 			}
 
-			if(isMouseOverMe(screenX, screenY)){
+			if (isMouseOverMe(screenX, screenY)) {
 
 				if (isHoveredOver == false) {
 					isHoveredOver = true;
@@ -222,21 +230,20 @@ public class BuildingController {
 					hoverImage.setScale(7);
 
 					if (hoverImage.getX()
-							+ (hoverImage.getWidth() * hoverImage.getScaleX()) > image
-							.getStage().getWidth()) {
+							+ (hoverImage.getWidth() * hoverImage.getScaleX()) > uiStage.getWidth()) {
 						hoverImage.setX(hoverImage.getX()
 								- (hoverImage.getWidth() * hoverImage
 										.getScaleX()));
 					}
-					
+
 					hoverLabel = label;
 					hoverLabel.setX(hoverImage.getX() + 100);
 					hoverLabel.setY(hoverImage.getY()
 							+ (hoverImage.getHeight() * hoverImage.getScaleY())
 							- hoverLabel.getHeight() - 50);
 
-					image.getStage().addActor(hoverImage);
-					image.getStage().addActor(hoverLabel);
+					uiStage.addActor(hoverImage);
+					uiStage.addActor(hoverLabel);
 
 				}
 
@@ -264,7 +271,7 @@ public class BuildingController {
 		}
 
 		private boolean isMouseOverMe(float screenX, float screenY) {
-			Vector2 stageCoords = image.getStage().screenToStageCoordinates(
+			Vector2 stageCoords = uiStage.screenToStageCoordinates(
 					new Vector2(screenX, screenY));
 			float stagex = stageCoords.x;
 			float stagey = stageCoords.y;

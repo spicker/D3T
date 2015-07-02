@@ -68,6 +68,9 @@ public class CollisionFactory {
 	}
 
 	public static void collide(Tower a, Enemy b) {
+		if(a.isActive() == false){
+			return;
+		}
 		float collX = a.getCenterX() - b.getCenterX();
 		float collY = a.getCenterY() - b.getCenterY();
 		float distance = (float) Math.sqrt(collX * collX + collY * collY);
