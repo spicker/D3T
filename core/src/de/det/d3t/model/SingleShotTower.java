@@ -25,6 +25,10 @@ public class SingleShotTower extends Tower {
 	
 	@Override
 	public void act(float delta) {
+		if(isActive() == false){
+			return;
+		}
+		
 		cd -= delta;
 		if(cd < 0){
 			cd = 0.3f;
@@ -32,13 +36,6 @@ public class SingleShotTower extends Tower {
 		}
 		super.act(delta);
 	}
-	
-	@Override
-	public boolean remove() {
-		// TODO Auto-generated method stub
-		return super.remove();
-	}
-
 	
 	public void shoot(){
 		Missile m = new Missile(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);

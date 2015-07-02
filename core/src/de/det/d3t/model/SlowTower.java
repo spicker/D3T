@@ -26,6 +26,10 @@ public class SlowTower extends Tower {
 	
 	@Override
 	public void act(float delta) {
+		if(isActive() == false){
+			return;
+		}
+		
 		time -= delta;
 		if(time < 0){
 			time =cd;

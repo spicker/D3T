@@ -1,5 +1,6 @@
 package de.det.d3t.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,12 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+
 import de.det.d3t.CollisionFactory;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
+import de.det.d3t.model.BillardTower;
 import de.det.d3t.model.Enemy;
+import de.det.d3t.model.MagnetTower;
 import de.det.d3t.model.SingleShotTower;
+import de.det.d3t.model.SlowTower;
+import de.det.d3t.model.TeleportTower;
 import de.det.d3t.model.Tower;
 
 public class BuildingController {
@@ -38,7 +44,7 @@ public class BuildingController {
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravity", "Will pull stuff",
+		current = new TowerDescription("Anti Gravity", "Will push stuff",
 				TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -55,6 +61,30 @@ public class BuildingController {
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SingleShotTower.class);
+		
+		current = new TowerDescription("Billard", "Will shoot big stuff",
+				TextureFactory.getTexture("singleShotIcon"));
+		current.setImageBounds(35, 35);
+		towerDescList.add(current);
+		descToTowerMap.put(current, BillardTower.class);
+
+		current = new TowerDescription("Teleport", "Will teleport stuff",
+				TextureFactory.getTexture("singleShotIcon"));
+		current.setImageBounds(35, 35);
+		towerDescList.add(current);
+		descToTowerMap.put(current, TeleportTower.class);
+		
+		current = new TowerDescription("Magnet", "Will pull stuff",
+				TextureFactory.getTexture("singleShotIcon"));
+		current.setImageBounds(35, 35);
+		towerDescList.add(current);
+		descToTowerMap.put(current, MagnetTower.class);
+		
+		current = new TowerDescription("Slow", "Will slow stuff",
+				TextureFactory.getTexture("singleShotIcon"));
+		current.setImageBounds(35, 35);
+		towerDescList.add(current);
+		descToTowerMap.put(current, SlowTower.class);
 
 		this.gameStage = gameStage;
 		this.uiStage = uiStage;
@@ -126,14 +156,20 @@ public class BuildingController {
 				buildTower.remove();
 				buildTower = null;
 
-				if (descToTowerMap.get(buildDesc) == SingleShotTower.class) {
-					gameStage.addActor(new SingleShotTower(target.x, target.y,
-							2));
-				} else if (descToTowerMap.get(buildDesc) == AoeTower.class) {
-					gameStage.addActor(new AoeTower(target.x, target.y, 2));
-				} else if (descToTowerMap.get(buildDesc) == AntiGravityTower.class) {
-					gameStage.addActor(new AntiGravityTower(target.x, target.y,
-							2));
+				Class<? extends Tower> towerClass = descToTowerMap
+						.get(buildDesc);
+				try {
+					Tower newTower = towerClass.getDeclaredConstructor(
+							float.class, float.class, float.class).newInstance(
+							target.x, target.y, 2);
+					newTower.setX(target.x - (newTower.getWidth() / 2));
+					newTower.setY(target.y - (newTower.getHeight() / 2));
+					gameStage.addActor(newTower);
+				} catch (InstantiationException | IllegalAccessException
+						| IllegalArgumentException | InvocationTargetException
+						| NoSuchMethodException | SecurityException e) {
+					System.err.println(e.getMessage());
+					e.printStackTrace();
 				}
 
 				buildDesc = null;
@@ -147,7 +183,20 @@ public class BuildingController {
 
 				buildingSelected = true;
 				buildDesc = this;
-				buildTower = new Tower(target.x, target.y, 2);
+
+				Class<? extends Tower> towerClass = descToTowerMap
+						.get(buildDesc);
+				try {
+					buildTower = towerClass.getDeclaredConstructor(float.class,
+							float.class, float.class).newInstance(target.x,
+							target.y, 2);
+				} catch (InstantiationException | IllegalAccessException
+						| IllegalArgumentException | InvocationTargetException
+						| NoSuchMethodException | SecurityException e) {
+					System.err.println(e.getMessage());
+					e.printStackTrace();
+				}
+
 				buildTower.getColor().a = 0.5f;
 				buildTower.setActive(false);
 				buildTower.removeHPbar();
@@ -175,12 +224,14 @@ public class BuildingController {
 				if (curActor != buildTower) {
 					if (curActor instanceof Enemy) {
 						Enemy curEnemy = (Enemy) curActor;
-						if(CollisionFactory.checkCollision(buildTower, curEnemy)){
+						if (CollisionFactory.checkCollision(buildTower,
+								curEnemy)) {
 							return true;
 						}
 					} else if (curActor instanceof Tower) {
 						Tower curTower = (Tower) curActor;
-						if(CollisionFactory.checkCollision(buildTower, curTower)){
+						if (CollisionFactory.checkCollision(buildTower,
+								curTower)) {
 							return true;
 						}
 					}
@@ -230,7 +281,8 @@ public class BuildingController {
 					hoverImage.setScale(7);
 
 					if (hoverImage.getX()
-							+ (hoverImage.getWidth() * hoverImage.getScaleX()) > uiStage.getWidth()) {
+							+ (hoverImage.getWidth() * hoverImage.getScaleX()) > uiStage
+								.getWidth()) {
 						hoverImage.setX(hoverImage.getX()
 								- (hoverImage.getWidth() * hoverImage
 										.getScaleX()));
@@ -271,8 +323,8 @@ public class BuildingController {
 		}
 
 		private boolean isMouseOverMe(float screenX, float screenY) {
-			Vector2 stageCoords = uiStage.screenToStageCoordinates(
-					new Vector2(screenX, screenY));
+			Vector2 stageCoords = uiStage.screenToStageCoordinates(new Vector2(
+					screenX, screenY));
 			float stagex = stageCoords.x;
 			float stagey = stageCoords.y;
 
