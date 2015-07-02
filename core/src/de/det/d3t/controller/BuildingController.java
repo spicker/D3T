@@ -109,7 +109,14 @@ public class BuildingController {
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-			if(buildingSelected && !hasCollisionWithGameObjects(buildTower)){
+			if(buildingSelected && button != Buttons.LEFT){
+				buildingSelected = false;
+				buildTower.remove();
+				buildTower = null;
+				buildDesc = null;
+			}
+			
+			if(button == Buttons.LEFT && buildingSelected && !hasCollisionWithGameObjects(buildTower)){
 				
 				Vector2 target = gameStage.screenToStageCoordinates(new Vector2(screenX, screenY));
 				
@@ -143,7 +150,7 @@ public class BuildingController {
 				buildTower.getColor().a = 0.5f;
 				buildTower.setActive(false);
 				buildTower.removeHPbar();
-				image.getStage().addActor(buildTower);
+				gameStage.addActor(buildTower);
 				return true;
 			}
 
@@ -166,7 +173,7 @@ public class BuildingController {
 				
 				if(curActor instanceof Enemy || curActor instanceof Tower && curActor != buildTower){
 					
-					if(CollisionFactory.hasIntersect(buildTower, curActor.getX(), curActor.getY(), curActor.getWidth()/2)){
+					if(CollisionFactory.hasIntersect(buildTower, curActor.getX(), curActor.getY(), (curActor.getWidth()*curActor.getScaleX())/2 )){
 						return true;
 					}
 				}
