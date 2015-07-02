@@ -322,7 +322,7 @@ public class GameFrame extends InputListener implements Screen {
 		TiledMap map = levelController.getCurrentLevel().getTiledMap();
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(1);
 		lavaDetector = new TileMapIntersectionDetector(layer);
-		tileMapRenderer = new OrthogonalTiledMapRenderer(map, 2);
+		tileMapRenderer = new OrthogonalTiledMapRenderer(map, 4);
 	}
 	
 	public void setupBuilding(){
