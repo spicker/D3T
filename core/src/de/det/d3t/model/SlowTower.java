@@ -1,16 +1,17 @@
 package de.det.d3t.model;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
-import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 
 public class SlowTower extends Tower {
-	public float slowFactor = 2;
-	private float cd = 0.3f;
+	private float slowFactor = 2;
+	private float cd = 1;
+	private float missileSize = 100;
+	private float missileVel = 2000;
+	
+	private float time = cd;
 	RotatingImage deco;
 	RotatingImage deco2;
+	
 
 	public SlowTower(float x, float y, float scale) {
 		super(x, y, scale);
@@ -25,9 +26,13 @@ public class SlowTower extends Tower {
 	
 	@Override
 	public void act(float delta) {
-		cd -= delta;
-		if(cd < 0){
-			cd = 0.3f;
+		if(isActive() == false){
+			return;
+		}
+		
+		time -= delta;
+		if(time < 0){
+			time =cd;
 			shoot();
 		}
 		super.act(delta);
@@ -41,7 +46,7 @@ public class SlowTower extends Tower {
 
 	
 	public void shoot(){
-		Missile m = new Missile(TextureFactory.getTexture("slowMissile"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);
+		Missile m = new Missile(TextureFactory.getTexture("slowMissile"), this,getNearest(Enemy.getAllEnemys()), missileVel, missileSize);
 		getStage().addActor(m);
 		m.setAction((Enemy e) -> {
 			if(e != null){

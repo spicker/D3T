@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Missile extends Image {
-	protected Tower start;
-	protected Enemy target;
-	protected float velocity;
-	protected HitAction action;
+	private Tower start;
+	private Enemy target;
+	private float velocity;
+	private HitAction action;
 	
 	public Missile(Texture texture, Tower start, Enemy target, float velocity, float radius) {
 		super(texture);

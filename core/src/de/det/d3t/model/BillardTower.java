@@ -14,6 +14,10 @@ public class BillardTower extends Tower {
 
 	@Override
 	public void act(float delta) {
+		if(isActive() == false){
+			return;
+		}
+		
 		time -= delta;
 		if (time < 0) {
 			time = shootTime;

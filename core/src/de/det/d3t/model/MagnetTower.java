@@ -23,6 +23,10 @@ public class MagnetTower extends Tower {
 	
 	@Override
 	public void act(float delta){
+		if(isActive() == false){
+			return;
+		}
+		
 		ArrayList<Enemy> inRange = getAllInRange(Enemy.getAllEnemys(), towerRange);
 		float cx = getCenterX();
 		float cy = getCenterY();

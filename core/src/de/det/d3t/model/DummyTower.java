@@ -108,11 +108,10 @@ public class DummyTower extends Tower {
 	
 	@Override
 	public void act(float delta) {
-		/*cd -= delta;
-		if(cd < 0){
-			cd = 1f;
-			shoot();
-		}*/
+		if(isActive() == false){
+			return;
+		}
+		
 		super.act(delta);
 	}
 	
