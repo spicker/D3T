@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Frustum;
+import com.badlogic.gdx.math.Vector3;
 
 
 
@@ -19,6 +20,8 @@ public class CameraInputController implements InputProcessor {
 		this.cam = cam;
 		this.screenFactorX = cam.viewportWidth / Gdx.graphics.getWidth();
 		this.screenFactorY = cam.viewportHeight / Gdx.graphics.getHeight();
+		cam.position.set(new Vector3(26000, 25000,1));
+		cam.zoom = 1.2f;
 	}
 
 	@Override
@@ -61,12 +64,15 @@ public class CameraInputController implements InputProcessor {
 		lastTouchX = screenX;
 		cam.position.y -= (lastTouchY - screenY) * screenFactorY * cam.zoom;
 		lastTouchY = screenY;
+		
+		System.out.println(cam.position.x + " " + cam.position.y);
+		
 		return false;
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 

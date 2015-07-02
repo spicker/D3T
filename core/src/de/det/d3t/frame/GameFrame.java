@@ -254,7 +254,7 @@ public class GameFrame extends InputListener implements Screen {
 		escMenuStage.addActor(escButtonMainMenu);
 		
 		
-		stage.addActor(new BillardTower(2000, 4500, 2));
+		stage.addActor(new BillardTower(26000, 25000, 2));
 		//stage.addActor(new AntiGravityTower(2500,4500,2));
 		//stage.addActor(new AoeTower(3500,4500,2));
 		
@@ -581,6 +581,7 @@ public class GameFrame extends InputListener implements Screen {
 
 	@Override
 	public boolean mouseMoved(InputEvent event, float x, float y) {
+		//System.out.println("X: " + x + " Y: " + y);
 		return super.mouseMoved(event, x, y);
 	}
 

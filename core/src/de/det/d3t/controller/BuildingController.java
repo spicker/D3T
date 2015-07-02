@@ -44,43 +44,43 @@ public class BuildingController {
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravity", "Will push stuff",
+		current = new TowerDescription("Anti Gravity", "Stößt Gegner ab",
 				TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, AntiGravityTower.class);
 
-		current = new TowerDescription("AOE", "Will push more stuff",
+		current = new TowerDescription("AOE", "Greift mehrere Gegner an",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, AoeTower.class);
 
-		current = new TowerDescription("Single Shot", "Will push 1 stuff",
+		current = new TowerDescription("Single Shot", "Greif einen einzelnen Gegner an",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SingleShotTower.class);
 		
-		current = new TowerDescription("Billard", "Will shoot big stuff",
+		current = new TowerDescription("Billard", "Verschießt zurückstoßende Kugel",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BillardTower.class);
 
-		current = new TowerDescription("Teleport", "Will teleport stuff",
+		current = new TowerDescription("Teleport", "Teleportiert Gegner",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, TeleportTower.class);
 		
-		current = new TowerDescription("Magnet", "Will pull stuff",
+		current = new TowerDescription("Magnet", "Zieht Gegner an",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, MagnetTower.class);
 		
-		current = new TowerDescription("Slow", "Will slow stuff",
+		current = new TowerDescription("Slow", "Verlangsamt Gegner",
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
