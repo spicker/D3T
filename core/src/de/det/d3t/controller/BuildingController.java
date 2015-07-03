@@ -164,6 +164,7 @@ public class BuildingController {
 							target.x, target.y, 2);
 					newTower.setX(target.x - (newTower.getWidth() / 2));
 					newTower.setY(target.y - (newTower.getHeight() / 2));
+					newTower.renewPositions(newTower.getX(), newTower.getY());
 					gameStage.addActor(newTower);
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException

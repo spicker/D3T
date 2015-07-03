@@ -53,6 +53,25 @@ public class Tower extends Circle {
 		components.addActor(hpBarFront);
 	}
 
+	
+	public void renewPositions(float x, float y){
+		hpBarBack.setBounds(x
+				- TextureFactory.getTexture("towerBackground").getWidth() / 2
+				* 0.5f, y
+				- TextureFactory.getTexture("towerBackground").getHeight() / 2
+				* 0.5f, TextureFactory.getTexture("towerBackground").getWidth()
+				/ 2 * scale * 1.5f, TextureFactory
+				.getTexture("towerBackground").getHeight() / 2 * scale * 1.5f);
+		hpBarFront.setBounds(x
+				- TextureFactory.getTexture("towerBackground").getWidth() / 2
+				* 0.5f, y
+				- TextureFactory.getTexture("towerBackground").getHeight() / 2
+				* 0.5f, TextureFactory.getTexture("towerBackground").getWidth()
+				/ 2 * scale * 1.5f, TextureFactory
+				.getTexture("towerBackground").getHeight() / 2 * scale * 1.5f);
+	}
+	
+	
 	public float getScale() {
 		return scale;
 	}

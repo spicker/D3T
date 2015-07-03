@@ -125,6 +125,7 @@ public class BlinkImage extends Actor {
 		if(stateTime < 0){
 			stateTime = 0;
 		}
+		drawImage.setBounds(bind.getCenterX() - bind.getWidth()/2, bind.getCenterY() - bind.getHeight()/2, bind.getWidth(), bind.getHeight());
 		drawImage.setDrawable(new TextureRegionDrawable(anim.getKeyFrame(stateTime)));
 		drawImage.draw(batch, parentAlpha);
 		
