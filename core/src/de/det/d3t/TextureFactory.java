@@ -96,7 +96,7 @@ public class TextureFactory {
 		addTexture("gray1", new Texture("textures/gameElements/towers/generation/large/gray1.png"));
 		addTexture("green1", new Texture("textures/gameElements/towers/generation/large/green1.png"));
 		addTexture("green2", new Texture("textures/gameElements/towers/generation/large/green2.png"));
-		addTexture("orange1", new Texture("textures/gameElements/towers/generation/large/blue1.png"));
+		addTexture("orange1", new Texture("textures/gameElements/towers/generation/large/orange1.png"));
 		addTexture("red1", new Texture("textures/gameElements/towers/generation/large/red1.png"));
 		addTexture("red2", new Texture("textures/gameElements/towers/generation/large/red2.png"));
 		addTexture("teal1", new Texture("textures/gameElements/towers/generation/large/teal1.png"));
