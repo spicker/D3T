@@ -220,13 +220,13 @@ public class MenuFrame extends InputListener implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				bgmLabel.setText("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
+				bgmLabel.setText("Musik-Lautstï¿½rke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
 				//Settings.setBgm(bgmSlider.getValue()/100);
 				bgmToSet = bgmSlider.getValue()/100;
 			}
 			
 		});
-	    bgmLabel = new Label("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %", ls);
+	    bgmLabel = new Label("Musik-Lautstï¿½rke: " + String.format("%.01f", bgmSlider.getValue()) + " %", ls);
 	    bgmLabel.setBounds(width/2 - 200, height/2 -200, 800, 200);
 	    
 	    sfxSlider = new Slider(0f, 100f, 0.1f, false, sliderStyle);
@@ -236,20 +236,20 @@ public class MenuFrame extends InputListener implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				sfxLabel.setText("Sound-Lautstärke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
+				sfxLabel.setText("Sound-Lautstï¿½rke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
 				//Settings.setBgm(sfxSlider.getValue()/100);
 				sfxToSet = sfxSlider.getValue()/100;
 			}
 			
 		});
-	    sfxLabel = new Label("Sound-Lautstärke: " + String.format("%.01f", sfxSlider.getValue()) + " %", ls);
+	    sfxLabel = new Label("Sound-LautstÃ¤rke: " + String.format("%.01f", sfxSlider.getValue()) + " %", ls);
 	    sfxLabel.setBounds(width/2 - 200, height/2, 800, 200);
 	    
-	    backButton = new TextButton("Zurück", textButtonStyle);
+	    backButton = new TextButton("ZurÃ¼ck", textButtonStyle);
 	    backButton.setBounds(width/2 - 1100, height/2 -700, 600, 150);
 	    backButton.addListener(this);
 	    
-	    acceptButton = new TextButton("Bestätigen", textButtonStyle);
+	    acceptButton = new TextButton("BestÃ¤tigen", textButtonStyle);
 	    acceptButton.setBounds(width/2 + 500, height/2 -700, 600, 150);
 	    acceptButton.addListener(this);
 	    
@@ -450,8 +450,8 @@ public class MenuFrame extends InputListener implements Screen {
 			inMenu = true;
 			sfxSlider.setValue(Settings.getSfx()*100);
 			bgmSlider.setValue(Settings.getBgm()*100);
-			sfxLabel.setText("Sound-Lautstärke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
-			bgmLabel.setText("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
+			sfxLabel.setText("Sound-LautstÃ¤rke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
+			bgmLabel.setText("Musik-LautstÃ¤rke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
 		}
 		if(event.getListenerActor() == acceptButton){
 			Settings.setBgm(bgmToSet);
