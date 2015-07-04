@@ -117,6 +117,15 @@ public class GameFrame extends InputListener implements Screen {
 		fpsLogger = new FPSLogger();
 		timekeeper = new TimeKeeper();
 		
+		//TODO: if level finished : set levelConquered[the played level] = true and the corresponding levels in levelUnlocked[i] = true
+		//Level 1: levelConquered[0]=true; levelUnlocked[1] = true;
+		//Level 2: levelConquered[1]=true; levelUnlocked[2] = true; levelUnlocked[3] = true;
+		//Level 3: levelConquered[2]=true; if(levelConquered[3]) levelUnlocked[4] = true;
+		//Level 4: levelConquered[3]=true; if(levelConquered[2]) levelUnlocked[4] = true;
+		//Level 5: levelConquered[4]=true; levelUnlocked[5] = true;
+		//Level 6: levelConquered[5]=true; levelUnlocked[6] = true;
+		//Level 7: levelConquered[6]=true; TODO: display message "Victory" or similar
+		
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
 		
