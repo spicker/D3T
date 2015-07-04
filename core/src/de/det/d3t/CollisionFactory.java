@@ -52,19 +52,53 @@ public class CollisionFactory {
 	public static void collide(LineSegment s, Enemy e) {
 		Connection con = s.getCon();
 		float l2 = con.getDistance();
-		float res;
-		// if(l2 == 0){
-		// float x = e.getCenterX() -
-		// res = distToVecSquared(v1)
-		// }
-		// var t = ((this.x - v1.x) * (v2.x - v1.x) + (this.y - v1.y) * (v2.y -
-		// v1.y)) / l2
-		// if (t < 0)
-		// return this.distToVecSquared(v1)
-		// if (t > 1)
-		// return this.distToVecSquared(v2)
-		// return this.distToVecSquared( vec2( v1.x + t * (v2.x - v1.x), v1.y +
-		// t * (v2.y - v1.y) ) )
+		l2 *= l2;
+		float dist;
+		if(l2 == 0){
+			float difX = e.getCenterX() - con.getX1();
+			float difY = e.getCenterY() - con.getY1();
+			dist = (float) Math.sqrt(difX * difX + difY * difY);
+		}else{
+			float t = ((e.getCenterX() - con.getX1()) * (con.getX2() - con.getX1()) + 
+					(e.getCenterY() - con.getY1()) * (con.getY2() - con.getY1())) / l2;
+			if(t < 0){
+				float difX = e.getCenterX() - con.getX1();
+				float difY = e.getCenterY() - con.getY1();
+				dist = (float) Math.sqrt(difX * difX + difY * difY);
+			}else if(t > 1){ 
+				float difX = e.getCenterX() - con.getX2();
+				float difY = e.getCenterY() - con.getY2();
+				dist = (float) Math.sqrt(difX * difX + difY * difY);
+			}else{
+				float wurstX = con.getX1() + t * (con.getX2() - con.getX1());
+				float wurstY = con.getY1() + t * (con.getY2() - con.getY1());
+				float difX = e.getCenterX() - wurstX;
+				float difY = e.getCenterY() - wurstY;
+				dist = (float) Math.sqrt(difX * difX + difY * difY);
+			}
+		}
+		if(dist < con.getLineWidth() + e.getRadius()){
+			float conNorX = con.getX1() - con.getX2();
+			float conNorY = con.getY1() - con.getY2();
+			float length = (float) Math.sqrt(conNorX * conNorX + conNorY * conNorY);
+			conNorX /= length;
+			conNorY /= length;
+			//check which side the ball hits
+			float dot = conNorX * e.getVelocityX() + conNorY * e.getVelocityY();
+			float tempX = conNorX;
+			if(dot > 0){
+				conNorX = -conNorY;
+				conNorY = tempX;
+			} else {
+				conNorX = conNorY;
+				conNorY = -tempX;
+			}
+			dot = conNorX * e.getVelocityX() + conNorY * e.getVelocityY();
+			float newVelX = -2 * dot * conNorX + e.getVelocityX();
+			float newVelY = -2 * dot * conNorY + e.getVelocityY();
+			e.setVelocityX(newVelX);
+			e.setVelocityY(newVelY);
+		}
 	}
 
 	public static void collide(Tower a, Enemy b) {
