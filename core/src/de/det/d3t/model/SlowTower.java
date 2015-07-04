@@ -7,30 +7,35 @@ public class SlowTower extends Tower {
 	private float cd = 1;
 	private float missileSize = 100;
 	private float missileVel = 2000;
-	
+
 	private float time = cd;
 	RotatingImage deco;
 	RotatingImage deco2;
-	
+
 	RotatingImage deco4;
 	RotatingImage deco5;
 	RotatingImage deco6;
 	RotatingImage deco7;
 	RotatingImage deco8;
 	RotatingImage deco9;
-	
 
 	public SlowTower(float x, float y, float scale) {
 		super(x, y, scale);
 		deco = new RotatingImage(TextureFactory.getTexture("green1"), this, 130);
-		
-		deco4 = new RotatingImage(TextureFactory.getTexture("orange1"), this, 70);
-		deco5 = new RotatingImage(TextureFactory.getTexture("orange1"), this, 70);
-		deco6 = new RotatingImage(TextureFactory.getTexture("orange1"), this, 70);
-		deco7 = new RotatingImage(TextureFactory.getTexture("orange1"), this, 70);
-		deco8 = new RotatingImage(TextureFactory.getTexture("orange1"), this, 70);
-		deco9 = new RotatingImage(TextureFactory.getTexture("orange1"), this, 70);
-		
+
+		deco4 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
+				70);
+		deco5 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
+				70);
+		deco6 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
+				70);
+		deco7 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
+				70);
+		deco8 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
+				70);
+		deco9 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
+				70);
+
 		deco4.setBounds(0, 0, 60, 60);
 		deco4.setRoationSpeed(-330);
 		deco5.setBounds(0, 0, 60, 60);
@@ -48,60 +53,62 @@ public class SlowTower extends Tower {
 		deco9.setBounds(0, 0, 60, 60);
 		deco9.setRoationSpeed(-330);
 		deco9.setRotation(300);
-		
-		//deco2 = new RotatingImage(TextureFactory.getTexture("red1"), this, 130);
-		
-		//addComponent(deco2);
-		deco.setBounds(0, 0, 150, 150);
-		//deco2.setBounds(0, 0, 150, 150);
-		//deco2.setRotation(180f);
-		
 
-		
+		// deco2 = new RotatingImage(TextureFactory.getTexture("red1"), this,
+		// 130);
+
+		// addComponent(deco2);
+		deco.setBounds(0, 0, 150, 150);
+		// deco2.setBounds(0, 0, 150, 150);
+		// deco2.setRotation(180f);
+
 		addComponent(deco4);
 		addComponent(deco5);
 		addComponent(deco6);
 		addComponent(deco7);
 		addComponent(deco8);
 		addComponent(deco9);
-		
+
 		addComponent(deco);
 	}
-	
+
 	@Override
 	public void act(float delta) {
-		if(isActive() == false){
+		if (isActive() == false) {
 			return;
 		}
-		
+
 		time -= delta;
-		if(time < 0){
-			time =cd;
+		if (time < 0) {
+			time = cd;
 			shoot();
 		}
 		super.act(delta);
 	}
-	
+
 	@Override
 	public boolean remove() {
 		// TODO Auto-generated method stub
 		return super.remove();
 	}
 
-	
-	public void shoot(){
-		Missile m = new Missile(TextureFactory.getTexture("slowMissile"), this,getNearest(Enemy.getAllEnemys()), missileVel, missileSize);
-		getStage().addActor(m);
-		m.setAction((Enemy e) -> {
-			if(e != null){
-				
-				//e.setAcceleration(e.getAcceleration() / slowFactor);
-				
-				e.setVelocityX(e.getVelocityX() / slowFactor);
-				e.setVelocityY(e.getVelocityY() / slowFactor);
+	public void shoot() {
+		Enemy target = getNearest(Enemy.getAllEnemys());
+		if (target != null && target.getStage() != null) {
+			Missile m = new Missile(TextureFactory.getTexture("slowMissile"),
+					this, target, missileVel, missileSize);
+			getStage().addActor(m);
+			m.setAction((Enemy e) -> {
+				if (e != null) {
 
-			}
-		});
+					// e.setAcceleration(e.getAcceleration() / slowFactor);
+
+					e.setVelocityX(e.getVelocityX() / slowFactor);
+					e.setVelocityY(e.getVelocityY() / slowFactor);
+
+				}
+			});
+		}
 	}
 
 }
