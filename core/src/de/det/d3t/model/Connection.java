@@ -68,6 +68,26 @@ public class Connection extends Actor {
 		return distance;
 	}
 	
+	public float getX1() {
+		return x1;
+	}
+	
+	public float getY1() {
+		return y1;
+	}
+	
+	public float getX2() {
+		return x2;
+	}
+	
+	public float getY2() {
+		return y2;
+	}
+	
+	public float getLineWidth() {
+		return width;
+	}
+	
 	public void setAnkers(float x1, float y1, float x2, float y2) {
 		this.x1 = x1;
 		this.y1 = y1;

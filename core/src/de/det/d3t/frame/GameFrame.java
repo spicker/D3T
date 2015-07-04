@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.sun.org.apache.xml.internal.serialize.LineSeparator;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
@@ -47,6 +48,7 @@ import de.det.d3t.model.Connection;
 import de.det.d3t.model.DummyTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Entity;
+import de.det.d3t.model.LineSegment;
 import de.det.d3t.model.MagnetTower;
 import de.det.d3t.model.SingleShotTower;
 
@@ -261,6 +263,7 @@ public class GameFrame extends InputListener implements Screen {
 
 		
 		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory.getTexture("testLine"), 4f, 2f, 200f));
+		stage.addActor(new LineSegment(TextureFactory.getTexture("testLine"), 15000, 0, 25000, 100000));
 //		stage.addActor(new DummyTower(3000,4500,2));
 //		stage.addActor(new AntiGravityTower(2500,4500,2));
 //		stage.addActor(new MagnetTower(6000,6000,2));

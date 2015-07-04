@@ -28,6 +28,7 @@ public class Enemy extends Circle{
 	private Image hpBarBack;
 	private Image hpBarFront;
 	private RadialSprite hpBarFrontSprite;
+	public boolean hit = false;
 	
 	public Enemy(float x, float y, float scale) {
 		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
