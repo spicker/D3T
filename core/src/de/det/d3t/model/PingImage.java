@@ -7,25 +7,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class PingImage extends Image {
 	private float scale = 0;
-	private Texture texture;
+	
 	private AoeTower bind;
-	private float maxScale;
-	private float minScale;
-	private float pingTime;
-	private float time;
-	private float pingDuration;
+	
 
-	public PingImage(Texture texture, float minScale, float maxScale,
-			float pingTime,float pingDuration, AoeTower bind) {
+	public PingImage(Texture texture, float minScale, AoeTower bind) {
 		super(texture);
 		this.bind = bind;
 		this.scale = minScale;
-		this.maxScale = maxScale;
-		this.minScale = minScale;
-		this.texture = texture;
-		this.pingDuration = pingDuration;
-		this.pingTime = pingTime;
-
+		
+		
 	}
 
 	@Override
