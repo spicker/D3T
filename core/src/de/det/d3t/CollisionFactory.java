@@ -77,14 +77,21 @@ public class CollisionFactory {
 				dist = (float) Math.sqrt(difX * difX + difY * difY);
 			}
 		}
-		if(dist < con.getLineWidth() + e.getRadius()){
+		if(dist < con.getLineWidth() / 2 + e.getRadius()){
 			float conNorX = con.getX1() - con.getX2();
 			float conNorY = con.getY1() - con.getY2();
 			float length = (float) Math.sqrt(conNorX * conNorX + conNorY * conNorY);
 			conNorX /= length;
 			conNorY /= length;
-			//check which side the ball hits
+			//check which side the ball hits based on the balls velocity
 			float dot = conNorX * e.getVelocityX() + conNorY * e.getVelocityY();
+			//check which side the ball hits based on the balls velocity
+			if(Math.sqrt(e.getVelocityX() * e.getVelocityX() + e.getVelocityY() * e.getVelocityY()) * Gdx.graphics.getDeltaTime() < (con.getWidth() / 2 + e.getRadius())){
+				float wurstX = con.getX1() - e.getCenterX();
+				float wurstY = con.getY1() - e.getCenterY();
+				dot = wurstX * conNorX + wurstY * conNorY;
+				System.out.println("wurst is love wurst is life");
+			}
 			float tempX = conNorX;
 			if(dot > 0){
 				conNorX = -conNorY;
@@ -93,6 +100,8 @@ public class CollisionFactory {
 				conNorX = conNorY;
 				conNorY = -tempX;
 			}
+			e.setPosition(e.getX() - conNorX * (dist - (con.getLineWidth() / 2 + e.getRadius())), 
+					e.getY() - conNorY * (dist - (con.getLineWidth() / 2 + e.getRadius())));
 			dot = conNorX * e.getVelocityX() + conNorY * e.getVelocityY();
 			float newVelX = -2 * dot * conNorX + e.getVelocityX();
 			float newVelY = -2 * dot * conNorY + e.getVelocityY();
