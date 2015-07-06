@@ -15,41 +15,48 @@ public class SingleShotTower extends Tower {
 	public SingleShotTower(float x, float y, float scale) {
 		super(x, y, scale);
 		deco = new RotatingImage(TextureFactory.getTexture("red1"), this, 130);
-		//deco2 = new RotatingImage(TextureFactory.getTexture("red1"), this, 130);
+		// deco2 = new RotatingImage(TextureFactory.getTexture("red1"), this,
+		// 130);
 		addComponent(deco);
-		//addComponent(deco2);
+		// addComponent(deco2);
 		deco.setBounds(0, 0, 150, 150);
-		//deco2.setBounds(0, 0, 150, 150);
-		//deco2.setRotation(180f);
+		// deco2.setBounds(0, 0, 150, 150);
+		// deco2.setRotation(180f);
 	}
-	
+
 	@Override
 	public void act(float delta) {
-		if(isActive() == false){
+		if (isActive() == false) {
 			return;
 		}
-		
+
 		cd -= delta;
-		if(cd < 0){
+		if (cd < 0) {
 			cd = 0.3f;
 			shoot();
 		}
 		super.act(delta);
 	}
-	
-	public void shoot(){
-		Missile m = new Missile(TextureFactory.getTexture("singleShotMissle"), this,getNearest(Enemy.getAllEnemys()), 1000, 100);
-		getStage().addActor(m);
-		m.setAction((Enemy e) -> {
-			if(e != null){
-				float targetX = e.getCenterX() - getCenterX();
-				float targetY = e.getCenterY() - getCenterY();
-				float length = (float) Math.sqrt(targetX * targetX + targetY * targetY);
-				targetX /= length;
-				targetY /= length;
-				e.addForce(targetX * knockStrength, targetY * knockStrength);
-			}
-		});
+
+	public void shoot() {
+		Enemy target = getNearest(Enemy.getAllEnemys());
+		if (target != null && target.getStage() != null) {
+			Missile m = new Missile(
+					TextureFactory.getTexture("singleShotMissle"), this,
+					target, 1000, 100);
+			getStage().addActor(m);
+			m.setAction((Enemy e) -> {
+				if (e != null) {
+					float targetX = e.getCenterX() - getCenterX();
+					float targetY = e.getCenterY() - getCenterY();
+					float length = (float) Math.sqrt(targetX * targetX
+							+ targetY * targetY);
+					targetX /= length;
+					targetY /= length;
+					e.addForce(targetX * knockStrength, targetY * knockStrength);
+				}
+			});
+		}
 	}
 
 }

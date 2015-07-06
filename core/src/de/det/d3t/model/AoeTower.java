@@ -18,9 +18,8 @@ public class AoeTower extends Tower {
 
 	public AoeTower(float x, float y, float scale) {
 		super(x, y, scale);
-		this.size = TextureFactory
-				.getTexture("enemy").getWidth() * scale;
-		deco = new PingImage(TextureFactory.getTexture("ping"), size, pingSize, pingTime,pingDuration, this);
+		this.size = getWidth() * 1.15f;
+		deco = new PingImage(TextureFactory.getTexture("ping"), size, this);
 		addComponent(deco);
 		// deco.setBounds(0, 0, TextureFactory.getTexture("enemy").getWidth()
 		// * scale, TextureFactory.getTexture("enemy").getWidth() * scale);

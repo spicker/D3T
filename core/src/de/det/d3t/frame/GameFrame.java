@@ -32,7 +32,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.sun.org.apache.xml.internal.serialize.LineSeparator;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
@@ -119,6 +118,15 @@ public class GameFrame extends InputListener implements Screen {
 		fpsLogger = new FPSLogger();
 		timekeeper = new TimeKeeper();
 		
+		//TODO: if level finished : set levelConquered[the played level] = true and the corresponding levels in levelUnlocked[i] = true
+		//Level 1: levelConquered[0]=true; levelUnlocked[1] = true;
+		//Level 2: levelConquered[1]=true; levelUnlocked[2] = true; levelUnlocked[3] = true;
+		//Level 3: levelConquered[2]=true; if(levelConquered[3]) levelUnlocked[4] = true;
+		//Level 4: levelConquered[3]=true; if(levelConquered[2]) levelUnlocked[4] = true;
+		//Level 5: levelConquered[4]=true; levelUnlocked[5] = true;
+		//Level 6: levelConquered[5]=true; levelUnlocked[6] = true;
+		//Level 7: levelConquered[6]=true; TODO: display message "Victory" or similar
+		
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
 		
@@ -154,7 +162,7 @@ public class GameFrame extends InputListener implements Screen {
 		textButtonStyle.font = font;
 		textButtonStyle.over = new TextureRegionDrawable(new TextureRegion(TextureFactory.getTexture("blueButtonNew_over")));
 		
-	    ingameButtonMenu = new TextButton("MenÃ¼ [ESC]", textButtonStyle);
+	    ingameButtonMenu = new TextButton("Menü [ESC]", textButtonStyle);
 	    ingameButtonMenu.setBounds(width/2 -(1900/2), height/2  + height/3 + height/10, 1900, 500);
 	    ingameButtonMenu.addListener(this);
 	    
@@ -244,7 +252,7 @@ public class GameFrame extends InputListener implements Screen {
 		escButtonLevelSelect.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8 + height/8 + height/8, 2500, 650);
 		escButtonLevelSelect.addListener(this);
 		
-		escButtonMainMenu = new TextButton("HauptmenÃ¼", textButtonStyle);
+		escButtonMainMenu = new TextButton("Hauptmenü", textButtonStyle);
 		escButtonMainMenu.setBounds(escMenu.getX() + escMenu.getWidth()/2 - (2500/2)  , escMenu.getY() + height/9 + height/8 + height/8+ height/8 + height/8, 2500, 650);
 		escButtonMainMenu.addListener(this);
 		
