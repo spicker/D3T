@@ -294,7 +294,7 @@ public class GameFrame extends InputListener implements Screen {
 		// stage.addActor(new DummyTower(3000,4500,2));
 		// stage.addActor(new AntiGravityTower(2500,4500,2));
 		// stage.addActor(new MagnetTower(6000,6000,2));
-		 for(int j = 1; j <= 100000; j++){
+		/* for(int j = 1; j <= 100000; j++){
 			 float x = (float) (Math.random() * Settings.viewportWidth);
 			 float y = (float) (Math.random() * Settings.viewportHeight);
 			  x = (float) (Math.random() * Settings.viewportWidth);
@@ -304,7 +304,7 @@ public class GameFrame extends InputListener implements Screen {
 				  i.setBounds(x, y, 10, 10);
 				  stage.addActor(i);
 			  }
-		 }
+		 }*/
 		// new RadialSprite(new
 		// TextureRegion(TextureFactory.getTexture("basic")));
 

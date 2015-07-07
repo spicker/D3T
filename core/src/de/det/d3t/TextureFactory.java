@@ -140,6 +140,11 @@ public class TextureFactory {
 		
 		addTexture("singleShotIcon", new Texture("textures/gameElements/towers/labels/singleShotIcon.png"));
 		addTexture("antiGravityIcon", new Texture("textures/gameElements/towers/labels/antiGravityIcon.png"));
+		addTexture("aoeIcon", new Texture("textures/gameElements/towers/labels/aoeIcon.png"));
+		addTexture("billardIcon", new Texture("textures/gameElements/towers/labels/billardIcon.png"));
+		addTexture("magnetIcon", new Texture("textures/gameElements/towers/labels/magnetIcon.png"));
+		addTexture("teleportIcon", new Texture("textures/gameElements/towers/labels/teleportIcon.png"));
+		addTexture("poisonIcon", new Texture("textures/gameElements/towers/labels/poisonIcon.png"));
 		
 		TextureRegion[] animReg = new TextureRegion[11];
 		TextureRegion[] animReg2 = new TextureRegion[11];
