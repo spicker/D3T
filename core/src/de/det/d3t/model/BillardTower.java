@@ -6,10 +6,15 @@ public class BillardTower extends Tower {
 
 	private float shootTime = 1;
 	private float time = shootTime;
-	private float missileSize = 2;
-
+	private float ballSize = 0.7f;
+	RotatingImage deco;
+	
 	public BillardTower(float x, float y, float scale) {
 		super(x, y, scale);
+		
+		deco = new RotatingImage(TextureFactory.getTexture("black1"), this, 130);
+		addComponent(deco);
+		deco.setBounds(0, 0, 150, 150);
 	}
 
 	@Override
@@ -31,8 +36,8 @@ public class BillardTower extends Tower {
 		Enemy target = getNearest(Enemy.getAllEnemys());
 		if (target != null && target.getStage() != null) {
 			BillardBall m = new BillardBall(
-					TextureFactory.getTexture("singleShotMissle"), this,
-					getNearest(Enemy.getAllEnemys()), missileSize);
+					TextureFactory.getTexture("black1"), this,
+					getNearest(Enemy.getAllEnemys()), ballSize);
 			// BillardBall b = new
 			// BillardBall(getCenterX(),getCenterY(),2,getNearest(Enemy.getAllEnemys()));
 			getStage().addActor(m);

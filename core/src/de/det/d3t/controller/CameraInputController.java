@@ -20,8 +20,6 @@ public class CameraInputController implements InputProcessor {
 		this.cam = cam;
 		this.screenFactorX = cam.viewportWidth / Gdx.graphics.getWidth();
 		this.screenFactorY = cam.viewportHeight / Gdx.graphics.getHeight();
-		cam.position.set(new Vector3(26000, 25000,1));
-		cam.zoom = 1.2f;
 	}
 
 	@Override
@@ -51,7 +49,6 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -78,7 +75,7 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) {
-		cam.zoom = Math.max(0.1f, cam.zoom+(amount/10f));
+		cam.zoom = Math.max(0.02f, cam.zoom+(amount/100f));
 		//cam.zoom += amount / 10f;
 		return false;
 	}

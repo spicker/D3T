@@ -96,8 +96,8 @@ public class LevelController {
 			enemy.setY(y);
 
 			while (isValidSpawn(enemy, alreadySpawned) == false) {
-				enemy.setX(enemy.getX() + 20);
-				enemy.setY(enemy.getY() + 20);
+				enemy.setX(enemy.getX() + 100);
+				enemy.setY(enemy.getY() + 100);
 			}
 			alreadySpawned.add(enemy);
 			stage.addActor(enemy);
@@ -112,11 +112,11 @@ public class LevelController {
 
 	private boolean isValidSpawn(Enemy enemy, ArrayList<Enemy> alreadySpawned) {
 		for (Enemy spawnedEnemy : alreadySpawned) {
-			if ((spawnedEnemy.getX() - enemy.getX() < 150 && spawnedEnemy.getX()
-					- enemy.getX() > -150)){
+			if ((spawnedEnemy.getX() - enemy.getX() < 500 && spawnedEnemy.getX()
+					- enemy.getX() > -500)){
 				return false;}
-			if ((spawnedEnemy.getY() - enemy.getY() < 150 && spawnedEnemy.getY()
-					- enemy.getY() > -150)) {
+			if ((spawnedEnemy.getY() - enemy.getY() < 500 && spawnedEnemy.getY()
+					- enemy.getY() > -500)) {
 				return false;
 			}
 		}

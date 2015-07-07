@@ -21,6 +21,7 @@ import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.BillardTower;
 import de.det.d3t.model.Enemy;
+import de.det.d3t.model.Level;
 import de.det.d3t.model.MagnetTower;
 import de.det.d3t.model.SingleShotTower;
 import de.det.d3t.model.SlowTower;
@@ -36,58 +37,63 @@ public class BuildingController {
 	private Tower buildTower = null;
 	private TowerDescription buildDesc = null;
 	private Stage gameStage, uiStage;
+	private LevelController levelController;
 
-	public BuildingController(Stage gameStage, Stage uiStage) {
+	public BuildingController(Stage gameStage, Stage uiStage,
+			LevelController levelController) {
+
+		this.levelController = levelController;
+		this.gameStage = gameStage;
+		this.uiStage = uiStage;
 
 		labelstyle = new LabelStyle();
 		labelstyle.font = TextureFactory.getFont("emmett", 200, Color.YELLOW);
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravity", "Stößt Gegner ab",
+		current = new TowerDescription("Anti Gravity", "Stößt Gegner ab", 5,
 				TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, AntiGravityTower.class);
 
-		current = new TowerDescription("AOE", "Greift mehrere Gegner an",
+		current = new TowerDescription("AOE", "Greift mehrere Gegner an", 5,
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, AoeTower.class);
 
-		current = new TowerDescription("Single Shot", "Greif einen einzelnen Gegner an",
+		current = new TowerDescription("Single Shot",
+				"Greif einen einzelnen Gegner an", 5,
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SingleShotTower.class);
-		
-		current = new TowerDescription("Billard", "Verschießt zurückstoßende Kugel",
+
+		current = new TowerDescription("Billard",
+				"Verschießt zurückstoßende Kugel", 5,
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BillardTower.class);
 
-		current = new TowerDescription("Teleport", "Teleportiert Gegner",
+		current = new TowerDescription("Teleport", "Teleportiert Gegner", 5,
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, TeleportTower.class);
-		
-		current = new TowerDescription("Magnet", "Zieht Gegner an",
+
+		current = new TowerDescription("Magnet", "Zieht Gegner an", 5,
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, MagnetTower.class);
-		
-		current = new TowerDescription("Slow", "Verlangsamt Gegner",
+
+		current = new TowerDescription("Slow", "Verlangsamt Gegner", 5,
 				TextureFactory.getTexture("singleShotIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SlowTower.class);
-
-		this.gameStage = gameStage;
-		this.uiStage = uiStage;
 
 	}
 
@@ -97,13 +103,15 @@ public class BuildingController {
 
 	public class TowerDescription implements InputProcessor {
 
-		public TowerDescription(String name, String tooltip, Texture texture) {
+		public TowerDescription(String name, String tooltip, int cost,
+				Texture texture) {
 			super();
 			this.name = name;
 			this.tooltip = tooltip;
 			this.image = new Image(texture);
 			this.texture = texture;
-			label = new Label(name + "\n" + tooltip, labelstyle);
+			this.cost = cost;
+			label = new Label(name + "\n" + "Cost: " + cost + "\n" + tooltip, labelstyle);
 		}
 
 		public String name;
@@ -111,6 +119,7 @@ public class BuildingController {
 		public Label label;
 		public Texture texture;
 		public Image image;
+		public int cost;
 
 		private boolean isHoveredOver = false;
 		private Image hoverImage = null;
@@ -144,6 +153,8 @@ public class BuildingController {
 				buildTower.remove();
 				buildTower = null;
 				buildDesc = null;
+
+				return true;
 			}
 
 			if (button == Buttons.LEFT && buildingSelected
@@ -151,7 +162,17 @@ public class BuildingController {
 
 				Vector2 target = gameStage
 						.screenToStageCoordinates(new Vector2(screenX, screenY));
-
+				
+				if(levelController.getCurrentLevel().getGold() < cost){
+					
+					NotEnoughGoldLabel label = new NotEnoughGoldLabel();
+					gameStage.addActor(label);
+					label.setX(target.x);
+					label.setY(target.y);
+					
+					return true;
+				}
+				
 				buildingSelected = false;
 				buildTower.remove();
 				buildTower = null;
@@ -174,7 +195,10 @@ public class BuildingController {
 				}
 
 				buildDesc = null;
-
+				
+				Level currentLevel = levelController.getCurrentLevel();
+				currentLevel.setGold(currentLevel.getGold() - cost);
+				
 				return true;
 			}
 
@@ -202,6 +226,7 @@ public class BuildingController {
 				buildTower.setActive(false);
 				buildTower.removeHPbar();
 				gameStage.addActor(buildTower);
+
 				return true;
 			}
 
@@ -341,5 +366,28 @@ public class BuildingController {
 		}
 
 	}
-
+	
+	private class NotEnoughGoldLabel extends Label{
+		
+		private static final float TIMELIMIT = 3;
+		private float lived = 0;
+		
+		public NotEnoughGoldLabel(){
+			super("Nicht genügend Gold", labelstyle);
+		}
+		
+		@Override
+		public void act(float delta) {
+			lived += delta;
+			
+			if(lived > TIMELIMIT){
+				remove();
+				return;
+			}
+			
+			setY(getY()+5);
+			super.act(delta);
+		}
+	}
+	
 }

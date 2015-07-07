@@ -85,7 +85,7 @@ public class Enemy extends Circle{
 		velocityY += targetY;
 		velocityX *= Math.pow(glideFactor, delta);
 		velocityY *= Math.pow(glideFactor, delta);
-		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 3 * delta));
+		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 5 / scale * delta));
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
 		
 		

@@ -77,8 +77,7 @@ public class Wave extends ArrayList<Enemy> {
 	
 	public void spawn(){
 		for(EnemyValues values : queuedEnemyList){
-			Enemy enemy = new Enemy(0, 0, 1);
-			enemy.setScale(values.scale);
+			Enemy enemy = new Enemy(0, 0, values.scale);
 			enemy.setMaxHp(values.maxhp);
 			enemy.setHp(values.maxhp);
 			enemy.setMass(values.mass);
