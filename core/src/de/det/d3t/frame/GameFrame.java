@@ -289,10 +289,8 @@ public class GameFrame extends InputListener implements Screen {
 		// stage.addActor(new AntiGravityTower(2500,4500,2));
 		// stage.addActor(new AoeTower(3500,4500,2));
 
-		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory
-				.getTexture("connectionAnim"), 4f, 2f, 0.1f));
 		stage.addActor(new LineSegment(TextureFactory
-				.getTexture("connectionAnim"), 30000, 0, 30000, 100000));
+				.getTexture("connectionAnim"), 2000, 2000, 7000, 3000));
 		// stage.addActor(new DummyTower(3000,4500,2));
 		// stage.addActor(new AntiGravityTower(2500,4500,2));
 		// stage.addActor(new MagnetTower(6000,6000,2));
