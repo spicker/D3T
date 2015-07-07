@@ -28,7 +28,7 @@ public class LevelController {
 	int currentLevel = 0;
 	float timer = 0;
 	float limit;
-
+	private static LevelController instance;
 	boolean buildingPhase = true;
 
 	private Stage stage;
@@ -39,6 +39,16 @@ public class LevelController {
 		this.gameFrame = gameFrame;
 	}
 	
+	public static LevelController getInstance(){
+		if(instance == null){
+			instance = new LevelController();
+		}
+		return instance;
+	}
+	
+	public LevelController(){
+		instance = this;
+	}
 	public void resetLevel(){
 		getCurrentLevel().remove();
 		loadLevelFromFile(getCurrentLevel().getName());

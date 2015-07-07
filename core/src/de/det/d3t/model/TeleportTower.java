@@ -1,11 +1,15 @@
 package de.det.d3t.model;
 
+import java.util.ArrayList;
+import java.util.Random;
+import com.badlogic.gdx.math.Rectangle;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.controller.LevelController;
 
 public class TeleportTower extends Tower {
 
 	private float cd = 1f;
-	private float missileVel = 4000;
+	private float missileVel = 6000;
 	private float missileSize = 100;
 
 	private float time = cd;
@@ -31,7 +35,7 @@ public class TeleportTower extends Tower {
 		deco7 = new RotatingImage(TextureFactory.getTexture("red1"), this, 50);
 		deco8 = new RotatingImage(TextureFactory.getTexture("red1"), this, 50);
 		deco9 = new RotatingImage(TextureFactory.getTexture("red1"), this, 50);
-		
+
 		deco3.setBounds(0, 0, 80, 80);
 		deco4.setBounds(0, 0, 40, 40);
 		deco4.setRoationSpeed(-330);
@@ -50,19 +54,17 @@ public class TeleportTower extends Tower {
 		deco9.setBounds(0, 0, 40, 40);
 		deco9.setRoationSpeed(-330);
 		deco9.setRotation(300);
-		
-		
-		
+
 		addComponent(deco4);
 		addComponent(deco5);
 		addComponent(deco6);
 		addComponent(deco7);
 		addComponent(deco8);
 		addComponent(deco9);
-		
+
 		addComponent(deco);
 		addComponent(deco3);
-		
+
 		// addComponent(deco2);
 		deco.setBounds(0, 0, 150, 150);
 		// deco2.setBounds(0, 0, 150, 150);
@@ -71,10 +73,10 @@ public class TeleportTower extends Tower {
 
 	@Override
 	public void act(float delta) {
-		if(isActive() == false){
+		if (isActive() == false) {
 			return;
 		}
-		
+
 		time -= delta;
 		if (time < 0) {
 			time = cd;
@@ -98,10 +100,22 @@ public class TeleportTower extends Tower {
 			getStage().addActor(m);
 			m.setAction((Enemy e) -> {
 				if (e != null) {
+					float telX = 0;
+					float telY = 0;
+					LevelController lc = LevelController.getInstance();
+					Random ran = new Random();
+					ArrayList<Rectangle> spawnAreas = lc.getCurrentLevel()
+							.getSpawnAreaList();
 
-					//TODO: Anstatt (0,0) zum Spawnpunkt?
-					//TODO: vorschlag: ein Punkt der auf einem gewissen Radius vom Tower liegt und möglichst weit entfernt ist vom Ziel oder einfahc Random auf dem Radius
-					e.setPosition(0, 0);
+					telX = spawnAreas.get(ran.nextInt(spawnAreas.size()))
+							.getX() + (ran.nextFloat() * 5000 - 2500);
+					telY = spawnAreas.get(ran.nextInt(spawnAreas.size()))
+							.getY() + (ran.nextFloat() * 5000 - 2500);
+					// TODO: Anstatt (0,0) zum Spawnpunkt?
+					// TODO: vorschlag: ein Punkt der auf einem gewissen Radius
+					// vom Tower liegt und möglichst weit entfernt ist vom Ziel
+					// oder einfahc Random auf dem Radius
+					e.setPosition(telX, telY);
 
 				}
 			});

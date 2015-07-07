@@ -31,7 +31,8 @@ public class Enemy extends Circle{
 	public boolean hit = false;
 	
 	public Enemy(float x, float y, float scale) {
-		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale);
+		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale/Settings.scaleConst);
+		scale /= Settings.scaleConst;
 		allEnemys.add(this);
 		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
 		this.scale = scale;

@@ -9,6 +9,7 @@ public class Settings {
 	public static final float basePositionX = 17000;
 	public static final float basePositionY = 25000;
 	
+	public static final float scaleConst = 6;
 	private static float basePositionMenuX = 600;
 	private static float basePositionMenuY = 500;
 		
