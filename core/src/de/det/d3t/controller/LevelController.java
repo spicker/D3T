@@ -138,11 +138,11 @@ public class LevelController {
 
 	private boolean isValidSpawn(Enemy enemy, ArrayList<Enemy> alreadySpawned) {
 		for (Enemy spawnedEnemy : alreadySpawned) {
-			if ((spawnedEnemy.getX() - enemy.getX() < 500 && spawnedEnemy.getX()
-					- enemy.getX() > -500)){
+			if ((spawnedEnemy.getX() - enemy.getX() < 60 && spawnedEnemy.getX()
+					- enemy.getX() > -60)){
 				return false;}
-			if ((spawnedEnemy.getY() - enemy.getY() < 500 && spawnedEnemy.getY()
-					- enemy.getY() > -500)) {
+			if ((spawnedEnemy.getY() - enemy.getY() < 60 && spawnedEnemy.getY()
+					- enemy.getY() > -60)) {
 				return false;
 			}
 		}

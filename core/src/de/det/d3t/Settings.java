@@ -6,8 +6,8 @@ public class Settings {
 	public static final int aspectRatioMultiplier = 1000;
 	public static final float viewportHeight = aspectRatioY * aspectRatioMultiplier;
 	public static final float viewportWidth = aspectRatioX * aspectRatioMultiplier;
-	public static final float basePositionX = 17000;
-	public static final float basePositionY = 25000;
+	public static final float basePositionX = 1000;
+	public static final float basePositionY = 4000;
 	
 	public static final float scaleConst = 6;
 	private static float basePositionMenuX = 600;
