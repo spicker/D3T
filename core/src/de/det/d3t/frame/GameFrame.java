@@ -1,4 +1,3 @@
-
 package de.det.d3t.frame;
 
 import com.badlogic.gdx.Game;
@@ -292,8 +291,8 @@ public class GameFrame extends InputListener implements Screen {
 
 		stage.addActor(new Connection(2000, 2000, 7000, 3000, TextureFactory
 				.getTexture("connectionAnim"), 4f, 2f, 0.1f));
-		stage.addActor(new LineSegment(TextureFactory.getTexture("connectionAnim"),
-				30000, 0, 30000, 100000));
+		stage.addActor(new LineSegment(TextureFactory
+				.getTexture("connectionAnim"), 30000, 0, 30000, 100000));
 		// stage.addActor(new DummyTower(3000,4500,2));
 		// stage.addActor(new AntiGravityTower(2500,4500,2));
 		// stage.addActor(new MagnetTower(6000,6000,2));
@@ -318,7 +317,7 @@ public class GameFrame extends InputListener implements Screen {
 	}
 
 	private void setupLevels() {
-		levelController = new LevelController();
+		levelController = new LevelController(this);
 		levelController.loadLevelsFromFile();
 		switch (selectedLevel) {
 		case 1:
@@ -373,7 +372,9 @@ public class GameFrame extends InputListener implements Screen {
 		TiledMap map = levelController.getCurrentLevel().getTiledMap();
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
 		lavaDetector = new TileMapIntersectionDetector(layer);
-		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
+		tileMapRenderer = new OrthogonalTiledMapRenderer(map,
+				Settings.viewportHeight
+						/ (layer.getHeight() * layer.getTileHeight()));
 	}
 
 	public void setupBuilding() {
@@ -560,7 +561,7 @@ public class GameFrame extends InputListener implements Screen {
 		return false;
 
 	}
-	
+
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer,
 			int button) {
@@ -691,5 +692,10 @@ public class GameFrame extends InputListener implements Screen {
 
 			return minutesString + ":" + secondsString;
 		}
+	}
+
+	public void levelFinished() {
+		//game.setScreen(new SetupGameFrame(game));
+		//bgmMusic.stop();
 	}
 }
