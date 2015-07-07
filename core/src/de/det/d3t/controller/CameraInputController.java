@@ -55,15 +55,12 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		//System.out.println(screenX);
 		this.screenFactorX = cam.viewportWidth / Gdx.graphics.getWidth();
 		this.screenFactorY = cam.viewportHeight / Gdx.graphics.getHeight();
 		cam.position.x += (lastTouchX - screenX) * screenFactorX * cam.zoom;
 		lastTouchX = screenX;
 		cam.position.y -= (lastTouchY - screenY) * screenFactorY * cam.zoom;
 		lastTouchY = screenY;
-		
-		System.out.println(cam.position.x + " " + cam.position.y);
 		
 		return false;
 	}
