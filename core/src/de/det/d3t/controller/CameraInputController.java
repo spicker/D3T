@@ -1,6 +1,7 @@
 package de.det.d3t.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Frustum;
@@ -75,7 +76,13 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) {
-		cam.zoom = Math.max(0.02f, cam.zoom+(amount/100f));
+		float factor = 1;
+		
+		if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)){
+			factor = 10;
+		}
+		
+		cam.zoom = Math.max(0.02f, cam.zoom+(amount/100f)*factor);
 		//cam.zoom += amount / 10f;
 		return false;
 	}
