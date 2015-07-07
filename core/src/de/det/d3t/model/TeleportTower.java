@@ -12,7 +12,7 @@ import de.det.d3t.controller.LevelController;
 public class TeleportTower extends Tower {
 
 	private float cd = 1f;
-	private float missileVel = 6000;
+	private float missileVel = 3000;
 	private float missileSize = 100;
 
 	private float time = cd;
@@ -105,16 +105,20 @@ public class TeleportTower extends Tower {
 				if (e != null) {
 					float telX = 0;
 					float telY = 0;
-					LevelController lc = LevelController.getInstance();
-					Random ran = new Random();
-					ArrayList<Rectangle> spawnAreas = lc.getCurrentLevel()
-							.getSpawnAreaList();
 
-					telX = spawnAreas.get(ran.nextInt(spawnAreas.size()))
-							.getX() + (ran.nextFloat() * 5000 - 2500);
-					telY = spawnAreas.get(ran.nextInt(spawnAreas.size()))
-							.getY() + (ran.nextFloat() * 5000 - 2500);
-					// TODO: Anstatt (0,0) zum Spawnpunkt?
+					// Zum Spawnpunkt (klappt nicht)
+//					LevelController lc = LevelController.getInstance();
+//					if (lc.getCurrentLevel() != null) {
+//						Random ran = new Random();
+//						ArrayList<Rectangle> spawnAreas = lc.getCurrentLevel()
+//								.getSpawnAreaList();
+//
+//						telX = spawnAreas.get(ran.nextInt(spawnAreas.size()))
+//								.getX() + (ran.nextFloat() * 5000 - 2500);
+//						telY = spawnAreas.get(ran.nextInt(spawnAreas.size()))
+//								.getY() + (ran.nextFloat() * 5000 - 2500);
+//					}
+					
 					// TODO: vorschlag: ein Punkt der auf einem gewissen Radius
 					// vom Tower liegt und möglichst weit entfernt ist vom Ziel
 					// oder einfahc Random auf dem Radius

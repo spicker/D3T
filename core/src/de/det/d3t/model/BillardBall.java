@@ -2,6 +2,8 @@ package de.det.d3t.model;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import de.det.d3t.Settings;
+
 public class BillardBall extends Circle {
 
 	private float velocityX, velocityY, length;
@@ -11,7 +13,8 @@ public class BillardBall extends Circle {
 	private float mass = 5;
 
 	public BillardBall(Texture texture, Tower start, Enemy target, float scale) {
-		super(texture, (texture.getWidth() / 2) * scale);
+		super(texture, (texture.getWidth() / 2) * scale/Settings.scaleConst);
+		scale /= Settings.scaleConst;
 		this.radius = (texture.getWidth() / 2) * scale;
 		setBounds(start.getCenterX() - radius, start.getCenterY() - radius,
 				texture.getWidth() * scale, texture.getHeight() * scale);

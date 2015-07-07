@@ -3,6 +3,8 @@ package de.det.d3t.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import de.det.d3t.Settings;
+
 public class Missile extends Image {
 	private Tower start;
 	private Enemy target;
@@ -11,6 +13,7 @@ public class Missile extends Image {
 	
 	public Missile(Texture texture, Tower start, Enemy target, float velocity, float radius) {
 		super(texture);
+		radius /= Settings.scaleConst/2;
 		this.start = start;
 		this.target = target;
 		this.velocity = velocity;
