@@ -90,7 +90,7 @@ public class CollisionFactory {
 				float wurstX = con.getX1() - e.getCenterX();
 				float wurstY = con.getY1() - e.getCenterY();
 				dot = wurstX * conNorX + wurstY * conNorY;
-				System.out.println("wurst is love wurst is life");
+				//System.out.println("wurst is love wurst is life");
 			}
 			float tempX = conNorX;
 			if(dot > 0){
