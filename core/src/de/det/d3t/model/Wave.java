@@ -48,11 +48,10 @@ public class Wave extends ArrayList<Enemy> {
 	 * @param n
 	 * @param enemy
 	 */
-	public void addMultiple(int n, float scale, float maxHp, float mass) {
+	public void addMultiple(int n, float maxHp, float mass) {
 		for (int i = 0; i < n; i++) {
 			EnemyValues enemy = new EnemyValues();
 			enemy.mass = mass;
-			enemy.scale = scale;
 			enemy.maxhp = maxHp;
 			queuedEnemyList.add(enemy);
 		}

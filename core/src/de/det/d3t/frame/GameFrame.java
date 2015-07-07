@@ -296,19 +296,17 @@ public class GameFrame extends InputListener implements Screen {
 		// stage.addActor(new DummyTower(3000,4500,2));
 		// stage.addActor(new AntiGravityTower(2500,4500,2));
 		// stage.addActor(new MagnetTower(6000,6000,2));
-		// for(int j = 1; j <= 100; j++){
-		// float x = (float) (Math.random() * Settings.viewportWidth);
-		// float y = (float) (Math.random() * Settings.viewportHeight);
-		// stage.addActor(new Enemy(x, y, 1, true));
-		// // x = (float) (Math.random() * Settings.viewportWidth);
-		// // y = (float) (Math.random() * Settings.viewportHeight);
-		// // stage.addActor(new Tower(x, y, 2));
-		// // if(lavaDetector.hasIntersectAt(x, y)){
-		// // i = new Image(texture);
-		// // i.setBounds(x, y, 10, 10);
-		// // stage.addActor(i);
-		// // }
-		// }
+		 for(int j = 1; j <= 100000; j++){
+			 float x = (float) (Math.random() * Settings.viewportWidth);
+			 float y = (float) (Math.random() * Settings.viewportHeight);
+			  x = (float) (Math.random() * Settings.viewportWidth);
+			  y = (float) (Math.random() * Settings.viewportHeight);
+			  if(lavaDetector.hasIntersectAt(x, y)){
+				  Image i = new Image(TextureFactory.getTexture("basic"));
+				  i.setBounds(x, y, 10, 10);
+				  stage.addActor(i);
+			  }
+		 }
 		// new RadialSprite(new
 		// TextureRegion(TextureFactory.getTexture("basic")));
 
