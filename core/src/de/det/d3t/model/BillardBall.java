@@ -7,8 +7,8 @@ public class BillardBall extends Circle {
 	private float velocityX, velocityY, length;
 
 	private float radius;
-	private float velocity = 6000;
-	private float mass = 100000f;
+	private float velocity = 10000;
+	private float mass = 5;
 
 	public BillardBall(Texture texture, Tower start, Enemy target, float scale) {
 		super(texture, (texture.getWidth() / 2) * scale);

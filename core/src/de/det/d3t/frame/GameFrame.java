@@ -346,7 +346,7 @@ public class GameFrame extends InputListener implements Screen {
 
 	public void setupStage() {
 		stageCamera = new OrthographicCamera();
-		stageCamera.zoom = 1f;
+		stageCamera.zoom = 0.3f;
 		stageViewport = new StretchViewport(Settings.viewportWidth,
 				Settings.viewportHeight, stageCamera);
 		stage = new Stage(stageViewport);
@@ -372,7 +372,7 @@ public class GameFrame extends InputListener implements Screen {
 		TiledMap map = levelController.getCurrentLevel().getTiledMap();
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
 		lavaDetector = new TileMapIntersectionDetector(layer);
-		tileMapRenderer = new OrthogonalTiledMapRenderer(map, 4);
+		tileMapRenderer = new OrthogonalTiledMapRenderer(map, Settings.viewportHeight / (layer.getHeight() * layer.getTileHeight()));
 	}
 
 	public void setupBuilding() {

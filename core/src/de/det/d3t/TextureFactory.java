@@ -34,7 +34,7 @@ public class TextureFactory {
 		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
-		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
+		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy_kevin.png"));
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2+7.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
 		
@@ -47,7 +47,8 @@ public class TextureFactory {
 		
 		addTexture("slowMissile",new Texture("textures/gameElements/towers/tower_green_ball.png"));
 		addTexture("teleportMissile", new Texture("textures/gameElements/towers/tower_missile_teleport.png"));
-		
+		addTexture("billardBall", new Texture("textures/gameElements/towers/tower_billard_ball.png"));
+		addTexture("billardBall2", new Texture("textures/gameElements/towers/tower_billard_ball_2.png"));
 		
 		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
 		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));
@@ -172,7 +173,7 @@ public class TextureFactory {
 		
 		//////////////////////////////MAIN-MENU-STAGE////////////////////////////////////////
 		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
-		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
+		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy_kevin.png"));
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background.png"));
 		addTexture("button_metal", new Texture("textures/ui/buttons/button_metal.png"));

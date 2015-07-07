@@ -25,50 +25,30 @@ public class Tower extends Circle {
 
 	public Tower(float x, float y, float scale) {
 		super(TextureFactory.getTexture("towerBackground"), (TextureFactory
-				.getTexture("towerBackground").getHeight() / 4) * scale);
-		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale,
-				TextureFactory.getTexture("enemy").getHeight() * scale);
+				.getTexture("towerBackground").getHeight() / 2) * scale);
+		setBounds(x, y, TextureFactory.getTexture("towerBackground").getWidth() * scale,
+				TextureFactory.getTexture("towerBackground").getHeight() * scale);
 		this.scale = scale;
 		this.components = new Group();
+		
 		hpBarBack = new Image(TextureFactory.getTexture("hpbarbackTower"));
-		hpBarBack.setBounds(x
-				- TextureFactory.getTexture("towerBackground").getWidth() / 2
-				* 0.5f, y
-				- TextureFactory.getTexture("towerBackground").getHeight() / 2
-				* 0.5f, TextureFactory.getTexture("towerBackground").getWidth()
-				/ 2 * scale * 1.5f, TextureFactory
-				.getTexture("towerBackground").getHeight() / 2 * scale * 1.5f);
-		components.addActor(hpBarBack);
-		hpBarFrontSprite = new RadialSprite(new TextureRegion(
-				TextureFactory.getTexture("hpbarTower")));
+		hpBarBack.setBounds(x, y, TextureFactory.getTexture("towerBackground").getWidth() * scale, TextureFactory.getTexture("towerBackground").getHeight() * scale);
+		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbarTower")));
 		hpBarFront = new Image(hpBarFrontSprite);
 		hpBarFrontSprite.setColor(Color.valueOf("00FF00"));
-		hpBarFront.setBounds(x
-				- TextureFactory.getTexture("towerBackground").getWidth() / 2
-				* 0.5f, y
-				- TextureFactory.getTexture("towerBackground").getHeight() / 2
-				* 0.5f, TextureFactory.getTexture("towerBackground").getWidth()
-				/ 2 * scale * 1.5f, TextureFactory
-				.getTexture("towerBackground").getHeight() / 2 * scale * 1.5f);
+		hpBarFront.setBounds(x, y, TextureFactory.getTexture("towerBackground").getWidth() * scale , TextureFactory.getTexture("towerBackground").getHeight() * scale);
+		
+		
+		components.addActor(hpBarBack);
 		components.addActor(hpBarFront);
+		
+		
 	}
 
 	
 	public void renewPositions(float x, float y){
-		hpBarBack.setBounds(x
-				- TextureFactory.getTexture("towerBackground").getWidth() / 2
-				* 0.5f, y
-				- TextureFactory.getTexture("towerBackground").getHeight() / 2
-				* 0.5f, TextureFactory.getTexture("towerBackground").getWidth()
-				/ 2 * scale * 1.5f, TextureFactory
-				.getTexture("towerBackground").getHeight() / 2 * scale * 1.5f);
-		hpBarFront.setBounds(x
-				- TextureFactory.getTexture("towerBackground").getWidth() / 2
-				* 0.5f, y
-				- TextureFactory.getTexture("towerBackground").getHeight() / 2
-				* 0.5f, TextureFactory.getTexture("towerBackground").getWidth()
-				/ 2 * scale * 1.5f, TextureFactory
-				.getTexture("towerBackground").getHeight() / 2 * scale * 1.5f);
+		hpBarBack.setBounds(x, y, TextureFactory.getTexture("towerBackground").getWidth() * scale, TextureFactory.getTexture("towerBackground").getHeight() * scale);
+		hpBarFront.setBounds(x, y, TextureFactory.getTexture("towerBackground").getWidth() * scale , TextureFactory.getTexture("towerBackground").getHeight() * scale);
 	}
 	
 	
