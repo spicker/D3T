@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import de.det.d3t.Settings;
+import de.det.d3t.frame.GameFrame;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Level;
 import de.det.d3t.model.Wave;
@@ -30,6 +32,12 @@ public class LevelController {
 	boolean buildingPhase = true;
 
 	private Stage stage;
+	
+	private GameFrame gameFrame;
+	
+	public LevelController(GameFrame gameFrame){
+		this.gameFrame = gameFrame;
+	}
 	
 	public void resetLevel(){
 		getCurrentLevel().remove();
@@ -78,6 +86,14 @@ public class LevelController {
 		}
 		
 		getCurrentLevel().updateGold();
+		if(getCurrentLevel().checkWin()){
+			System.out.println("Finished Level " + currentLevel);
+			Settings.getLevelConquered()[currentLevel] = true;
+			if(levelList.size() > currentLevel + 1){
+				Settings.getLevelUnlocked()[currentLevel + 1] = true;
+			}
+			gameFrame.levelFinished();
+		}
 
 	}
 

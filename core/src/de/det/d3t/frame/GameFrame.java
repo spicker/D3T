@@ -317,7 +317,7 @@ public class GameFrame extends InputListener implements Screen {
 	}
 
 	private void setupLevels() {
-		levelController = new LevelController();
+		levelController = new LevelController(this);
 		levelController.loadLevelsFromFile();
 		switch (selectedLevel) {
 		case 1:
@@ -415,6 +415,11 @@ public class GameFrame extends InputListener implements Screen {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 
+	public void levelFinished() {
+		game.setScreen(new SetupGameFrame(game));
+		bgmMusic.stop();
+	}
+	
 	@Override
 	public void dispose() {
 	}
@@ -691,4 +696,6 @@ public class GameFrame extends InputListener implements Screen {
 			return minutesString + ":" + secondsString;
 		}
 	}
+
+	
 }
