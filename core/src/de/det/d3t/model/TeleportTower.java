@@ -119,9 +119,10 @@ public class TeleportTower extends Tower {
 //								.getY() + (ran.nextFloat() * 5000 - 2500);
 //					}
 					
-					// TODO: vorschlag: ein Punkt der auf einem gewissen Radius
-					// vom Tower liegt und möglichst weit entfernt ist vom Ziel
-					// oder einfahc Random auf dem Radius
+					Random ran = new Random();
+					telX = getX() + ran.nextFloat()*2000 - 1000;
+					telY = getY() + ran.nextFloat()*2000 - 1000;
+					
 					e.setPosition(telX, telY);
 
 				}
