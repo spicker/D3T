@@ -9,7 +9,7 @@ public class LineSegment extends Entity{
 
 	public LineSegment(Texture texture, float x1, float y1, float x2, float y2) {
 		super(texture);
-		con = new Connection(x1, y1, x2, y2, texture, 1, 2, 100);
+		con = new Connection(x1, y1, x2, y2, texture, 1, 2, 0.1f);
 	}
 	
 	@Override

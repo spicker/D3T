@@ -43,7 +43,7 @@ public class TextureFactory {
 		addTexture("towerBackground", new Texture("textures/gameElements/towers/towerBackground.png"));
 		
 		addTexture("singleShotMissle", new Texture("textures/gameElements/towers/tower_cannon_ball.png"));
-		addTexture("testLine", new Texture("textures/thunder.png"));
+		addTexture("connectionAnim", new Texture("textures/thunder_anim.png"));
 		
 		addTexture("slowMissile",new Texture("textures/gameElements/towers/tower_green_ball.png"));
 		addTexture("teleportMissile", new Texture("textures/gameElements/towers/tower_missile_teleport.png"));
