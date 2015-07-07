@@ -110,6 +110,7 @@ public class LevelController {
 	}
 
 	private void spawnWave(Wave wave) {
+		wave.spawn();
 		Random random = new Random();
 		ArrayList<Enemy> alreadySpawned = new ArrayList<>();
 		System.out.println("LevelController: Spawning wave. Size: "
@@ -141,6 +142,7 @@ public class LevelController {
 			enemy.setAcceleration(0);
 			enemy.setVelocityX(0);
 			enemy.setVelocityY(0);
+			enemy.setHp(enemy.getMaxHp());
 		}
 	}
 
@@ -225,7 +227,6 @@ public class LevelController {
 									levelInitDelay);
 							curLevel.setSpawnAreaList(spawnAreaList);
 							for (Wave curWave : waveList) {
-								curWave.spawn();
 								curLevel.addWave(curWave);
 							}
 
