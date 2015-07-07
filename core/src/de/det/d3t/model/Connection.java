@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -28,7 +29,7 @@ public class Connection extends Actor {
 	private float y2;
 	
 	private static final int        FRAME_COLS = 1;   
-    private static final int        FRAME_ROWS = 5; 
+    private static final int        FRAME_ROWS = 20; 
 	
 	Animation                       animation;        
     TextureRegion[]                 frames;        
@@ -53,6 +54,7 @@ public class Connection extends Actor {
 		this.scaleWidth = scaleWidth;
 		this.scaleLength = scaleLength;
 		this.texture = t;
+		t.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 		this.speed = speed;
 		
 		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -99,6 +101,8 @@ public class Connection extends Actor {
 		float distance =  (float) Math.sqrt(stx * stx + sty * sty);
 		s.setU2(1 - (distance / step));
 		s.setSize(step - distance, width);
+
+		
 	}
 	
 	public float getDistance() {
@@ -137,7 +141,7 @@ public class Connection extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		for(Sprite s: segments){
-			s.setRegion(currentFrame);
+			s.setRegion(currentFrame.getRegionX(), currentFrame.getRegionY(),s.getRegionWidth(), currentFrame.getRegionHeight());
 			s.draw(batch);
 		}
 	}
