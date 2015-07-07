@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import de.det.d3t.Settings;
+
 public class RotatingImage extends Image {
 	private float axisRoationSpeed = 180f;
 	private float roationSpeed = 360;
@@ -15,6 +17,7 @@ public class RotatingImage extends Image {
 		super(texture);
 		this.offset = offset;
 		this.bind = bind;
+		setScale(1/Settings.scaleConst);
 	}
 	
 	public void setAxisRoationSpeed(float axisRoationSpeed) {

@@ -1,5 +1,6 @@
 package de.det.d3t.model;
 
+import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 
 public class BillardTower extends Tower {
@@ -12,7 +13,7 @@ public class BillardTower extends Tower {
 	public BillardTower(float x, float y, float scale) {
 		super(x, y, scale);
 		
-		deco = new RotatingImage(TextureFactory.getTexture("black1"), this, 130);
+		deco = new RotatingImage(TextureFactory.getTexture("black1"), this, 130/Settings.scaleConst + 15);
 		addComponent(deco);
 		deco.setBounds(0, 0, 150, 150);
 	}

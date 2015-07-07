@@ -1,5 +1,6 @@
 package de.det.d3t.model;
 
+import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 
 public class SlowTower extends Tower {
@@ -21,44 +22,44 @@ public class SlowTower extends Tower {
 
 	public SlowTower(float x, float y, float scale) {
 		super(x, y, scale);
-		deco = new RotatingImage(TextureFactory.getTexture("green1"), this, 130);
+		deco = new RotatingImage(TextureFactory.getTexture("green1"), this, 130/Settings.scaleConst + 15);
 
 		deco4 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
-				70);
+				70/Settings.scaleConst);
 		deco5 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
-				70);
+				70/Settings.scaleConst);
 		deco6 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
-				70);
+				70/Settings.scaleConst);
 		deco7 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
-				70);
+				70/Settings.scaleConst);
 		deco8 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
-				70);
+				70/Settings.scaleConst);
 		deco9 = new RotatingImage(TextureFactory.getTexture("orange1"), this,
-				70);
+				70/Settings.scaleConst);
 
-		deco4.setBounds(0, 0, 60, 60);
-		deco4.setRoationSpeed(-330);
-		deco5.setBounds(0, 0, 60, 60);
-		deco5.setRoationSpeed(-330);
+		deco4.setBounds(0, 0, 90, 90);
+		deco4.setRoationSpeed(-300);
+		deco5.setBounds(0, 0, 90, 90);
+		deco5.setRoationSpeed(-300);
 		deco5.setRotation(60);
-		deco6.setBounds(0, 0, 60, 60);
-		deco6.setRoationSpeed(-330);
+		deco6.setBounds(0, 0, 90, 90);
+		deco6.setRoationSpeed(-300);
 		deco6.setRotation(120);
-		deco7.setBounds(0, 0, 60, 60);
-		deco7.setRoationSpeed(-330);
+		deco7.setBounds(0, 0, 90, 90);
+		deco7.setRoationSpeed(-300);
 		deco7.setRotation(180);
-		deco8.setBounds(0, 0, 60, 60);
-		deco8.setRoationSpeed(-330);
+		deco8.setBounds(0, 0, 90, 90);
+		deco8.setRoationSpeed(-300);
 		deco8.setRotation(240);
-		deco9.setBounds(0, 0, 60, 60);
-		deco9.setRoationSpeed(-330);
+		deco9.setBounds(0, 0, 90, 90);
+		deco9.setRoationSpeed(-300);
 		deco9.setRotation(300);
 
 		// deco2 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 		// 130);
 
 		// addComponent(deco2);
-		deco.setBounds(0, 0, 150, 150);
+		deco.setBounds(0, 0, 185,185);
 		// deco2.setBounds(0, 0, 150, 150);
 		// deco2.setRotation(180f);
 

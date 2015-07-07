@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 
+import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 
 public class AoeTower extends Tower {
-	private float pingSize = 2000;
+	private float pingSize = 2000/Settings.scaleConst;
 	private float pingDuration = 0.5f;
 	private float pingTime = 1;
 	private float knockStrength = 500;
