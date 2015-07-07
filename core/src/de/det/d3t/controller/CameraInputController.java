@@ -1,6 +1,7 @@
 package de.det.d3t.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Frustum;
@@ -54,15 +55,12 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		//System.out.println(screenX);
 		this.screenFactorX = cam.viewportWidth / Gdx.graphics.getWidth();
 		this.screenFactorY = cam.viewportHeight / Gdx.graphics.getHeight();
 		cam.position.x += (lastTouchX - screenX) * screenFactorX * cam.zoom;
 		lastTouchX = screenX;
 		cam.position.y -= (lastTouchY - screenY) * screenFactorY * cam.zoom;
 		lastTouchY = screenY;
-		
-		System.out.println(cam.position.x + " " + cam.position.y);
 		
 		return false;
 	}
@@ -75,7 +73,13 @@ public class CameraInputController implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) {
-		cam.zoom = Math.max(0.02f, cam.zoom+(amount/100f));
+		float factor = 1;
+		
+		if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)){
+			factor = 10;
+		}
+		
+		cam.zoom = Math.max(0.02f, cam.zoom+(amount/100f)*factor);
 		//cam.zoom += amount / 10f;
 		return false;
 	}

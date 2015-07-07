@@ -14,12 +14,12 @@ public class SingleShotTower extends Tower {
 
 	public SingleShotTower(float x, float y, float scale) {
 		super(x, y, scale);
-		deco = new RotatingImage(TextureFactory.getTexture("red1"), this, 130);
+		deco = new RotatingImage(TextureFactory.getTexture("red1"), this, 130/Settings.scaleConst + 15);
 		// deco2 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 		// 130);
 		addComponent(deco);
 		// addComponent(deco2);
-		deco.setBounds(0, 0, 150, 150);
+		deco.setBounds(0, 0, 185,185);
 		// deco2.setBounds(0, 0, 150, 150);
 		// deco2.setRotation(180f);
 	}

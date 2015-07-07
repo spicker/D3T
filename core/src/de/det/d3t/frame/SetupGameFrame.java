@@ -236,7 +236,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 		else{
 			level5Button = new TextButton("5",levelStyleDisabled);
 		}
-		level5Button.setBounds(8700,2430,500,500);
+		level5Button.setBounds(8350,2700,500,500);
 		level5Button.addListener(this);
 		
 		if(levelUnlocked[5]){

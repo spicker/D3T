@@ -24,6 +24,7 @@ import de.det.d3t.model.Wave;
 public class LevelController {
 
 	private ArrayList<Level> levelList = new ArrayList<>();
+	private static final int SPAWNINGDISTANCE = 50;
 
 	int currentLevel = 0;
 	float timer = 0;
@@ -32,24 +33,25 @@ public class LevelController {
 	boolean buildingPhase = true;
 
 	private Stage stage;
-	
+
 	private GameFrame gameFrame;
-	
-	public LevelController(GameFrame gameFrame){
+
+	public LevelController(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;
 	}
-	
-	public static LevelController getInstance(){
-		if(instance == null){
+
+	public static LevelController getInstance() {
+		if (instance == null) {
 			instance = new LevelController();
 		}
 		return instance;
 	}
-	
-	public LevelController(){
+
+	public LevelController() {
 		instance = this;
 	}
-	public void resetLevel(){
+
+	public void resetLevel() {
 		getCurrentLevel().remove();
 		loadLevelFromFile(getCurrentLevel().getName());
 		limit = getCurrentLevel().getInitialDelay();
@@ -77,7 +79,7 @@ public class LevelController {
 		if (getCurrentLevel().hasStarted() == false) {
 			getCurrentLevel().start();
 			timer = 0;
-			if(getCurrentLevel().hasNextWave()){
+			if (getCurrentLevel().hasNextWave()) {
 				limit = getCurrentLevel().getCurrentWave().getDelayAfter();
 				spawnWave(getCurrentLevel().getCurrentWave());
 			}
@@ -94,12 +96,12 @@ public class LevelController {
 				limit = Float.POSITIVE_INFINITY;
 			}
 		}
-		
+
 		getCurrentLevel().updateGold();
-		if(getCurrentLevel().checkWin()){
+		if (getCurrentLevel().checkWin()) {
 			System.out.println("Finished Level " + currentLevel);
 			Settings.getLevelConquered()[currentLevel] = true;
-			if(levelList.size() > currentLevel + 1){
+			if (levelList.size() > currentLevel + 1) {
 				Settings.getLevelUnlocked()[currentLevel + 1] = true;
 			}
 			gameFrame.levelFinished();
@@ -121,9 +123,11 @@ public class LevelController {
 			enemy.setX(x);
 			enemy.setY(y);
 
+			int moveX = (1 - (random.nextInt(2) * 2)) * SPAWNINGDISTANCE;
+			int moveY = (1 - (random.nextInt(2) * 2)) * SPAWNINGDISTANCE;
 			while (isValidSpawn(enemy, alreadySpawned) == false) {
-				enemy.setX(enemy.getX() + 100);
-				enemy.setY(enemy.getY() + 100);
+				enemy.setX(enemy.getX() + moveX);
+				enemy.setY(enemy.getY() + moveY);
 			}
 			alreadySpawned.add(enemy);
 			stage.addActor(enemy);
@@ -138,11 +142,12 @@ public class LevelController {
 
 	private boolean isValidSpawn(Enemy enemy, ArrayList<Enemy> alreadySpawned) {
 		for (Enemy spawnedEnemy : alreadySpawned) {
-			if ((spawnedEnemy.getX() - enemy.getX() < 500 && spawnedEnemy.getX()
-					- enemy.getX() > -500)){
-				return false;}
-			if ((spawnedEnemy.getY() - enemy.getY() < 500 && spawnedEnemy.getY()
-					- enemy.getY() > -500)) {
+			if ((spawnedEnemy.getX() - enemy.getX() < SPAWNINGDISTANCE && spawnedEnemy
+					.getX() - enemy.getX() > -SPAWNINGDISTANCE)) {
+				return false;
+			}
+			if ((spawnedEnemy.getY() - enemy.getY() < SPAWNINGDISTANCE && spawnedEnemy
+					.getY() - enemy.getY() > -SPAWNINGDISTANCE)) {
 				return false;
 			}
 		}
@@ -164,7 +169,7 @@ public class LevelController {
 			levelList.add(level);
 	}
 
-	private boolean loadLevelFromFile(String restartedLevelName){
+	private boolean loadLevelFromFile(String restartedLevelName) {
 		try {
 			FileHandle fileHandle = Gdx.files
 					.internal("configs/levels.properties");
@@ -208,26 +213,28 @@ public class LevelController {
 
 				if (inLevelTag) {
 					if (curLine.equals("ENDLEVEL")) {
-						if (levelName.equals(restartedLevelName)){
-						Level curLevel = new Level(levelName,
-								new TmxMapLoader().load("tilemap/"
-										+ levelMapPath), levelList.size(),
-								levelInitDelay);
-						curLevel.setSpawnAreaList(spawnAreaList);
-						for (Wave curWave : waveList){
-							curWave.spawn();
-							curLevel.addWave(curWave);
-						}
-
-						int i;
-						for (i=0; i < levelList.size();i++){
-							if (levelList.get(i).getName().equals(restartedLevelName)){
-								break;
+						if (levelName.equals(restartedLevelName)) {
+							Level curLevel = new Level(levelName,
+									new TmxMapLoader().load("tilemap/"
+											+ levelMapPath), levelList.size(),
+									levelInitDelay);
+							curLevel.setSpawnAreaList(spawnAreaList);
+							for (Wave curWave : waveList) {
+								curWave.spawn();
+								curLevel.addWave(curWave);
 							}
-						}
-						levelList.remove(i);
-						levelList.add(i,curLevel);
-						System.out.println(curLevel.getName() + "added on Position "+i);
+
+							int i;
+							for (i = 0; i < levelList.size(); i++) {
+								if (levelList.get(i).getName()
+										.equals(restartedLevelName)) {
+									break;
+								}
+							}
+							levelList.remove(i);
+							levelList.add(i, curLevel);
+							System.out.println(curLevel.getName()
+									+ "added on Position " + i);
 						}
 
 						inLevelTag = false;
@@ -307,7 +314,7 @@ public class LevelController {
 
 		return true;
 	}
-	
+
 	public boolean loadLevelsFromFile() {
 
 		try {
@@ -359,7 +366,7 @@ public class LevelController {
 										+ levelMapPath), levelList.size(),
 								levelInitDelay);
 						curLevel.setSpawnAreaList(spawnAreaList);
-						for (Wave curWave : waveList){
+						for (Wave curWave : waveList) {
 							curWave.spawn();
 							curLevel.addWave(curWave);
 						}
@@ -370,6 +377,7 @@ public class LevelController {
 						levelName = "No name";
 						levelMapPath = "No path";
 						levelInitDelay = 0;
+						spawnAreaList = new ArrayList<>();
 
 						continue;
 					}
@@ -469,8 +477,8 @@ public class LevelController {
 		else
 			return false;
 	}
-	
-	public void setCurrentLevel(int level){
+
+	public void setCurrentLevel(int level) {
 		currentLevel = level;
 	}
 
@@ -482,7 +490,7 @@ public class LevelController {
 		levelList.add(level);
 	}
 
-	public int getGold(){
+	public int getGold() {
 		return getCurrentLevel().getGold();
 	}
 }
