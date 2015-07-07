@@ -34,7 +34,7 @@ public class TextureFactory {
 		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
-		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
+		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy_kevin.png"));
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2+7.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
 		
@@ -172,7 +172,7 @@ public class TextureFactory {
 		
 		//////////////////////////////MAIN-MENU-STAGE////////////////////////////////////////
 		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
-		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
+		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy_kevin.png"));
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background.png"));
 		addTexture("button_metal", new Texture("textures/ui/buttons/button_metal.png"));
