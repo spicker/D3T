@@ -201,8 +201,8 @@ public class CollisionFactory {
 		a.setVelocityX(a.getVelocityX() + (impulseX * im1));
 		a.setVelocityY(a.getVelocityY() + (impulseY * im1));
 
-		b.setVelocityX(b.getVelocityX() - (impulseX * im2));
-		b.setVelocityY(b.getVelocityY() - (impulseY * im2));
+		b.setVelocityX(b.getVelocityX() - (mtdX*im2 / 100));
+		b.setVelocityY(b.getVelocityY() - (mtdY*im2/100));
 	}
 
 	public static boolean hasIntersect(Entity t, float x, float y, float radius) {

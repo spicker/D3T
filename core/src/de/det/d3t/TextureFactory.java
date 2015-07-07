@@ -47,7 +47,8 @@ public class TextureFactory {
 		
 		addTexture("slowMissile",new Texture("textures/gameElements/towers/tower_green_ball.png"));
 		addTexture("teleportMissile", new Texture("textures/gameElements/towers/tower_missile_teleport.png"));
-		
+		addTexture("billardBall", new Texture("textures/gameElements/towers/tower_billard_ball.png"));
+		addTexture("billardBall2", new Texture("textures/gameElements/towers/tower_billard_ball_2.png"));
 		
 		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
 		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));
