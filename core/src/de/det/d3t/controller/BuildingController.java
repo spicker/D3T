@@ -373,7 +373,7 @@ public class BuildingController {
 		private float lived = 0;
 		
 		public NotEnoughGoldLabel(){
-			super("Not enough gold", labelstyle);
+			super("Nicht genügend Gold", labelstyle);
 		}
 		
 		@Override
