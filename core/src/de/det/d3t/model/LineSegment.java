@@ -1,5 +1,6 @@
 package de.det.d3t.model;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 
@@ -32,5 +33,8 @@ public class LineSegment extends Entity{
 	public Connection getCon() {
 		return con;
 	}
+	
+	@Override
+	public void draw(Batch batch, float parentAlpha) {}
 
 }
