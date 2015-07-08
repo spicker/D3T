@@ -39,6 +39,7 @@ public class BuildingController {
 	private TowerDescription buildDesc = null;
 	private Stage gameStage, uiStage;
 	private LevelController levelController;
+	private RopeTower firstRopeTower = null;
 
 	public BuildingController(Stage gameStage, Stage uiStage,
 			LevelController levelController) {
@@ -52,8 +53,8 @@ public class BuildingController {
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravitation", "Stößt Gegner ab", 5,
-				TextureFactory.getTexture("antiGravityIcon"));
+		current = new TowerDescription("Anti Gravitation", "Stï¿½ï¿½t Gegner ab",
+				5, TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, AntiGravityTower.class);
@@ -72,7 +73,7 @@ public class BuildingController {
 		descToTowerMap.put(current, SingleShotTower.class);
 
 		current = new TowerDescription("Billard",
-				"Verschießt zurückstoßende Kugel", 5,
+				"Verschieï¿½t zurï¿½ckstoï¿½ende Kugel", 5,
 				TextureFactory.getTexture("billardIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -90,15 +91,15 @@ public class BuildingController {
 		towerDescList.add(current);
 		descToTowerMap.put(current, MagnetTower.class);
 
-		current = new TowerDescription("Verlangsamung", "Verlangsamt Gegner", 5,
-				TextureFactory.getTexture("poisonIcon"));
+		current = new TowerDescription("Verlangsamung", "Verlangsamt Gegner",
+				5, TextureFactory.getTexture("poisonIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SlowTower.class);
-		
-		
-		//TODO Icon anpassen
-		current = new TowerDescription("Seilblockade", "Spannt ein Seil zwischen zwei Türmen", 5,
+
+		// TODO Icon anpassen
+		current = new TowerDescription("Seilblockade",
+				"Spannt ein Seil zwischen zwei Tï¿½rmen", 5,
 				TextureFactory.getTexture("connectionAnim"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -120,7 +121,8 @@ public class BuildingController {
 			this.image = new Image(texture);
 			this.texture = texture;
 			this.cost = cost;
-			label = new Label(name + "\n" + "Cost: " + cost + "\n" + tooltip, labelstyle);
+			label = new Label(name + "\n" + "Cost: " + cost + "\n" + tooltip,
+					labelstyle);
 		}
 
 		public String name;
@@ -171,20 +173,16 @@ public class BuildingController {
 
 				Vector2 target = gameStage
 						.screenToStageCoordinates(new Vector2(screenX, screenY));
-				
-				if(levelController.getCurrentLevel().getGold() < cost){
-					
+
+				if (levelController.getCurrentLevel().getGold() < cost) {
+
 					NotEnoughGoldLabel label = new NotEnoughGoldLabel();
 					gameStage.addActor(label);
 					label.setX(target.x);
 					label.setY(target.y);
-					
+
 					return true;
 				}
-				
-				buildingSelected = false;
-				buildTower.remove();
-				buildTower = null;
 
 				Class<? extends Tower> towerClass = descToTowerMap
 						.get(buildDesc);
@@ -196,6 +194,14 @@ public class BuildingController {
 					newTower.setY(target.y - (newTower.getHeight() / 2));
 					newTower.renewPositions(newTower.getX(), newTower.getY());
 					gameStage.addActor(newTower);
+					if (newTower instanceof RopeTower) {
+						RopeTower ropeTower = (RopeTower) newTower;
+						if (ropeTower.isConnected() == false)
+							firstRopeTower = ropeTower;
+						else{
+							firstRopeTower = null;
+						}
+					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException
 						| NoSuchMethodException | SecurityException e) {
@@ -203,11 +209,14 @@ public class BuildingController {
 					e.printStackTrace();
 				}
 
-				buildDesc = null;
-				
-				Level currentLevel = levelController.getCurrentLevel();
-				currentLevel.setGold(currentLevel.getGold() - cost);
-				
+				if (firstRopeTower == null) {
+					buildingSelected = false;
+					buildTower.remove();
+					buildTower = null;
+					Level currentLevel = levelController.getCurrentLevel();
+					currentLevel.setGold(currentLevel.getGold() - cost);
+				}
+
 				return true;
 			}
 
@@ -235,10 +244,6 @@ public class BuildingController {
 				buildTower.setActive(false);
 				buildTower.removeHPbar();
 				gameStage.addActor(buildTower);
-				
-				
-				
-				
 
 				return true;
 			}
@@ -379,29 +384,29 @@ public class BuildingController {
 		}
 
 	}
-	
-	private class NotEnoughGoldLabel extends Label{
-		
+
+	private class NotEnoughGoldLabel extends Label {
+
 		private static final float TIMELIMIT = 2;
 		private float lived = 0;
-		
-		public NotEnoughGoldLabel(){
-			super("Nicht genügend Gold", labelstyle);
+
+		public NotEnoughGoldLabel() {
+			super("Nicht genï¿½gend Gold", labelstyle);
 		}
-		
+
 		@Override
 		public void act(float delta) {
 			lived += delta;
-			
-			if(lived > TIMELIMIT){
+
+			if (lived > TIMELIMIT) {
 				remove();
 				return;
 			}
-			
-			setY(getY()+5);
+
+			setY(getY() + 5);
 			getColor().a -= 0.01f;
 			super.act(delta);
 		}
 	}
-	
+
 }
