@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import de.det.d3t.TextureFactory;
 
 public class RopeTower extends Tower {
-	
+
 	private RopeTower connectedTower;
 	private LineSegment rope;
 
@@ -13,10 +13,11 @@ public class RopeTower extends Tower {
 		super(x, y, scale);
 		RopeTowerAgency.add(this);
 	}
+	
+	
 
 	public boolean isConnected() {
-		return (connectedTower != null && rope != null
-				&& connectedTower.getRope() != null && connectedTower.getRope() == this.rope);
+		return (connectedTower != null);
 	}
 
 	public void connect(RopeTower otherTower) {
@@ -25,23 +26,39 @@ public class RopeTower extends Tower {
 
 		this.connectedTower = otherTower;
 		otherTower.setConnectedTower(this);
-
-		this.rope = new LineSegment(
-				TextureFactory.getTexture("connectionAnim"), this.getCenterX(),
-				this.getCenterY(), otherTower.getCenterX(),
-				otherTower.getCenterY());
-		otherTower.setRope(this.rope);
 		
-		this.rope.setStage(this.getStage());
+		
 	}
 	
+	@Override
+	public void act(float delta) {
+		
+		if (isActive() && isConnected() && rope == null) {
+			this.rope = new LineSegment(
+					TextureFactory.getTexture("connectionAnim"),
+					this.getCenterX(), this.getCenterY(),
+					connectedTower.getCenterX(), connectedTower.getCenterY());
+			connectedTower.setRope(this.rope);
+			this.rope.setStage(this.getStage());
+		}
+		
+		if (!isActive() && rope != null) {
+			rope.remove();
+			rope = null;
+			if (isConnected())
+				connectedTower.setRope(null);
+		}
+		
+		super.act(delta);
+	}
+
 	@Override
 	public boolean remove() {
 		RopeTowerAgency.remove(this);
 		disconnect();
 		return super.remove();
 	}
-	
+
 	public void disconnect() {
 		if (this.rope != null) {
 			this.rope.remove();
@@ -69,14 +86,14 @@ public class RopeTower extends Tower {
 	protected void setConnectedTower(RopeTower connectedTower) {
 		this.connectedTower = connectedTower;
 	}
-	
+
 	private static class RopeTowerAgency {
-		
+
 		private static ArrayList<RopeTower> list = new ArrayList<RopeTower>(0);
-		
+
 		public static void add(RopeTower ropeTower) {
 			list.add(ropeTower);
-			
+
 			for (RopeTower otherTower : list) {
 				if (!otherTower.isConnected() && otherTower != ropeTower) {
 					otherTower.connect(ropeTower);
@@ -84,11 +101,11 @@ public class RopeTower extends Tower {
 				}
 			}
 		}
-		
+
 		public static void remove(RopeTower ropeTower) {
 			list.remove(ropeTower);
 		}
-		
+
 	}
 
 }
