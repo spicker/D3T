@@ -5,19 +5,33 @@ import com.badlogic.gdx.graphics.Texture;
 import de.det.d3t.TextureFactory;
 
 public enum EnemyType {
-	KEVIN("enemy"),
-	BLACKSTONE("enemyBlackStone");
+	KEVIN("enemy", 100, 1),
+	BLACKSTONE("enemyBlackStone", 100, 1);
 	
 	
 	
 	private Texture texture;
+	private float hp;
+	private float scale;
 	
-	EnemyType(String texturename){
+	EnemyType(String texturename, float hp, float scale){
 		texture = TextureFactory.getTexture(texturename);
+		this.hp = hp;
+		this.scale = scale;
 	}
 
 	public Texture getTexture() {
 		return texture;
 	}
+
+	public float getHp() {
+		return hp;
+	}
+
+	public float getScale() {
+		return scale;
+	}
+	
+	
 	
 }

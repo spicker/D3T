@@ -2,9 +2,12 @@ package de.det.d3t.model;
 
 import java.util.ArrayList;
 
+import org.omg.CORBA.Bounds;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -30,18 +33,25 @@ public class Enemy extends Circle{
 	private RadialSprite hpBarFrontSprite;
 	public boolean hit = false;
 	
-	public Enemy(float x, float y, float scale) {
-		super(TextureFactory.getTexture("enemy"), (TextureFactory.getTexture("enemy").getHeight() / 2) * scale/Settings.scaleConst);
+	public Enemy(float x, float y) {
+		this(x, y, EnemyType.KEVIN);
+	}
+	
+	public Enemy(float x, float y, EnemyType type){
+		super(type.getTexture(), (type.getTexture().getHeight() / 2) * type.getScale()/Settings.scaleConst);
+		scale = type.getScale();
+		maxHp = hp = type.getHp();
 		scale /= Settings.scaleConst;
 		allEnemys.add(this);
-		setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
-		this.scale = scale;
+		Rectangle bounds = new Rectangle(x, y, type.getTexture().getWidth() * scale, type.getTexture().getHeight() * scale);
+		setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
 		hpBarBack = new Image(TextureFactory.getTexture("hpbarback"));
-		hpBarBack.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale, TextureFactory.getTexture("enemy").getHeight() * scale);
+		hpBarBack.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
 		hpBarFrontSprite = new RadialSprite(new TextureRegion(TextureFactory.getTexture("hpbar")));
 		hpBarFront = new Image(hpBarFrontSprite);
 		hpBarFrontSprite.setColor(Color.valueOf("00FF00"));
-		hpBarFront.setBounds(x, y, TextureFactory.getTexture("enemy").getWidth() * scale , TextureFactory.getTexture("enemy").getHeight() * scale);
+		hpBarFront.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
+		
 	}
 	
 	public static ArrayList<Enemy> getAllEnemys() {

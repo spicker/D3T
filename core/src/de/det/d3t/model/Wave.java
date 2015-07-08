@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Wave extends ArrayList<Enemy> {
 
 	private static final long serialVersionUID = -2236476536541217050L;
-	private ArrayList<EnemyValues> queuedEnemyList = new ArrayList<>();
+	private ArrayList<EnemyType> queuedEnemyList = new ArrayList<>();
 	
 	/**
 	 * The delay in seconds after the wave before a new wave starts
@@ -49,7 +49,7 @@ public class Wave extends ArrayList<Enemy> {
 	 */
 	public void addMultiple(int n) {
 		for (int i = 0; i < n; i++) {
-			EnemyValues enemy = new EnemyValues();
+			EnemyType enemy = EnemyType.KEVIN;
 			queuedEnemyList.add(enemy);
 		}
 	}
@@ -62,9 +62,7 @@ public class Wave extends ArrayList<Enemy> {
 	 */
 	public void addMultiple(int n, EnemyType type) {
 		for (int i = 0; i < n; i++) {
-			EnemyValues enemy = new EnemyValues();
-			enemy.type = type;
-			queuedEnemyList.add(enemy);
+			queuedEnemyList.add(type);
 		}
 	}
 	
@@ -73,11 +71,8 @@ public class Wave extends ArrayList<Enemy> {
 	}
 	
 	public void spawn(){
-		for(EnemyValues values : queuedEnemyList){
-			Enemy enemy = new Enemy(0, 0, values.scale);
-			enemy.setMaxHp(values.maxhp);
-			enemy.setHp(values.maxhp);
-			enemy.setMass(values.mass);
+		for(EnemyType values : queuedEnemyList){
+			Enemy enemy = new Enemy(0, 0, values);
 			add(enemy);
 		}
 		
@@ -122,13 +117,6 @@ public class Wave extends ArrayList<Enemy> {
 				deceased++;
 			}
 		}
-	}
-	
-	private class EnemyValues{
-		protected float scale = 1;
-		protected float maxhp = 100;
-		protected float mass = 1;
-		protected EnemyType type = EnemyType.KEVIN;
 	}
 
 }
