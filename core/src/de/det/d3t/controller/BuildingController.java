@@ -99,7 +99,7 @@ public class BuildingController {
 		
 		//TODO Icon anpassen
 		current = new TowerDescription("Seilblockade", "Spannt ein Seil zwischen zwei Türmen", 5,
-				TextureFactory.getTexture("connectionAnim"));
+				TextureFactory.getTexture("ropeTexture"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
