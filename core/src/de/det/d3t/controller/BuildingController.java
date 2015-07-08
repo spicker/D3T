@@ -23,6 +23,7 @@ import de.det.d3t.model.BillardTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Level;
 import de.det.d3t.model.MagnetTower;
+import de.det.d3t.model.RopeTower;
 import de.det.d3t.model.SingleShotTower;
 import de.det.d3t.model.SlowTower;
 import de.det.d3t.model.TeleportTower;
@@ -94,6 +95,14 @@ public class BuildingController {
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SlowTower.class);
+		
+		
+		//TODO Icon anpassen
+		current = new TowerDescription("Seilblockade", "Spannt ein Seil zwischen zwei Türmen", 5,
+				TextureFactory.getTexture("connectionAnim"));
+		current.setImageBounds(35, 35);
+		towerDescList.add(current);
+		descToTowerMap.put(current, RopeTower.class);
 
 	}
 
@@ -226,6 +235,10 @@ public class BuildingController {
 				buildTower.setActive(false);
 				buildTower.removeHPbar();
 				gameStage.addActor(buildTower);
+				
+				
+				
+				
 
 				return true;
 			}

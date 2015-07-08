@@ -22,6 +22,7 @@ public class SingleShotTower extends Tower {
 		deco.setBounds(0, 0, 185,185);
 		// deco2.setBounds(0, 0, 150, 150);
 		// deco2.setRotation(180f);
+		
 	}
 
 	@Override
