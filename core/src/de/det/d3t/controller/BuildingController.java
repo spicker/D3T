@@ -382,7 +382,7 @@ public class BuildingController {
 	
 	private class NotEnoughGoldLabel extends Label{
 		
-		private static final float TIMELIMIT = 3;
+		private static final float TIMELIMIT = 2;
 		private float lived = 0;
 		
 		public NotEnoughGoldLabel(){
@@ -399,6 +399,7 @@ public class BuildingController {
 			}
 			
 			setY(getY()+5);
+			getColor().a -= 0.01f;
 			super.act(delta);
 		}
 	}
