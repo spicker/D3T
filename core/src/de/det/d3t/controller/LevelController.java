@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.det.d3t.Settings;
 import de.det.d3t.frame.GameFrame;
 import de.det.d3t.model.Enemy;
+import de.det.d3t.model.EnemyType;
 import de.det.d3t.model.Level;
 import de.det.d3t.model.Wave;
 
@@ -310,8 +311,13 @@ public class LevelController {
 					// split the two values
 					String[] value = curLine.split(":");
 					if (value[0].equals("enemy")) {
-						waveList.get(waveList.size() - 1).addMultiple(
-								parseInt(value[1]));
+						if (value.length == 2) {
+							waveList.get(waveList.size() - 1).addMultiple(
+									parseInt(value[1]));
+						} else if (value.length == 3) {
+							waveList.get(waveList.size() - 1).addMultiple(
+									parseInt(value[1]), EnemyType.valueOf(value[2]));
+						}
 					}
 				} else {
 					// if you reach this point you have read something you

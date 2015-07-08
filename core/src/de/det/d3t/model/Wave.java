@@ -41,31 +41,29 @@ public class Wave extends ArrayList<Enemy> {
 		this.incomeForCompletion = incomeForCompletion;
 		this.incomePerKill = incomePerKill;
 	}
-
+	
 	/**
-	 * Adds n clones of enemy to the list
+	 * Adds n standard enemies to the list
 	 * 
 	 * @param n
-	 * @param enemy
 	 */
-	public void addMultiple(int n, float maxHp, float mass) {
+	public void addMultiple(int n) {
 		for (int i = 0; i < n; i++) {
 			EnemyValues enemy = new EnemyValues();
-			enemy.mass = mass;
-			enemy.maxhp = maxHp;
 			queuedEnemyList.add(enemy);
 		}
 	}
 	
 	/**
-	 * Adds n clones of enemy to the list
+	 * Adds n enemies of given type to the list
 	 * 
 	 * @param n
-	 * @param enemy
+	 * @param type
 	 */
-	public void addMultiple(int n) {
+	public void addMultiple(int n, EnemyType type) {
 		for (int i = 0; i < n; i++) {
 			EnemyValues enemy = new EnemyValues();
+			enemy.type = type;
 			queuedEnemyList.add(enemy);
 		}
 	}
@@ -130,6 +128,7 @@ public class Wave extends ArrayList<Enemy> {
 		protected float scale = 1;
 		protected float maxhp = 100;
 		protected float mass = 1;
+		protected EnemyType type = EnemyType.KEVIN;
 	}
 
 }
