@@ -220,13 +220,13 @@ public class MenuFrame extends InputListener implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				bgmLabel.setText("Musik-Lautst�rke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
+				bgmLabel.setText("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
 				//Settings.setBgm(bgmSlider.getValue()/100);
 				bgmToSet = bgmSlider.getValue()/100;
 			}
 			
 		});
-	    bgmLabel = new Label("Musik-Lautst�rke: " + String.format("%.01f", bgmSlider.getValue()) + " %", ls);
+	    bgmLabel = new Label("Musik-Lautstärke: " + String.format("%.01f", bgmSlider.getValue()) + " %", ls);
 	    bgmLabel.setBounds(width/2 - 200, height/2 -200, 800, 200);
 	    
 	    sfxSlider = new Slider(0f, 100f, 0.1f, false, sliderStyle);
@@ -236,7 +236,7 @@ public class MenuFrame extends InputListener implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				sfxLabel.setText("Sound-Lautst�rke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
+				sfxLabel.setText("Sound-Lautstärke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
 				//Settings.setBgm(sfxSlider.getValue()/100);
 				sfxToSet = sfxSlider.getValue()/100;
 			}

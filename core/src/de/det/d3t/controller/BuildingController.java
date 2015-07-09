@@ -53,7 +53,7 @@ public class BuildingController {
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravitation", "St��t Gegner ab",
+		current = new TowerDescription("Anti Gravitation", "Stößt Gegner ab",
 				5, TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -73,7 +73,7 @@ public class BuildingController {
 		descToTowerMap.put(current, SingleShotTower.class);
 
 		current = new TowerDescription("Billard",
-				"Verschie�t zur�cksto�ende Kugel", 5,
+				"Verschießt zurückstoßende Kugel", 5,
 				TextureFactory.getTexture("billardIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -98,8 +98,8 @@ public class BuildingController {
 		descToTowerMap.put(current, SlowTower.class);
 		// TODO Icon anpassen
 		current = new TowerDescription("Seilblockade",
-				"Spannt ein Seil zwischen zwei T�rmen", 5,
-				TextureFactory.getTexture("connectionAnim"));
+				"Spannt ein Seil zwischen zwei Türmen", 5,
+				TextureFactory.getTexture("ropeTexture"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
@@ -390,7 +390,7 @@ public class BuildingController {
 		private float lived = 0;
 
 		public NotEnoughGoldLabel() {
-			super("Nicht gen�gend Gold", labelstyle);
+			super("Nicht genügend Gold", labelstyle);
 		}
 
 		@Override
