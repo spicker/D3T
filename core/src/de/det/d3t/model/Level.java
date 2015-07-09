@@ -18,7 +18,7 @@ public class Level {
 	private int id;
 	private ArrayList<Wave> waveList = new ArrayList<Wave>();
 	private ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
-	private int gold;
+	private int gold = 50;
 	private boolean complete = false;
 
 	/**
