@@ -15,7 +15,8 @@ public class LineSegment extends Entity{
 	
 	@Override
 	protected void setStage(Stage stage) {
-		stage.addActor(con);
+		if (stage != null)
+			stage.addActor(con);
 		super.setStage(stage);
 	}
 	

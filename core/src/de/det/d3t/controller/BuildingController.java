@@ -96,7 +96,6 @@ public class BuildingController {
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SlowTower.class);
-
 		// TODO Icon anpassen
 		current = new TowerDescription("Seilblockade",
 				"Spannt ein Seil zwischen zwei T�rmen", 5,
