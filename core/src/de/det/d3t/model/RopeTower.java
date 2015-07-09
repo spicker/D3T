@@ -12,9 +12,11 @@ public class RopeTower extends Tower {
 
 	private RotatingImage towerTop;
 
-	public RopeTower(float x, float y, float scale) {
+	public RopeTower(float x, float y, float scale, boolean addToAgency) {
 		super(x, y, scale);
-		RopeTowerAgency.add(this);
+		if(addToAgency){
+			RopeTowerAgency.add(this);
+		}
 
 		towerTop = new RotatingImage(TextureFactory.getTexture("ropeTowerTop"),
 				this, 0f);
@@ -49,8 +51,8 @@ public class RopeTower extends Tower {
 			connectedTower.setRope(this.rope);
 
 			addComponent(rope);
-
 			addComponent(towerTop);
+			
 			connectedTower.addComponent(connectedTower.towerTop);
 		}
 

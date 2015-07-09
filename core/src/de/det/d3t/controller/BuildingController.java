@@ -186,19 +186,27 @@ public class BuildingController {
 				Class<? extends Tower> towerClass = descToTowerMap
 						.get(buildDesc);
 				try {
-					Tower newTower = towerClass.getDeclaredConstructor(
-							float.class, float.class, float.class).newInstance(
-							target.x, target.y, 2);
+					Tower newTower;
+					if (towerClass == RopeTower.class) {
+						newTower = new RopeTower(target.x, target.y, 2, true);
+					} else {
+						newTower = towerClass.getDeclaredConstructor(
+								float.class, float.class, float.class)
+								.newInstance(target.x, target.y, 2);
+					}
 					newTower.setX(target.x - (newTower.getWidth() / 2));
 					newTower.setY(target.y - (newTower.getHeight() / 2));
 					newTower.renewPositions(newTower.getX(), newTower.getY());
 					gameStage.addActor(newTower);
 					if (newTower instanceof RopeTower) {
 						RopeTower ropeTower = (RopeTower) newTower;
-						if (ropeTower.isConnected() == false)
+						if (ropeTower.isConnected() == false) {
 							firstRopeTower = ropeTower;
-						else{
+							ropeTower.setActive(false);
+						} else {
+							firstRopeTower.setActive(true);
 							firstRopeTower = null;
+							ropeTower.setActive(true);
 						}
 					}
 				} catch (InstantiationException | IllegalAccessException
@@ -229,9 +237,14 @@ public class BuildingController {
 				Class<? extends Tower> towerClass = descToTowerMap
 						.get(buildDesc);
 				try {
-					buildTower = towerClass.getDeclaredConstructor(float.class,
-							float.class, float.class).newInstance(target.x,
-							target.y, 2);
+					if(towerClass == RopeTower.class){
+						buildTower = new RopeTower(target.x, target.y, 2, false);
+					}
+					else{
+						buildTower = towerClass.getDeclaredConstructor(float.class,
+								float.class, float.class).newInstance(target.x,
+								target.y, 2);
+					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException
 						| NoSuchMethodException | SecurityException e) {
