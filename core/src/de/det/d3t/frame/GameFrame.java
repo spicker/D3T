@@ -40,6 +40,7 @@ import de.det.d3t.controller.BuildingController;
 import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
+import de.det.d3t.controller.BuildingController.TowerDescription;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.BillardTower;
@@ -285,24 +286,22 @@ public class GameFrame extends InputListener implements Screen {
 		escMenuStage.addActor(escButtonLevelSelect);
 		escMenuStage.addActor(escButtonMainMenu);
 
-		//stage.addActor(new BillardTower(26000, 25000, 2));
+		// stage.addActor(new BillardTower(26000, 25000, 2));
 		// stage.addActor(new AntiGravityTower(2500,4500,2));
 		// stage.addActor(new AoeTower(3500,4500,2));
 
 		// stage.addActor(new DummyTower(3000,4500,2));
 		// stage.addActor(new AntiGravityTower(2500,4500,2));
 		// stage.addActor(new MagnetTower(6000,6000,2));
-		/* for(int j = 1; j <= 100000; j++){
-			 float x = (float) (Math.random() * Settings.viewportWidth);
-			 float y = (float) (Math.random() * Settings.viewportHeight);
-			  x = (float) (Math.random() * Settings.viewportWidth);
-			  y = (float) (Math.random() * Settings.viewportHeight);
-			  if(lavaDetector.hasIntersectAt(x, y)){
-				  Image i = new Image(TextureFactory.getTexture("basic"));
-				  i.setBounds(x, y, 10, 10);
-				  stage.addActor(i);
-			  }
-		 }*/
+		/*
+		 * for(int j = 1; j <= 100000; j++){ float x = (float) (Math.random() *
+		 * Settings.viewportWidth); float y = (float) (Math.random() *
+		 * Settings.viewportHeight); x = (float) (Math.random() *
+		 * Settings.viewportWidth); y = (float) (Math.random() *
+		 * Settings.viewportHeight); if(lavaDetector.hasIntersectAt(x, y)){
+		 * Image i = new Image(TextureFactory.getTexture("basic"));
+		 * i.setBounds(x, y, 10, 10); stage.addActor(i); } }
+		 */
 		// new RadialSprite(new
 		// TextureRegion(TextureFactory.getTexture("basic")));
 
@@ -383,8 +382,8 @@ public class GameFrame extends InputListener implements Screen {
 					/ 28 + (i * 700));
 			towerDesc.image.setY(height / 10 + height / 60 + (j * 700));
 			towerDesc.image.scaleBy(10);
-			((InputMultiplexer) Gdx.input.getInputProcessor())
-					.addProcessor(towerDesc);
+
+			inputMultiplexer.addProcessor(towerDesc);
 			ui.addActor(towerDesc.image);
 
 			i++;
@@ -407,7 +406,14 @@ public class GameFrame extends InputListener implements Screen {
 																				// controller
 																				// here
 		inputMultiplexer.addProcessor(stage);
-		inputMultiplexer.addProcessor(escMenuStage);
+
+		if (buildingController != null) {
+			for (TowerDescription towerDesc : buildingController
+					.getTowerDescList()) {
+				inputMultiplexer.addProcessor(towerDesc);
+			}
+		}
+
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 
@@ -446,6 +452,15 @@ public class GameFrame extends InputListener implements Screen {
 			escMenuShowing = !escMenuShowing;
 			System.out.println("EscMenuShowing: " + escMenuShowing);
 			escReleased = false;
+
+			if (escMenuShowing) {
+				inputMultiplexer = new InputMultiplexer();
+				inputMultiplexer.addProcessor(escMenuStage);
+				Gdx.input.setInputProcessor(inputMultiplexer);
+				buildingController.resetBuilding();
+			} else {
+				manageInputs();
+			}
 		}
 		if (escReleased == false) {
 			if (!Gdx.input.isKeyPressed(Keys.ESCAPE)) {
@@ -487,10 +502,6 @@ public class GameFrame extends InputListener implements Screen {
 		if (escMenuShowing) {
 			escMenuStage.act(Gdx.graphics.getDeltaTime());
 			escMenuStage.draw();
-			inputMultiplexer = new InputMultiplexer();
-			inputMultiplexer.addProcessor(escMenuStage);
-			Gdx.input.setInputProcessor(inputMultiplexer);
-			// TODO: stop enemies from moving
 		} else {
 			if (inputMultiplexer.getProcessors().size == 1) {
 				manageInputs();
@@ -509,7 +520,7 @@ public class GameFrame extends InputListener implements Screen {
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer,
 			int button) {
-		
+
 		if (event.getListenerActor().equals(ingameButtonMenu)) {
 			buttonClickSound.play(Settings.getSfx());
 			return true;
@@ -561,14 +572,16 @@ public class GameFrame extends InputListener implements Screen {
 			int button) {
 		if (event.getListenerActor().equals(ingameButtonMenu)) {
 			escMenuShowing = !escMenuShowing;
+			buildingController.resetBuilding();
 		}
 		if (event.getListenerActor().equals(ingameButtonHelp)) {
-
+			buildingController.resetBuilding();
 		}
 		if (event.getListenerActor().equals(ingameButtonOptions)) {
-
+			buildingController.resetBuilding();
 		}
 		if (event.getListenerActor().equals(ingameButtonRestart)) {
+			buildingController.resetBuilding();
 			levelController.resetLevel();
 			timekeeper.seconds = 0f;
 		}
@@ -689,7 +702,7 @@ public class GameFrame extends InputListener implements Screen {
 	}
 
 	public void levelFinished() {
-		//game.setScreen(new SetupGameFrame(game));
-		//bgmMusic.stop();
+		// game.setScreen(new SetupGameFrame(game));
+		// bgmMusic.stop();
 	}
 }

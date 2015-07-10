@@ -109,6 +109,19 @@ public class BuildingController {
 	public ArrayList<TowerDescription> getTowerDescList() {
 		return towerDescList;
 	}
+	
+	public void resetBuilding(){
+		buildingSelected = false;
+		if(buildTower != null){
+			buildTower.remove();
+			buildTower = null;
+		}
+		if(firstRopeTower != null){
+			firstRopeTower.remove();
+			firstRopeTower = null;
+		}
+		buildDesc = null;
+	}
 
 	public class TowerDescription implements InputProcessor {
 
@@ -159,11 +172,9 @@ public class BuildingController {
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 			if (buildingSelected && button != Buttons.LEFT) {
-				buildingSelected = false;
-				buildTower.remove();
-				buildTower = null;
-				buildDesc = null;
-
+				
+				resetBuilding();
+				
 				return true;
 			}
 
@@ -217,9 +228,7 @@ public class BuildingController {
 				}
 
 				if (firstRopeTower == null) {
-					buildingSelected = false;
-					buildTower.remove();
-					buildTower = null;
+					resetBuilding();
 					Level currentLevel = levelController.getCurrentLevel();
 					currentLevel.setGold(currentLevel.getGold() - cost);
 				}
@@ -260,12 +269,7 @@ public class BuildingController {
 				return true;
 			}
 
-			buildingSelected = false;
-			buildDesc = null;
-			if (buildTower != null) {
-				buildTower.remove();
-				buildTower = null;
-			}
+			resetBuilding();
 			return false;
 		}
 
