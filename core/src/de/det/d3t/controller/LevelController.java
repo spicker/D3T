@@ -396,4 +396,10 @@ public class LevelController {
 	public int getGold() {
 		return getCurrentLevel().getGold();
 	}
+
+	public boolean isBuildingPhase() {
+		return buildingPhase;
+	}
+	
+	
 }

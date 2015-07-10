@@ -688,8 +688,18 @@ public class GameFrame extends InputListener implements Screen {
 		public String timeAsString() {
 			String minutesString = String.valueOf((int) java.lang.Math
 					.floor(seconds / 60));
-			String secondsString = String.valueOf((int) java.lang.Math
-					.floor(seconds) % 60);
+			String secondsString;
+			if (levelController.isBuildingPhase()) {
+				secondsString = String.valueOf((int) java.lang.Math
+						.floor(levelController.getCurrentLevel()
+								.getInitialDelay() + 1 - seconds % 60));
+			} else {
+				secondsString = String.valueOf((int) java.lang.Math
+						.floor(seconds
+								% 60
+								- levelController.getCurrentLevel()
+										.getInitialDelay()));
+			}
 			if (minutesString.length() == 1) {
 				minutesString = "0" + minutesString;
 			}
@@ -697,7 +707,11 @@ public class GameFrame extends InputListener implements Screen {
 				secondsString = "0" + secondsString;
 			}
 
-			return minutesString + ":" + secondsString;
+			if (levelController.isBuildingPhase() == false) {
+				return minutesString + ":" + secondsString;
+			} else {
+				return "- " + minutesString + ":" + secondsString;
+			}
 		}
 	}
 
