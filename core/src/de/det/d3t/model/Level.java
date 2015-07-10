@@ -202,7 +202,7 @@ public class Level {
 				int diff = v.getDeceased() - temp;
 				setGold(getGold()+(int)(diff*v.getIncomePerKill()));
 			}
-			if (!v.isCompleted() && v.getDeceased() == v.size()){
+			if (!v.isCompleted() && v.getDeceased() == v.queueSize()){
 				gold += v.getIncomeForCompletion();
 				v.complete();
 				
@@ -220,6 +220,10 @@ public class Level {
 		
 		complete = true;
 		return true;
+	}
+	
+	public boolean isComplete(){
+		return complete;
 	}
 	
 	public void remove(){

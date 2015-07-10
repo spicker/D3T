@@ -100,7 +100,7 @@ public class LevelController {
 		}
 
 		getCurrentLevel().updateGold();
-		if (getCurrentLevel().checkWin()) {
+		if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
 			System.out.println("Finished Level " + currentLevel);
 			Settings.getLevelConquered()[currentLevel] = true;
 			if (levelList.size() > currentLevel + 1) {

@@ -6,6 +6,7 @@ public class Wave extends ArrayList<Enemy> {
 
 	private static final long serialVersionUID = -2236476536541217050L;
 	private ArrayList<EnemyType> queuedEnemyList = new ArrayList<>();
+	private ArrayList<Enemy> dead = new ArrayList<>();
 	
 	/**
 	 * The delay in seconds after the wave before a new wave starts
@@ -111,12 +112,15 @@ public class Wave extends ArrayList<Enemy> {
 	}
 
 	public void updateDeceased() {
-		deceased = 0;
 		for (Enemy e : this){
-			if (e.getHp() < 0.1f){
+			if (dead.contains(e) == false && e.getHp() <= 0){
 				deceased++;
+				dead.add(e);
 			}
 		}
 	}
-
+	
+	public int queueSize(){
+		return queuedEnemyList.size();
+	}
 }
