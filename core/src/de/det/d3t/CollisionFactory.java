@@ -139,6 +139,12 @@ public class CollisionFactory {
 
 		b.setVelocityX(b.getVelocityX() - (impulseX * im2));
 		b.setVelocityY(b.getVelocityY() - (impulseY * im2));
+		
+		//Tower damage
+		//TODO : make damage taken dependent on enemy velocity or mass?
+		a.setHp(a.getHp() - 0.3f);
+		
+		
 	}
 
 	public static void collide(Enemy a, Enemy b) {

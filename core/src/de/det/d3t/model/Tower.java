@@ -74,7 +74,12 @@ public class Tower extends Circle {
 	}
 
 	public void setHp(float hp) {
+		
 		this.hp = hp;
+		
+		if(this.hp <= 0){
+			remove();
+		}
 	}
 
 	public void addComponent(Actor a) {
@@ -123,7 +128,7 @@ public class Tower extends Circle {
 			return;
 		}
 
-		hp -= 0.1f;
+		//hp -= 0.1f;
 		hpBarFrontSprite.setAngle(360 * (1 - (hp / maxHp)));
 	}
 
