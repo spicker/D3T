@@ -16,6 +16,9 @@ public enum EnemyType {
 	
 	EnemyType(String texturename, float hp, float scale){
 		texture = TextureFactory.getTexture(texturename);
+		if(texture == null){
+			texture = TextureFactory.getTexture("enemy");
+		}
 		this.hp = hp;
 		this.scale = scale;
 	}
