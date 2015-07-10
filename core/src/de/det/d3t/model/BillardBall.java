@@ -11,6 +11,7 @@ public class BillardBall extends Circle {
 	private float radius;
 	private float velocity = 1500;
 	private float mass = 5;
+	private float despawnTime = 15;
 
 	public BillardBall(Texture texture, Tower start, Enemy target, float scale) {
 		super(texture, (texture.getWidth() / 2) * scale/Settings.scaleConst);
@@ -38,10 +39,12 @@ public class BillardBall extends Circle {
 	@Override
 	public void act(float delta) {
 
-		if (Enemy.getAllEnemys().isEmpty()) {
+		if (Enemy.getAllEnemys().isEmpty() || despawnTime < 0) {
 			remove();
 
 		} else {
+			despawnTime -= delta;
+			
 			// System.out.println("BillardBall: "+"move");
 			setPosition(getX() + velocityX * velocity * delta, getY()
 					+ velocityY * velocity * delta);
