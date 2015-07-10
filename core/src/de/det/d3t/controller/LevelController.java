@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import de.det.d3t.Settings;
+import de.det.d3t.TextureFactory;
 import de.det.d3t.frame.GameFrame;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.EnemyType;
@@ -137,6 +138,7 @@ public class LevelController {
 			}
 			alreadySpawned.add(enemy);
 			stage.addActor(enemy);
+			enemy.addSpawnEffect();
 		}
 
 		for (Enemy enemy : wave) {
@@ -145,6 +147,8 @@ public class LevelController {
 			enemy.setVelocityY(0);
 			enemy.setHp(enemy.getMaxHp());
 		}
+		
+		TextureFactory.getSound("spawn").play();
 	}
 
 	private boolean isValidSpawn(Enemy enemy, ArrayList<Enemy> alreadySpawned) {

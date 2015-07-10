@@ -54,6 +54,7 @@ public class TextureFactory {
 		addTexture("billardBall2", new Texture("textures/gameElements/towers/tower_billard_ball_2.png"));
 		
 		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
+		addSound("spawn", Gdx.audio.newSound(Gdx.files.internal("sounds/Laser_01.mp3")));
 		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));
 		
 		//UI:
@@ -148,6 +149,8 @@ public class TextureFactory {
 		addTexture("magnetIcon", new Texture("textures/gameElements/towers/labels/magnetIcon.png"));
 		addTexture("teleportIcon", new Texture("textures/gameElements/towers/labels/teleportIcon.png"));
 		addTexture("poisonIcon", new Texture("textures/gameElements/towers/labels/poisonIcon.png"));
+		
+		addTexture("wave_0", new Texture("effects/wave_0.png"));
 		
 		TextureRegion[] animReg = new TextureRegion[11];
 		TextureRegion[] animReg2 = new TextureRegion[11];

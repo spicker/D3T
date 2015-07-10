@@ -19,6 +19,8 @@ import de.det.d3t.util.RadialSprite;
 
 public class Enemy extends Circle{
 	private static ArrayList<Enemy> allEnemys = new ArrayList<Enemy>();
+	private static final float SPAWN_EFFECT_TIME = 0.7f;
+	
 	private float scale;
 	private float acceleration = 0f;
 	private float accelerationGrow = 100f;
@@ -31,7 +33,9 @@ public class Enemy extends Circle{
 	private Image hpBarBack;
 	private Image hpBarFront;
 	private RadialSprite hpBarFrontSprite;
+	private Image spawnEffect;
 	public boolean hit = false;
+	private float timer = 0;
 	
 	public Enemy(float x, float y) {
 		this(x, y, EnemyType.KEVIN);
@@ -51,7 +55,6 @@ public class Enemy extends Circle{
 		hpBarFront = new Image(hpBarFrontSprite);
 		hpBarFrontSprite.setColor(Color.valueOf("00FF00"));
 		hpBarFront.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
-		
 	}
 	
 	public static ArrayList<Enemy> getAllEnemys() {
@@ -99,8 +102,20 @@ public class Enemy extends Circle{
 		rotateBy((float) (Math.sqrt(velocityX*velocityX + velocityY*velocityY) / 5 / scale * delta));
 		setPosition(getX() + velocityX * delta, getY()+ velocityY * delta);
 		
-		
-
+		if(spawnEffect != null){
+			timer+=delta;
+			if(timer >= SPAWN_EFFECT_TIME){
+				spawnEffect.remove();
+				spawnEffect = null;
+				return;
+			}
+			
+			float oldWidth = spawnEffect.getWidth()*spawnEffect.getScaleX();
+			spawnEffect.setScale((float) (spawnEffect.getScaleX() + (2 * delta)));
+			float offset = (spawnEffect.getWidth()*spawnEffect.getScaleX() - oldWidth) / 2;
+			spawnEffect.setX(spawnEffect.getX() - offset);
+			spawnEffect.setY(spawnEffect.getY() - offset);
+		}
 
 		
 	}
@@ -110,6 +125,10 @@ public class Enemy extends Circle{
 		allEnemys.remove(this);
 		hpBarBack.remove();
 		hpBarFront.remove();
+		if(spawnEffect != null){
+			spawnEffect.remove();
+			spawnEffect = null;
+		}
 		return super.remove();
 	}
 	
@@ -127,6 +146,14 @@ public class Enemy extends Circle{
 		for(Enemy e : toRemove){
 			e.remove();
 		}
+	}
+	
+	public void addSpawnEffect(){
+
+		spawnEffect = new Image(TextureFactory.getTexture("wave_0"));
+		spawnEffect.setBounds(getX(), getY(), hpBarFront.getWidth(), hpBarFront.getHeight());
+		spawnEffect.setColor(Color.BLUE);
+		getStage().addActor(spawnEffect);
 	}
 
 	public float getScale() {
@@ -229,6 +256,4 @@ public class Enemy extends Circle{
 	public void setHpBarFrontSprite(RadialSprite hpBarFrontSprite) {
 		this.hpBarFrontSprite = hpBarFrontSprite;
 	}
-	
-	
 }
