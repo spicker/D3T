@@ -200,6 +200,7 @@ public class LevelController {
 			String levelMapPath = "No path";
 			float levelInitDelay = 0;
 			ArrayList<Wave> waveList = new ArrayList<>();
+			Wave currentWave = null;
 			ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
 
 			while (curLine != null) {
@@ -252,7 +253,6 @@ public class LevelController {
 							curLevel.setSpawnAreaList(spawnAreaList);
 
 							for (Wave curWave : waveList) {
-								curWave.spawn();
 								curLevel.addWave(curWave);
 							}
 
@@ -289,8 +289,8 @@ public class LevelController {
 						continue;
 					} else if (value[0].equals("wave")) {
 						inWaveTag = true;
-						waveList.add(new Wave(parseFloat(value[1]),
-								parseFloat(value[2]), parseFloat(value[3])));
+						currentWave = new Wave(parseFloat(value[1]),
+								parseFloat(value[2]), parseFloat(value[3]));
 						continue;
 					}
 				} else {
@@ -305,6 +305,10 @@ public class LevelController {
 				if (inWaveTag) {
 					if (curLine.equals("waveend")) {
 						inWaveTag = false;
+						if(currentWave != null){
+							waveList.add(currentWave);
+						}
+						currentWave = null;
 						continue;
 					}
 
@@ -312,10 +316,10 @@ public class LevelController {
 					String[] value = curLine.split(":");
 					if (value[0].equals("enemy")) {
 						if (value.length == 2) {
-							waveList.get(waveList.size() - 1).addMultiple(
+							currentWave.addMultiple(
 									parseInt(value[1]));
 						} else if (value.length == 3) {
-							waveList.get(waveList.size() - 1).addMultiple(
+							currentWave.addMultiple(
 									parseInt(value[1]), EnemyType.valueOf(value[2]));
 						}
 					}
