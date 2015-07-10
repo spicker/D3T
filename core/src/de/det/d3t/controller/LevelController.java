@@ -147,7 +147,7 @@ public class LevelController {
 			enemy.setVelocityY(0);
 			enemy.setHp(enemy.getMaxHp());
 		}
-		
+
 		TextureFactory.getSound("spawn").play();
 	}
 
@@ -309,7 +309,7 @@ public class LevelController {
 				if (inWaveTag) {
 					if (curLine.equals("waveend")) {
 						inWaveTag = false;
-						if(currentWave != null){
+						if (currentWave != null) {
 							waveList.add(currentWave);
 						}
 						currentWave = null;
@@ -320,11 +320,10 @@ public class LevelController {
 					String[] value = curLine.split(":");
 					if (value[0].equals("enemy")) {
 						if (value.length == 2) {
-							currentWave.addMultiple(
-									parseInt(value[1]));
+							currentWave.addMultiple(parseInt(value[1]));
 						} else if (value.length == 3) {
-							currentWave.addMultiple(
-									parseInt(value[1]), EnemyType.valueOf(value[2]));
+							currentWave.addMultiple(parseInt(value[1]),
+									EnemyType.valueOf(value[2]));
 						}
 					}
 				} else {

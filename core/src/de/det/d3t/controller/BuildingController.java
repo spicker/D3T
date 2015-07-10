@@ -231,6 +231,7 @@ public class BuildingController {
 					resetBuilding();
 					Level currentLevel = levelController.getCurrentLevel();
 					currentLevel.setGold(currentLevel.getGold() - cost);
+					TextureFactory.getSound("towerbuild").play();
 				}
 
 				return true;

@@ -55,6 +55,8 @@ public class TextureFactory {
 		
 		addSound("buttonClick", Gdx.audio.newSound(Gdx.files.internal("sounds/button_click.mp3")));
 		addSound("spawn", Gdx.audio.newSound(Gdx.files.internal("sounds/Laser_01.mp3")));
+		addSound("towerbuild", Gdx.audio.newSound(Gdx.files.internal("sounds/build_tower.mp3")));
+		addSound("goldget", Gdx.audio.newSound(Gdx.files.internal("sounds/gold_get.mp3")));
 		addMusic("dubstepBgm", Gdx.audio.newMusic(Gdx.files.internal("music/dubstep_bgm.mp3")));
 		
 		//UI:

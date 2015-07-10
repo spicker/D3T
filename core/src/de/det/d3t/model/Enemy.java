@@ -145,6 +145,7 @@ public class Enemy extends Circle{
 		}
 		for(Enemy e : toRemove){
 			e.remove();
+			TextureFactory.getSound("goldget").play();
 		}
 	}
 	
