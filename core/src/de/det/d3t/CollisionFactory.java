@@ -54,22 +54,24 @@ public class CollisionFactory {
 		float l2 = con.getDistance();
 		l2 *= l2;
 		float dist;
-		if(l2 == 0){
+		if (l2 == 0) {
 			float difX = e.getCenterX() - con.getX1();
 			float difY = e.getCenterY() - con.getY1();
 			dist = (float) Math.sqrt(difX * difX + difY * difY);
-		}else{
-			float t = ((e.getCenterX() - con.getX1()) * (con.getX2() - con.getX1()) + 
-					(e.getCenterY() - con.getY1()) * (con.getY2() - con.getY1())) / l2;
-			if(t < 0){
+		} else {
+			float t = ((e.getCenterX() - con.getX1())
+					* (con.getX2() - con.getX1()) + (e.getCenterY() - con
+					.getY1()) * (con.getY2() - con.getY1()))
+					/ l2;
+			if (t < 0) {
 				float difX = e.getCenterX() - con.getX1();
 				float difY = e.getCenterY() - con.getY1();
 				dist = (float) Math.sqrt(difX * difX + difY * difY);
-			}else if(t > 1){ 
+			} else if (t > 1) {
 				float difX = e.getCenterX() - con.getX2();
 				float difY = e.getCenterY() - con.getY2();
 				dist = (float) Math.sqrt(difX * difX + difY * difY);
-			}else{
+			} else {
 				float wurstX = con.getX1() + t * (con.getX2() - con.getX1());
 				float wurstY = con.getY1() + t * (con.getY2() - con.getY1());
 				float difX = e.getCenterX() - wurstX;
@@ -77,31 +79,38 @@ public class CollisionFactory {
 				dist = (float) Math.sqrt(difX * difX + difY * difY);
 			}
 		}
-		if(dist < con.getLineWidth() / 2 + e.getRadius()){
+		if (dist < con.getLineWidth() / 2 + e.getRadius()) {
 			float conNorX = con.getX1() - con.getX2();
 			float conNorY = con.getY1() - con.getY2();
-			float length = (float) Math.sqrt(conNorX * conNorX + conNorY * conNorY);
+			float length = (float) Math.sqrt(conNorX * conNorX + conNorY
+					* conNorY);
 			conNorX /= length;
 			conNorY /= length;
-			//check which side the ball hits based on the balls velocity
+			// check which side the ball hits based on the balls velocity
 			float dot = conNorX * e.getVelocityX() + conNorY * e.getVelocityY();
-			//check which side the ball hits based on the balls velocity
-			if(Math.sqrt(e.getVelocityX() * e.getVelocityX() + e.getVelocityY() * e.getVelocityY()) * Gdx.graphics.getDeltaTime() < (con.getWidth() / 2 + e.getRadius())){
+			// check which side the ball hits based on the balls velocity
+			if (Math.sqrt(e.getVelocityX() * e.getVelocityX()
+					+ e.getVelocityY() * e.getVelocityY())
+					* Gdx.graphics.getDeltaTime() < (con.getWidth() / 2 + e
+					.getRadius())) {
 				float wurstX = con.getX1() - e.getCenterX();
 				float wurstY = con.getY1() - e.getCenterY();
 				dot = wurstX * conNorX + wurstY * conNorY;
-				//System.out.println("wurst is love wurst is life");
+				// System.out.println("wurst is love wurst is life");
 			}
 			float tempX = conNorX;
-			if(dot > 0){
+			if (dot > 0) {
 				conNorX = -conNorY;
 				conNorY = tempX;
 			} else {
 				conNorX = conNorY;
 				conNorY = -tempX;
 			}
-			e.setPosition(e.getX() - conNorX * (dist - (con.getLineWidth() / 2 + e.getRadius())), 
-					e.getY() - conNorY * (dist - (con.getLineWidth() / 2 + e.getRadius())));
+			e.setPosition(
+					e.getX() - conNorX
+							* (dist - (con.getLineWidth() / 2 + e.getRadius())),
+					e.getY() - conNorY
+							* (dist - (con.getLineWidth() / 2 + e.getRadius())));
 			dot = conNorX * e.getVelocityX() + conNorY * e.getVelocityY();
 			float newVelX = -2 * dot * conNorX + e.getVelocityX();
 			float newVelY = -2 * dot * conNorY + e.getVelocityY();
@@ -111,7 +120,7 @@ public class CollisionFactory {
 	}
 
 	public static void collide(Tower a, Enemy b) {
-		if(a.isActive() == false){
+		if (a.isActive() == false) {
 			return;
 		}
 		float collX = a.getCenterX() - b.getCenterX();
@@ -139,12 +148,12 @@ public class CollisionFactory {
 
 		b.setVelocityX(b.getVelocityX() - (impulseX * im2));
 		b.setVelocityY(b.getVelocityY() - (impulseY * im2));
-		
-		//Tower damage
-		//TODO : make damage taken dependent on enemy velocity or mass?
-		a.setHp(a.getHp() - 0.3f);
-		
-		
+
+		// Tower damage
+
+		float damage = (Math.abs(impulseX * im2) + Math.abs( impulseY * im2)) * 0.001f;
+		a.setHp(a.getHp() - damage);
+
 	}
 
 	public static void collide(Enemy a, Enemy b) {
@@ -207,8 +216,8 @@ public class CollisionFactory {
 		a.setVelocityX(a.getVelocityX() + (impulseX * im1));
 		a.setVelocityY(a.getVelocityY() + (impulseY * im1));
 
-		b.setVelocityX(b.getVelocityX() - (mtdX*im2 / 100));
-		b.setVelocityY(b.getVelocityY() - (mtdY*im2/100));
+		b.setVelocityX(b.getVelocityX() - (mtdX * im2 / 100));
+		b.setVelocityY(b.getVelocityY() - (mtdY * im2 / 100));
 	}
 
 	public static boolean hasIntersect(Entity t, float x, float y, float radius) {
