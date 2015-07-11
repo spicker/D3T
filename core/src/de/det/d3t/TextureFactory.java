@@ -36,6 +36,32 @@ public class TextureFactory {
 		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
 		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy_kevin.png"));
 		addTexture("enemyBlackStone", new Texture("textures/gameElements/enemies/enemy_black_stone.png"));
+		addTexture("enemyBrownLight", new Texture("textures/gameElements/enemies/enemy_brown_light.png"));
+		addTexture("enemyMetal", new Texture("textures/gameElements/enemies/enemy_metal.png"));
+		addTexture("enemyMetal2", new Texture("textures/gameElements/enemies/enemy_metal2.png"));
+		addTexture("enemyDisco", new Texture("textures/gameElements/enemies/enemy_disco.png"));
+		addTexture("enemyEyeball", new Texture("textures/gameElements/enemies/enemy_eyeball.png"));
+		addTexture("enemyElectro2", new Texture("textures/gameElements/enemies/enemy_electro2.png"));
+		addTexture("enemyFog", new Texture("textures/gameElements/enemies/enemy_fog.png"));
+		addTexture("enemyBrain", new Texture("textures/gameElements/enemies/enemy_brain.png"));
+		addTexture("enemyEyeballMouth", new Texture("textures/gameElements/enemies/enemy_eyeball_mouth.png"));
+		addTexture("enemyGrass", new Texture("textures/gameElements/enemies/enemy_grass.png"));
+		addTexture("enemyMud", new Texture("textures/gameElements/enemies/enemy_mud.png"));
+		addTexture("enemyTriangles", new Texture("textures/gameElements/enemies/enemy_triangles.png"));
+		addTexture("enemyBrown", new Texture("textures/gameElements/enemies/enemy_brown.png"));
+		addTexture("enemyPlant", new Texture("textures/gameElements/enemies/enemy_plant.png"));
+		addTexture("enemyBlueGlow", new Texture("textures/gameElements/enemies/enemy_blue_glow.png"));
+		addTexture("enemyBlueAbstract", new Texture("textures/gameElements/enemies/enemy_blue_apstract.png"));
+		addTexture("enemySpiral", new Texture("textures/gameElements/enemies/enemy_spiral.png"));
+		addTexture("enemySpiral2", new Texture("textures/gameElements/enemies/enemy_spiral2.png"));
+		addTexture("enemyLeopard", new Texture("textures/gameElements/enemies/enemy_leopard.png"));
+		addTexture("enemyRedLava", new Texture("textures/gameElements/enemies/enemy_redLava.png"));
+		addTexture("enemyRedLava2", new Texture("textures/gameElements/enemies/enemy_redLava2.png"));
+		addTexture("enemyLava", new Texture("textures/gameElements/enemies/enemy_lava.png"));
+		addTexture("enemyKevin", new Texture("textures/gameElements/enemies/enemy_kevin.png"));
+		addTexture("enemySun", new Texture("textures/gameElements/enemies/enemy_sun.png"));
+		
+		
 		addTexture("hpbar", new Texture("textures/gameElements/hpBar/hg_bar_structure2_white2+7.png"));
 		addTexture("hpbarback", new Texture("textures/gameElements/hpBar/hg_bar_structure2_background_take2+10.png"));
 		
