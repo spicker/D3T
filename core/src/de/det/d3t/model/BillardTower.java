@@ -78,7 +78,7 @@ public class BillardTower extends Tower {
 		if (target != null && target.getStage() != null) {
 			BillardBall m = new BillardBall(
 					TextureFactory.getTexture("black1"), this,
-					getNearest(Enemy.getAllEnemys()), ballSize);
+					target, ballSize);
 			// BillardBall b = new
 			// BillardBall(getCenterX(),getCenterY(),2,getNearest(Enemy.getAllEnemys()));
 			getStage().addActor(m);
