@@ -41,8 +41,8 @@ public class BallsOfSteel extends Actor {
 		
 		//TODO : scale l?
 		
-		start.getStage().addActor(b1);
 		start.getStage().addActor(b2);
+		start.getStage().addActor(b1);
 		start.getStage().addActor(l);
 		
 		System.out.println("balls b1 texturewidth: " +TextureFactory.getTexture("black1").getWidth());
@@ -65,8 +65,8 @@ public class BallsOfSteel extends Actor {
 			remove();
 		}
 
-		l.getCon().setAnkers(b1.getCenterX(), b1.getCenterY(), b2.getCenterX(),
-				b2.getCenterY());
+		l.getCon().setAnkers(b2.getCenterX(), b2.getCenterY(), b1.getCenterX(),
+				b1.getCenterY());
 
 		super.act(delta);
 	}
