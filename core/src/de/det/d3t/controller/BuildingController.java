@@ -19,6 +19,7 @@ import de.det.d3t.CollisionFactory;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
+import de.det.d3t.model.BallsTower;
 import de.det.d3t.model.BillardTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Level;
@@ -73,7 +74,7 @@ public class BuildingController {
 		descToTowerMap.put(current, SingleShotTower.class);
 
 		current = new TowerDescription("Billard",
-				"Verschie√üt zur√ºcksto√üende Kugel", 5,
+				"Verschieﬂt zur¸cksto√üende Kugel", 5,
 				TextureFactory.getTexture("billardIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -98,11 +99,18 @@ public class BuildingController {
 		descToTowerMap.put(current, SlowTower.class);
 		// TODO Icon anpassen
 		current = new TowerDescription("Seilblockade",
-				"Spannt ein Seil zwischen zwei T√ºrmen", 5,
+				"Spannt ein Seil zwischen zwei T¸rmen", 5,
 				TextureFactory.getTexture("ropeTexture"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
+		
+		current = new TowerDescription("Balls of Stees",
+				"bla", 5,
+				TextureFactory.getTexture("ropeTexture"));
+		current.setImageBounds(35, 35);
+		towerDescList.add(current);
+		descToTowerMap.put(current, BallsTower.class);
 
 	}
 
