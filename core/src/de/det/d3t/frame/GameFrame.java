@@ -41,6 +41,7 @@ import de.det.d3t.controller.CameraInputController;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
 import de.det.d3t.controller.BuildingController.TowerDescription;
+import de.det.d3t.frame.Dialogs.IngameDialog;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.BillardTower;
@@ -119,19 +120,7 @@ public class GameFrame extends InputListener implements Screen {
 		fpsLogger = new FPSLogger();
 		timekeeper = new TimeKeeper();
 
-		// TODO: if level finished : set levelConquered[the played level] = true
-		// and the corresponding levels in levelUnlocked[i] = true
-		// Level 1: levelConquered[0]=true; levelUnlocked[1] = true;
-		// Level 2: levelConquered[1]=true; levelUnlocked[2] = true;
-		// levelUnlocked[3] = true;
-		// Level 3: levelConquered[2]=true; if(levelConquered[3])
-		// levelUnlocked[4] = true;
-		// Level 4: levelConquered[3]=true; if(levelConquered[2])
-		// levelUnlocked[4] = true;
-		// Level 5: levelConquered[4]=true; levelUnlocked[5] = true;
-		// Level 6: levelConquered[5]=true; levelUnlocked[6] = true;
-		// Level 7: levelConquered[6]=true; TODO: display message "Victory" or
-		// similar
+
 
 		width = stageViewport.getWorldWidth();
 		height = stageViewport.getWorldHeight();
@@ -572,6 +561,14 @@ public class GameFrame extends InputListener implements Screen {
 			int button) {
 		if (event.getListenerActor().equals(ingameButtonMenu)) {
 			escMenuShowing = !escMenuShowing;
+			if (escMenuShowing) {
+				inputMultiplexer = new InputMultiplexer();
+				inputMultiplexer.addProcessor(escMenuStage);
+				Gdx.input.setInputProcessor(inputMultiplexer);
+				buildingController.resetBuilding();
+			} else {
+				manageInputs();
+			}
 			buildingController.resetBuilding();
 		}
 		if (event.getListenerActor().equals(ingameButtonHelp)) {
@@ -618,7 +615,7 @@ public class GameFrame extends InputListener implements Screen {
 			if (escMenuShowing) {
 				// TODO: add dialog:
 				// "You are going back to the level Selection. Unsaved progress of the running level will be lost! Do you want to save before leaving the running level to the level selection?"
-				game.setScreen(new SetupGameFrame(game));
+				game.setScreen(new SetupGameFrame(game,false));
 				bgmMusic.stop();
 			}
 		}
@@ -716,7 +713,20 @@ public class GameFrame extends InputListener implements Screen {
 	}
 
 	public void levelFinished() {
-		// game.setScreen(new SetupGameFrame(game));
-		// bgmMusic.stop();
+		bgmMusic.stop();
+		IngameDialog idia = new IngameDialog(game, width, height, "Level Abgeschlossen",true,selectedLevel);
+		ui.addActor(idia.getGroup());
+		idia.showDialog();
 	}
+	
+	public void levelLost(){
+		bgmMusic.stop();
+		IngameDialog idia = new IngameDialog(game, width, height, "Level verloren",false,selectedLevel);
+		ui.addActor(idia.getGroup());
+		idia.showDialog();
+		
+	
+	}
+	
+	
 }

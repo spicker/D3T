@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.frame.Dialogs.SetupGameDialog;
 
 public class SetupGameFrame extends InputListener implements Screen {
 	private Stage stage;
@@ -81,6 +82,8 @@ public class SetupGameFrame extends InputListener implements Screen {
 	private LabelStyle ls;
 	private LabelStyle ls2;
 	
+	private SetupGameDialog sgd;
+	
 	
 	private int selectedLevel = 1;
 	private boolean levelUnlocked[];
@@ -90,7 +93,11 @@ public class SetupGameFrame extends InputListener implements Screen {
 
 	private Game game;
 	
-	public SetupGameFrame(Game game){
+	private boolean showGameFinished;
+	
+	
+	public SetupGameFrame(Game game, boolean showGameFinished){
+		this.showGameFinished = showGameFinished;
 		TextureFactory.loadAllSetupGameRessources();
 		setupStage();
 		setupUI();
@@ -278,7 +285,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 
 		conquered3=new Image(TextureFactory.getTexture("conquered3"));
 		conquered3.setBounds(0, 0, width, height);
-		if(levelConquered[2]){
+		if(levelConquered[3]){
 			conquered3.setVisible(true);
 		}
 		else{
@@ -287,7 +294,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		conquered4=new Image(TextureFactory.getTexture("conquered4"));
 		conquered4.setBounds(0, 0, width, height);
-		if(levelConquered[3]){
+		if(levelConquered[2]){
 			conquered4.setVisible(true);
 		}
 		else{
@@ -305,7 +312,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		conquered6=new Image(TextureFactory.getTexture("conquered6"));
 		conquered6.setBounds(0, 0, width, height);
-		if(levelConquered[5]){
+		if(levelConquered[6]){
 			conquered6.setVisible(true);
 		}
 		else{
@@ -314,7 +321,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		conquered7=new Image(TextureFactory.getTexture("conquered7"));
 		conquered7.setBounds(0, 0, width, height);
-		if(levelConquered[6]){
+		if(levelConquered[5]){
 			conquered7.setVisible(true);
 		}
 		else{
@@ -343,6 +350,8 @@ public class SetupGameFrame extends InputListener implements Screen {
 		stage.addActor(level5Button);
 		stage.addActor(level6Button);
 		stage.addActor(level7Button);
+		
+		showGameFinished();
 		
 		
 	}
@@ -594,6 +603,14 @@ public class SetupGameFrame extends InputListener implements Screen {
 	public boolean keyTyped(InputEvent event, char character) {
 		
 		return super.keyTyped(event, character);
+	}
+	
+	private void showGameFinished(){
+		if(showGameFinished){
+			sgd = new SetupGameDialog(game, width, height, "Spiel abgeschlossen",true,7);
+			ui.addActor(sgd.getGroup());
+			sgd.showDialog();
+		}
 	}
 	
 	

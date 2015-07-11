@@ -428,7 +428,7 @@ public class MenuFrame extends InputListener implements Screen {
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		if(event.getListenerActor() == startGameButton){
-            game.setScreen(new SetupGameFrame(game));
+            game.setScreen(new SetupGameFrame(game,false));
             bgmMusic.stop();
 		}
 		

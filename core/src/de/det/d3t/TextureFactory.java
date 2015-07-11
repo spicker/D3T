@@ -123,6 +123,9 @@ public class TextureFactory {
 		addTexture("time", new Texture("textures/ui/ingame/time.png"));
 		addTexture("gold", new Texture("textures/ui/ingame/gold.png"));
 		
+		addTexture("selectedLevelBackground", new Texture("textures/ui/ingame/selectedLevelBackground.png"));
+		
+		
 		//TOWERS:
 		addTexture("blue1", new Texture("textures/gameElements/towers/generation/large/blue1.png"));
 		addTexture("black1", new Texture("textures/gameElements/towers/generation/large/black1.png"));
@@ -271,6 +274,7 @@ public class TextureFactory {
 		addTexture("setupGameBackground3", new Texture("textures/background/worldmap2.jpg"));
 		
 		addTexture("setupGameBackgroundExample", new Texture("textures/ui/setupGame/worldMapExample.png"));
+		addTexture("selectedLevelBackground", new Texture("textures/ui/ingame/selectedLevelBackground.png"));
 		
 		addTexture("conquered1", new Texture("textures/ui/setupGame/conquered1.png"));
 		addTexture("conquered2", new Texture("textures/ui/setupGame/conquered2.png"));

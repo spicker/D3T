@@ -20,6 +20,8 @@ public class Settings {
 	
 	private static boolean levelUnlocked[] = {true,false,false,false,false,false,false};
 	
+	private static boolean showGameFinishedDialog = false;
+	
 	public static float getBgm() {
 		return bgm;
 	}
@@ -55,6 +57,12 @@ public class Settings {
 	}
 	public static void setLevelUnlocked(boolean[] levelUnlocked) {
 		Settings.levelUnlocked = levelUnlocked;
+	}
+	public static boolean isShowGameFinishedDialog() {
+		return showGameFinishedDialog;
+	}
+	public static void setShowGameFinishedDialog(boolean showGameFinishedDialog) {
+		Settings.showGameFinishedDialog = showGameFinishedDialog;
 	}
 	
 	
