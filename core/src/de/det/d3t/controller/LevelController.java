@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -31,6 +33,7 @@ public class LevelController {
 	private static final int SPAWNINGDISTANCE = 50;
 
 	int currentLevel = 0;
+	int currentLifes = 30;
 	float timer = 0;
 	float limit;
 	private static LevelController instance;
@@ -61,6 +64,7 @@ public class LevelController {
 		limit = getCurrentLevel().getInitialDelay();
 		buildingPhase = true;
 		timer = 0;
+		currentLifes = 30;
 	}
 
 	public void startGame(Stage stage) {
@@ -82,7 +86,9 @@ public class LevelController {
 
 		if (getCurrentLevel().hasStarted() == false) {
 			getCurrentLevel().start();
+			currentLifes = 30;
 			timer = 0;
+			stage.addActor(getCurrentLevel().getBase());
 			if (getCurrentLevel().hasNextWave()) {
 				limit = getCurrentLevel().getCurrentWave().getDelayAfter();
 				spawnWave(getCurrentLevel().getCurrentWave());
@@ -102,7 +108,12 @@ public class LevelController {
 		}
 
 		getCurrentLevel().updateGold();
-		if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
+		
+		currentLifes -= getCurrentLevel().checkBase();
+		
+		if(currentLifes <= 0){
+			gameFrame.levelLost();
+		} else if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
 			System.out.println("Finished Level " + currentLevel);
 			Settings.getLevelConquered()[currentLevel] = true;
 			if (levelList.size() > currentLevel + 1) {
@@ -425,6 +436,10 @@ public class LevelController {
 
 	public boolean isBuildingPhase() {
 		return buildingPhase;
+	}
+
+	public int getCurrentLifes() {
+		return currentLifes;
 	}
 
 }

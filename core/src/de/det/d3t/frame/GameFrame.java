@@ -489,7 +489,8 @@ public class GameFrame extends InputListener implements Screen {
 		}
 
 		ingameGoldLabel.setText(levelController.getGold() + "");
-
+		ingameLifeLabel.setText(levelController.getCurrentLifes() + "");
+		
 		stage.draw();
 		ui.draw();
 		/*
@@ -739,6 +740,8 @@ public class GameFrame extends InputListener implements Screen {
 		
 	
 	}
+	
+	
 	
 	
 }
