@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -18,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.frame.GameFrame;
+import de.det.d3t.model.BaseCircle;
+import de.det.d3t.model.Circle;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.EnemyType;
 import de.det.d3t.model.Level;
@@ -29,6 +33,7 @@ public class LevelController {
 	private static final int SPAWNINGDISTANCE = 50;
 
 	int currentLevel = 0;
+	int currentLifes = 30;
 	float timer = 0;
 	float limit;
 	private static LevelController instance;
@@ -59,6 +64,7 @@ public class LevelController {
 		limit = getCurrentLevel().getInitialDelay();
 		buildingPhase = true;
 		timer = 0;
+		currentLifes = 30;
 	}
 
 	public void startGame(Stage stage) {
@@ -80,7 +86,9 @@ public class LevelController {
 
 		if (getCurrentLevel().hasStarted() == false) {
 			getCurrentLevel().start();
+			currentLifes = 30;
 			timer = 0;
+			stage.addActor(getCurrentLevel().getBase());
 			if (getCurrentLevel().hasNextWave()) {
 				limit = getCurrentLevel().getCurrentWave().getDelayAfter();
 				spawnWave(getCurrentLevel().getCurrentWave());
@@ -100,7 +108,12 @@ public class LevelController {
 		}
 
 		getCurrentLevel().updateGold();
-		if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
+		
+		currentLifes -= getCurrentLevel().checkBase();
+		
+		if(currentLifes <= 0){
+			gameFrame.levelLost();
+		} else if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
 			System.out.println("Finished Level " + currentLevel);
 			Settings.getLevelConquered()[currentLevel] = true;
 			if (levelList.size() > currentLevel + 1) {
@@ -206,6 +219,7 @@ public class LevelController {
 			ArrayList<Wave> waveList = new ArrayList<>();
 			Wave currentWave = null;
 			ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
+			BaseCircle base = null;
 
 			while (curLine != null) {
 				curLine = buffReader.readLine();
@@ -227,10 +241,19 @@ public class LevelController {
 					if (curLine.equals("ENDLEVEL")) {
 						if (restartedLevelName != null
 								&& levelName.equals(restartedLevelName)) {
-							Level curLevel = new Level(levelName,
-									new TmxMapLoader().load("tilemap/"
-											+ levelMapPath), levelList.size(),
-									levelInitDelay);
+							Level curLevel;
+							if (base != null) {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay);
+							} else {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay, base);
+							}
+
 							curLevel.setSpawnAreaList(spawnAreaList);
 							for (Wave curWave : waveList) {
 								curLevel.addWave(curWave);
@@ -250,10 +273,18 @@ public class LevelController {
 						}
 
 						if (restartedLevelName == null) {
-							Level curLevel = new Level(levelName,
-									new TmxMapLoader().load("tilemap/"
-											+ levelMapPath), levelList.size(),
-									levelInitDelay);
+							Level curLevel;
+							if (base != null) {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay);
+							} else {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay, base);
+							}
 							curLevel.setSpawnAreaList(spawnAreaList);
 
 							for (Wave curWave : waveList) {
@@ -278,6 +309,12 @@ public class LevelController {
 
 					if (value[0].equals("name")) {
 						levelName = value[1];
+						continue;
+					} else if (value[0].equals("base")) {
+						float radius = Float.parseFloat(value[3]);
+						base = new BaseCircle(radius);
+						base.setX(Float.parseFloat(value[1]) - radius);
+						base.setY(Float.parseFloat(value[2]) - radius);
 						continue;
 					} else if (value[0].equals("map")) {
 						levelMapPath = value[1];
@@ -400,6 +437,9 @@ public class LevelController {
 	public boolean isBuildingPhase() {
 		return buildingPhase;
 	}
-	
-	
+
+	public int getCurrentLifes() {
+		return currentLifes;
+	}
+
 }
