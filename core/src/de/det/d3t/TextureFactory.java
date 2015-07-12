@@ -173,6 +173,7 @@ public class TextureFactory {
 		addTexture("fire", new Texture("textures/gameElements/towers/labels/fire.png"));
 		addTexture("labe_tower2", new Texture("textures/gameElements/towers/labels/labe_tower2.png"));
 		addTexture("label_tower1", new Texture("textures/gameElements/towers/labels/label_tower1.png"));
+		addTexture("barricade", new Texture("textures/gameElements/towers/tower_barricade.png"));
 		
 		addTexture("singleShotIcon", new Texture("textures/gameElements/towers/labels/singleShotIcon.png"));
 		addTexture("antiGravityIcon", new Texture("textures/gameElements/towers/labels/antiGravityIcon.png"));

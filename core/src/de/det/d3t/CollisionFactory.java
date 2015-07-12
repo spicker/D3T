@@ -151,7 +151,7 @@ public class CollisionFactory {
 
 		// Tower damage
 
-		float damage = (Math.abs(impulseX * im2) + Math.abs( impulseY * im2)) * 0.001f;
+		float damage = (Math.abs(impulseX * im2) + Math.abs( impulseY * im2)) * 0.0075f;
 		a.setHp(a.getHp() - damage);
 
 	}

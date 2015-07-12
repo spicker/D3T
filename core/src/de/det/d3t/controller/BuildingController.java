@@ -20,6 +20,7 @@ import de.det.d3t.TextureFactory;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.BallsTower;
+import de.det.d3t.model.BarricadeTower;
 import de.det.d3t.model.BillardTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Level;
@@ -111,6 +112,13 @@ public class BuildingController {
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BallsTower.class);
+		
+		current = new TowerDescription("Barrikade",
+				"Blockiert Gegner", 5,
+				TextureFactory.getTexture("ropeTexture"));
+		current.setImageBounds(35, 35);
+		towerDescList.add(current);
+		descToTowerMap.put(current, BarricadeTower.class);
 
 	}
 

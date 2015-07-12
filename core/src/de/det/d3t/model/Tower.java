@@ -17,7 +17,7 @@ public class Tower extends Circle {
 	private Group components;
 	private float scale;
 	protected float maxHp = 100;
-	private float hp = 100;
+	protected float hp = 100;
 	private Image hpBarBack;
 	private Image hpBarFront;
 	private RadialSprite hpBarFrontSprite;
