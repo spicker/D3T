@@ -158,7 +158,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		
 		
-		mainMenuButton = new TextButton("HauptmenÃ¼",textButtonStyle);
+		mainMenuButton = new TextButton("Hauptmenü",textButtonStyle);
 		mainMenuButton.setBounds(width/2 -(1900/2), height/2  + height/3 + height/10, 1900, 500);
 		mainMenuButton.addListener(this);
 		
