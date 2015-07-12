@@ -122,6 +122,7 @@ public class TextureFactory {
 		
 		addTexture("time", new Texture("textures/ui/ingame/time.png"));
 		addTexture("gold", new Texture("textures/ui/ingame/gold.png"));
+		addTexture("heart", new Texture("textures/ui/ingame/valentines_heart.png"));
 		
 		addTexture("selectedLevelBackground", new Texture("textures/ui/ingame/selectedLevelBackground.png"));
 		

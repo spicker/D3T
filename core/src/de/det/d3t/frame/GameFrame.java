@@ -89,6 +89,8 @@ public class GameFrame extends InputListener implements Screen {
 	private Button ingameButtonHelp;
 	private Image ingameGold;
 	private Image ingameTime;
+	private Image ingameLife;
+	private Label ingameLifeLabel;
 	private Label ingameGoldLabel;
 	private Label ingameTimeLabel;
 
@@ -177,25 +179,33 @@ public class GameFrame extends InputListener implements Screen {
 		ingameButtonHelp.addListener(this);
 
 		ingameGold = new Image(TextureFactory.getTexture("gold"));
-		ingameGold.setBounds(width / 2 - (1900 / 2) + 2600, height / 2 + height
+		ingameGold.setBounds(width / 2 - (1900 / 2) + 3000, height / 2 + height
 				/ 3 + height / 10 + height / 120, 300, 300);
 
 		ingameTime = new Image(TextureFactory.getTexture("time"));
-		ingameTime.setBounds(width / 2 - (1900 / 2) + 3600, height / 2 + height
+		ingameTime.setBounds(width / 2 - (1900 / 2) + 4000, height / 2 + height
+				/ 3 + height / 10 + height / 120, 300, 300);
+		
+		ingameLife = new Image(TextureFactory.getTexture("heart"));
+		ingameLife.setBounds(width / 2 - (1900 / 2) + 2000, height / 2 + height
 				/ 3 + height / 10 + height / 120, 300, 300);
 
 		ls = new LabelStyle();
 		ls.font = TextureFactory.getFont("emmett", 200, Color.YELLOW);
 
+		ingameLifeLabel = new Label("30", ls);
+		ingameLifeLabel.setBounds(width / 2 - (1900 / 2) + 2400, height / 2
+				+ height / 3 + height / 10, 1000, 400);
+		
 		ingameGoldLabel = new Label("143", ls);
-		ingameGoldLabel.setBounds(width / 2 - (1900 / 2) + 3000, height / 2
+		ingameGoldLabel.setBounds(width / 2 - (1900 / 2) + 3400, height / 2
 				+ height / 3 + height / 10, 1000, 400);
 
 		ls.font = TextureFactory
 				.getFont("emmett", 200, Color.valueOf("DDDCE0"));
 
 		ingameTimeLabel = new Label("00:00:00", ls);
-		ingameTimeLabel.setBounds(width / 2 - (1900 / 2) + 4000, height / 2
+		ingameTimeLabel.setBounds(width / 2 - (1900 / 2) + 4400, height / 2
 				+ height / 3 + height / 10, 1000, 400);
 
 		ui.addActor(uiback);
@@ -206,8 +216,10 @@ public class GameFrame extends InputListener implements Screen {
 		ui.addActor(ingameButtonHelp);
 		ui.addActor(ingameGold);
 		ui.addActor(ingameTime);
+		ui.addActor(ingameLife);
 		ui.addActor(ingameGoldLabel);
 		ui.addActor(ingameTimeLabel);
+		ui.addActor(ingameLifeLabel);
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 3; j++) {
