@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
 import de.det.d3t.frame.GameFrame;
+import de.det.d3t.model.BaseCircle;
+import de.det.d3t.model.Circle;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.EnemyType;
 import de.det.d3t.model.Level;
@@ -206,6 +208,7 @@ public class LevelController {
 			ArrayList<Wave> waveList = new ArrayList<>();
 			Wave currentWave = null;
 			ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
+			BaseCircle base = null;
 
 			while (curLine != null) {
 				curLine = buffReader.readLine();
@@ -227,10 +230,19 @@ public class LevelController {
 					if (curLine.equals("ENDLEVEL")) {
 						if (restartedLevelName != null
 								&& levelName.equals(restartedLevelName)) {
-							Level curLevel = new Level(levelName,
-									new TmxMapLoader().load("tilemap/"
-											+ levelMapPath), levelList.size(),
-									levelInitDelay);
+							Level curLevel;
+							if (base != null) {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay);
+							} else {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay, base);
+							}
+
 							curLevel.setSpawnAreaList(spawnAreaList);
 							for (Wave curWave : waveList) {
 								curLevel.addWave(curWave);
@@ -250,10 +262,18 @@ public class LevelController {
 						}
 
 						if (restartedLevelName == null) {
-							Level curLevel = new Level(levelName,
-									new TmxMapLoader().load("tilemap/"
-											+ levelMapPath), levelList.size(),
-									levelInitDelay);
+							Level curLevel;
+							if (base != null) {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay);
+							} else {
+								curLevel = new Level(levelName,
+										new TmxMapLoader().load("tilemap/"
+												+ levelMapPath),
+										levelList.size(), levelInitDelay, base);
+							}
 							curLevel.setSpawnAreaList(spawnAreaList);
 
 							for (Wave curWave : waveList) {
@@ -278,6 +298,12 @@ public class LevelController {
 
 					if (value[0].equals("name")) {
 						levelName = value[1];
+						continue;
+					} else if (value[0].equals("base")) {
+						float radius = Float.parseFloat(value[3]);
+						base = new BaseCircle(radius);
+						base.setX(Float.parseFloat(value[1]) - radius);
+						base.setY(Float.parseFloat(value[2]) - radius);
 						continue;
 					} else if (value[0].equals("map")) {
 						levelMapPath = value[1];
@@ -400,6 +426,5 @@ public class LevelController {
 	public boolean isBuildingPhase() {
 		return buildingPhase;
 	}
-	
-	
+
 }

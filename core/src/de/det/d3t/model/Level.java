@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 
+import de.det.d3t.Settings;
+import de.det.d3t.TextureFactory;
+
 /**
  * Represents one level of the game, containing information about waves and such
  * 
@@ -18,6 +21,7 @@ public class Level {
 	private int id;
 	private ArrayList<Wave> waveList = new ArrayList<Wave>();
 	private ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
+	private BaseCircle base;
 	private int gold = 50;
 	private boolean complete = false;
 
@@ -43,7 +47,7 @@ public class Level {
 		this.tiledMap = tiledMap;
 		this.id = id;
 		this.initialDelay = initialDelay;
-		
+		base = new BaseCircle(100);
 	}
 
 	/**
@@ -63,6 +67,39 @@ public class Level {
 		this.waveList = waveList;
 		this.initialDelay = initialDelay;
 		this.spawnAreaList = spawnAreaList;
+		base = new BaseCircle(100);
+		base.setX(0);
+		base.setY(0);
+	}
+	
+	/**
+	 * Creates a new level
+	 * @param name
+	 * @param tiledMap
+	 * @param id
+	 * @param waveList
+	 * @param initialDelay Number of seconds to pass between starting the map and starting the first wave
+	 */
+	public Level(String name, TiledMap tiledMap, int id,
+			ArrayList<Wave> waveList, ArrayList<Rectangle> spawnAreaList, float initialDelay, BaseCircle base) {
+		super();
+		this.name = name;
+		this.tiledMap = tiledMap;
+		this.id = id;
+		this.waveList = waveList;
+		this.initialDelay = initialDelay;
+		this.spawnAreaList = spawnAreaList;
+		this.base = base;
+	}
+
+	public Level(String name, TiledMap tiledMap, int id,
+			float initialDelay, BaseCircle base) {
+		super();
+		this.name = name;
+		this.tiledMap = tiledMap;
+		this.id = id;
+		this.initialDelay = initialDelay;
+		this.base = base;
 	}
 
 	/**
@@ -112,6 +149,11 @@ public class Level {
 		
 		currentWave = waveList.get(0);
 		curWaveId = 0;
+		
+		Settings.basePositionX = base.getCenterX();
+		Settings.basePositionY = base.getCenterY();
+		
+		
 		return currentWave;
 	}
 	
@@ -191,6 +233,10 @@ public class Level {
 		this.gold = gold;
 	}
 	
+	public BaseCircle getBase() {
+		return base;
+	}
+
 	public void updateGold(){
 		if(complete)
 			return;
