@@ -124,9 +124,9 @@ import de.det.d3t.frame.SetupGameFrame;
 	        		switch(playingLevel){
 	        		case 1:lu[1] = true;break;
 	        		case 2:lu[2] = true;lu[3] = true;break;
-	        		case 3:if(lc[3]) lu[4] = true; break;
-	        		case 4:if(lc[2]) lu[4] = true; break;
-	        		case 5:lu[5] = true;break;
+	        		case 3:if(lc[3] && lc[2]){ lu[4] = true;} break;
+	        		case 4:if(lc[3] && lc[2]){ lu[4] = true;} break;
+	        		case 5:if(lc[2] && lc[3] && lc[4]){lu[5] = true;}break;
 	        		case 6:lu[6] = true; break;
 	        		case 7: break;
 	        		}
