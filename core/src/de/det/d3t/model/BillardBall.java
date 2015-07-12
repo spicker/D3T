@@ -14,15 +14,15 @@ public class BillardBall extends Circle {
 	private float despawnTime = 15;
 
 	public BillardBall(Texture texture, Tower start, Enemy target, float scale) {
-		super(texture, (texture.getWidth() * scale/Settings.scaleConst) /2 );
+		super(texture, (texture.getWidth()  /2) * scale/Settings.scaleConst);
 		scale /= Settings.scaleConst;
-		this.radius = (texture.getWidth() * scale) /2 ;
+		this.radius = (texture.getWidth() /2) * scale ;
 		setBounds(start.getCenterX() - radius, start.getCenterY() - radius,
 				radius*2, radius*2);
 
 		if (target != null) {
-			velocityX = target.getCenterX() - getCenterX();
-			velocityY = target.getCenterY() - getCenterY();
+			velocityX = target.getX() - getX();
+			velocityY = target.getY() - getY();
 			length = (float) Math.sqrt(velocityX * velocityX + velocityY
 					* velocityY);
 //			System.out.println("BillardBall: " + ", difX: " + velocityX

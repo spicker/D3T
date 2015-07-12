@@ -106,7 +106,7 @@ public class BuildingController {
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
 		
-		current = new TowerDescription("Balls of Stees",
+		current = new TowerDescription("Balls of Steel",
 				"bla", 5,
 				TextureFactory.getTexture("ropeTexture"));
 		current.setImageBounds(35, 35);

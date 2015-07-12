@@ -5,7 +5,7 @@ import de.det.d3t.TextureFactory;
 
 public class BallsTower extends Tower {
 	private float repeat = 1;
-	private float ballSize;
+	private float length = 200;
 	private float time = repeat;
 	RotatingImage deco, deco2, deco3, deco4, deco5, deco6, deco7, deco8, deco9;
 
@@ -17,17 +17,17 @@ public class BallsTower extends Tower {
 		addComponent(deco);
 		deco.setBounds(0, 0, 200, 200);
 
-		deco4 = new RotatingImage(TextureFactory.getTexture("blue1"), this,
+		deco4 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 				70 / Settings.scaleConst);
-		deco5 = new RotatingImage(TextureFactory.getTexture("blue1"), this,
+		deco5 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 				70 / Settings.scaleConst);
-		deco6 = new RotatingImage(TextureFactory.getTexture("blue1"), this,
+		deco6 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 				70 / Settings.scaleConst);
-		deco7 = new RotatingImage(TextureFactory.getTexture("blue1"), this,
+		deco7 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 				70 / Settings.scaleConst);
-		deco8 = new RotatingImage(TextureFactory.getTexture("blue1"), this,
+		deco8 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 				70 / Settings.scaleConst);
-		deco9 = new RotatingImage(TextureFactory.getTexture("blue1"), this,
+		deco9 = new RotatingImage(TextureFactory.getTexture("red1"), this,
 				70 / Settings.scaleConst);
 
 		deco4.setBounds(0, 0, 90, 90);
@@ -75,7 +75,7 @@ public class BallsTower extends Tower {
 	private void shoot() {
 		Enemy target = getNearest(Enemy.getAllEnemys());
 		if (target != null && target.getStage() != null) {
-			BallsOfSteel b = new BallsOfSteel(TextureFactory.getTexture("black1"), TextureFactory.getTexture("ropeTexture"), this, target, 300);
+			BallsOfSteel b = new BallsOfSteel(TextureFactory.getTexture("black1"), TextureFactory.getTexture("ropeTexture"), this, target, length);
 			getStage().addActor(b);
 		}
 

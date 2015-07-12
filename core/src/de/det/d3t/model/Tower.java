@@ -25,7 +25,7 @@ public class Tower extends Circle {
 
 	public Tower(float x, float y, float scale) {
 		super(TextureFactory.getTexture("towerBackground"), (TextureFactory
-				.getTexture("towerBackground").getHeight() / 2) * scale/Settings.scaleConst);
+				.getTexture("towerBackground").getHeight() * scale/Settings.scaleConst)/2);
 		scale /= Settings.scaleConst;
 		setBounds(x, y, TextureFactory.getTexture("towerBackground").getWidth() * scale,
 				TextureFactory.getTexture("towerBackground").getHeight() * scale);

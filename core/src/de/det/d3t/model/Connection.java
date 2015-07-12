@@ -146,4 +146,21 @@ public class Connection extends Actor {
 		}
 	}
 
+	public float getScaleWidth() {
+		return scaleWidth;
+	}
+
+	public void setScaleWidth(float scaleWidth) {
+		this.scaleWidth = scaleWidth;
+	}
+
+	public float getScaleLength() {
+		return scaleLength;
+	}
+
+	public void setScaleLength(float scaleLength) {
+		this.scaleLength = scaleLength;
+	}
+
+	
 }
