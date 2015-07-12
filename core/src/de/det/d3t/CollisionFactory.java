@@ -116,6 +116,9 @@ public class CollisionFactory {
 			float newVelY = -2 * dot * conNorY + e.getVelocityY();
 			e.setVelocityX(newVelX);
 			e.setVelocityY(newVelY);
+			
+			float damage = (Math.abs(e.getVelocityX() * e.getMass()) + Math.abs( e.getVelocityY() * e.getMass())) * 0.01f;
+			s.setHp(s.getHp() - damage);
 		}
 	}
 

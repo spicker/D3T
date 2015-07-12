@@ -42,6 +42,9 @@ public class RopeTower extends Tower {
 	@Override
 	public void act(float delta) {
 
+		if(rope != null && rope.isRemoved()){
+			remove();
+		}
 		if (isActive() && isConnected() && rope == null) {
 
 			this.rope = new LineSegment(
@@ -54,6 +57,8 @@ public class RopeTower extends Tower {
 			addComponent(towerTop);
 			
 			connectedTower.addComponent(connectedTower.towerTop);
+			
+			
 		}
 
 		if (!isActive() && rope != null) {
@@ -85,6 +90,7 @@ public class RopeTower extends Tower {
 		if (this.connectedTower != null) {
 			this.connectedTower.setRope(null);
 			this.connectedTower.setConnectedTower(null);
+			this.connectedTower.remove();
 			this.connectedTower = null;
 		}
 	}

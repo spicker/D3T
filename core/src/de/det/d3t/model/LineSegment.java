@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class LineSegment extends Entity{
 	private float connectionHp = 1000;
 	private Connection con;
+	private boolean removed;
 
 	public LineSegment(Texture texture, float x1, float y1, float x2, float y2) {
 		super(texture);
@@ -22,6 +23,7 @@ public class LineSegment extends Entity{
 	
 	@Override
 	public boolean remove() {
+		removed = true;
 		con.remove();
 		return super.remove();
 	}
@@ -38,4 +40,18 @@ public class LineSegment extends Entity{
 	@Override
 	public void draw(Batch batch, float parentAlpha) {}
 
+	public void setHp(float hp){
+		connectionHp = hp;
+		if(hp <= 0){
+			remove();
+		}
+	}
+	public float getHp(){
+		return connectionHp;
+	}
+
+	public boolean isRemoved() {
+		return removed;
+	}
+	
 }
