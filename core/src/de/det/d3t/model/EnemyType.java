@@ -6,44 +6,44 @@ import de.det.d3t.TextureFactory;
 
 public enum EnemyType {
 	KEVIN("enemy", 100, 1),
-	BLACKSTONE("enemyBlackStone", 100, 1.3f),
+	BLACKSTONE("enemyBlackStone", 100, 1.7f),
 	//level1
-	BROWNLIGHT("enemyBrownLight",100,1.3f),
-	METAL("enemyMetal",100,1.3f),
-	METAL2("enemyMetal2",100,1.3f),
+	BROWNLIGHT("enemyBrownLight",100,1.7f),
+	METAL("enemyMetal",100,1.7f),
+	METAL2("enemyMetal2",100,1.7f),
 	DISCO("enemyDisco",100,1.6f),
 	//level2
-	EYEBALL("enemyEyeball",100,1.3f),
-	ELECTRO("enemyElectro2",100,1.3f),
-	FOG("enemyFog",100,1.3f),
+	EYEBALL("enemyEyeball",100,1.7f),
+	ELECTRO("enemyElectro2",100,1.7f),
+	FOG("enemyFog",100,1.7f),
 	BRAIN("enemyBrain",100,1.5f),
-	BOSS_EYEBALL("enemyEyeballMouth",100,1),
+	BOSS_EYEBALL("enemyEyeballMouth",1000,1),
 	//level3
-	GRASS("enemyGrass",100,1.3f),
-	MUD("enemyMud",100,1.3f),
-	TRIANGLES("enemyTriangles",100,1.3f),
+	GRASS("enemyGrass",100,1.7f),
+	MUD("enemyMud",100,1.7f),
+	TRIANGLES("enemyTriangles",100,1.7f),
 	//level4
 	//BROWN
-	BROWN("enemyBrown",100,1.3f),
+	BROWN("enemyBrown",100,1.7f),
 	//GRASS
-	PLANT("enemyPlant",100,1.3f),
+	PLANT("enemyPlant",100,1.7f),
 	//level5
-	BLUEGLOW("enemyBlueGlow",100,1.3f),
+	BLUEGLOW("enemyBlueGlow",130,1.7f),
 	//FOG
 	//PLANT
 	//level6
 	//BLUE_GLOW
-	BLUEABSTRACT("enemyBlueAbstract",100,1.3f),
-	SPIRAL("enemySpiral",100,1.3f),
-	SPIRAL2("enemySpiral2",100,1.3f),
-	SEMIBOSS_LEOPARD("enemyLeopard",100,2f),
+	BLUEABSTRACT("enemyBlueAbstract",130,1.7f),
+	SPIRAL("enemySpiral",130,1.7f),
+	SPIRAL2("enemySpiral2",130,1.7f),
+	SEMIBOSS_LEOPARD("enemyLeopard",1000,2f),
 	//level7
-	REDLAVA("enemyRedLava",100,1.4f),
-	REDLAVA2("enemyRedLava2",100,1.4f),
-	LAVA("enemyLava",100,1.4f),
+	REDLAVA("enemyRedLava",170,1.4f),
+	REDLAVA2("enemyRedLava2",170,1.4f),
+	LAVA("enemyLava",170,1.4f),
 	//BLACK_STONE
-	BOSS_KEVIN("enemyKevin",100,1),
-	BOSS_SUN("enemySun",100,3);
+	BOSS_KEVIN("enemyKevin",2000,6),
+	BOSS_SUN("enemySun",1500,3);
 	
 	
 	private Texture texture;
