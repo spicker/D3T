@@ -2,6 +2,7 @@ package de.det.d3t.frame.Dialogs;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -39,14 +40,16 @@ import de.det.d3t.frame.MenuFrame;
 	    
 	    private Game game;
 
+	    private Music music;
 
-	    public SetupGameDialog(Game game, float width, float height, String titleText, boolean gameWon, int playingLevel){
+	    public SetupGameDialog(Game game, float width, float height, String titleText, boolean gameWon, int playingLevel, Music music){
 	    	this.game = game;
 	        this.width = width;
 	        this.height = height;
 	        this.titleText = titleText;
 	        this.gameWon = gameWon;
 	        this.playingLevel = playingLevel;
+	        this.music = music;
 	        
 	    }
 		
@@ -125,7 +128,7 @@ import de.det.d3t.frame.MenuFrame;
 	        	Settings.setLevelConquered(new boolean[]{false,false,false,false,false,false,false});
 	        	Settings.setLevelUnlocked(new boolean[]{true,false,false,false,false,false,false});
 	        	Settings.setShowGameFinishedDialog(false);
-	        	
+	        	music.stop();
 	        	
 	        	game.setScreen(new MenuFrame(game));
 	        	closeDialog();   	

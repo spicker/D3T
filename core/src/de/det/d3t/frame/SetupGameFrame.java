@@ -158,7 +158,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 		
 		
 		
-		mainMenuButton = new TextButton("Hauptmenü",textButtonStyle);
+		mainMenuButton = new TextButton("Hauptmenï¿½",textButtonStyle);
 		mainMenuButton.setBounds(width/2 -(1900/2), height/2  + height/3 + height/10, 1900, 500);
 		mainMenuButton.addListener(this);
 		
@@ -607,7 +607,7 @@ public class SetupGameFrame extends InputListener implements Screen {
 	
 	private void showGameFinished(){
 		if(showGameFinished){
-			sgd = new SetupGameDialog(game, width, height, "Spiel abgeschlossen",true,7);
+			sgd = new SetupGameDialog(game, width, height, "Spiel abgeschlossen",true,7,bgmMusic);
 			ui.addActor(sgd.getGroup());
 			sgd.showDialog();
 		}
