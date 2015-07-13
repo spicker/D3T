@@ -108,7 +108,7 @@ import de.det.d3t.frame.SetupGameFrame;
 	        {
 	        	//TODO: clear all towers, enemies and Projectiles from the stage
 	        	//TODO: reset values (gold, time wave etc)
-	        	
+	        	System.out.println("set game frame restart level");
 	        	game.setScreen(new GameFrame(game,playingLevel));
 	        	closeDialog();
 	        }
@@ -139,6 +139,9 @@ import de.det.d3t.frame.SetupGameFrame;
 	        		else{
 	        			game.setScreen(new SetupGameFrame(game,false));
 	        		}
+	        	}
+	        	else{
+	        		game.setScreen(new SetupGameFrame(game,false));	
 	        	}
 	        	closeDialog();   	
 	        }

@@ -57,12 +57,15 @@ public class GameFrame extends InputListener implements Screen {
 	private Stage stage;
 	private Stage ui;
 	private Stage escMenuStage;
+	private Stage dialogStage;
 	private StretchViewport stageViewport;
 	private StretchViewport uiViewport;
 	private StretchViewport escViewport;
+	private StretchViewport dialogViewport;
 	private OrthographicCamera stageCamera;
 	private OrthographicCamera uiCamera;
 	private OrthographicCamera escCamera;
+	private OrthographicCamera dialogCamera;
 	private OrthogonalTiledMapRenderer tileMapRenderer;
 	private InputMultiplexer inputMultiplexer;
 	private TileMapIntersectionDetector lavaDetector;
@@ -77,6 +80,7 @@ public class GameFrame extends InputListener implements Screen {
 
 	private float width;
 	private float height;
+	private boolean levelOver =false;
 
 	private Image escMenu;
 	private Image uiback;
@@ -116,6 +120,7 @@ public class GameFrame extends InputListener implements Screen {
 		setupStage();
 		setupUI();
 		setupEscMenuStage();
+		setupDialogStage();
 		setupLevels();
 		setupTilemap();
 		manageInputs();
@@ -133,19 +138,9 @@ public class GameFrame extends InputListener implements Screen {
 		bgmMusic.play();
 		buttonClickSound = TextureFactory.getSound("buttonClick");
 
-		// teststuff
-		/*
-		 * Texture texture = new Texture("badlogic.jpg"); Image i = new
-		 * Image(texture); i.setBounds(0, 0, 2000, 2000); ui.addActor(i); i =
-		 * new Image(texture); i.setBounds(0, 0, 2000, 2000); i.rotateBy(180);
-		 * ui.addActor(i);
-		 */
-
 		// UI
 		uiback = new Image(TextureFactory.getTexture("uiNew"));
 		uiback.setBounds(0, 0, width, height);
-		// uiShadow = new Image(TextureFactory.getTexture("uiskin2Shadow"));
-		// uiShadow.setBounds(0,0,width, height);
 
 		font = TextureFactory.getFont("emmett", 200, Color.valueOf("DDDCE0"));
 		textButtonStyle = new TextButtonStyle();
@@ -361,6 +356,14 @@ public class GameFrame extends InputListener implements Screen {
 				Settings.viewportHeight, escCamera);
 		escMenuStage = new Stage(escViewport);
 	}
+	
+	public void setupDialogStage(){
+		dialogCamera = new OrthographicCamera();
+		dialogCamera.zoom = 1f;
+		dialogViewport = new StretchViewport(Settings.viewportWidth, Settings.viewportHeight, dialogCamera);
+		dialogStage = new Stage(dialogViewport);
+		
+	}
 
 	public void setupTilemap() {
 		TiledMap map = levelController.getCurrentLevel().getTiledMap();
@@ -400,6 +403,7 @@ public class GameFrame extends InputListener implements Screen {
 		inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(new UIController());
 		inputMultiplexer.addProcessor(ui);
+		inputMultiplexer.addProcessor(dialogStage);
 		inputMultiplexer.addProcessor(new CameraInputController(stageCamera)); // TODO
 																				// Add
 																				// some
@@ -449,24 +453,32 @@ public class GameFrame extends InputListener implements Screen {
 	@Override
 	public void render(float delta) {
 
-		if (escReleased == true && Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-			escMenuShowing = !escMenuShowing;
-			System.out.println("EscMenuShowing: " + escMenuShowing);
-			escReleased = false;
-
-			if (escMenuShowing) {
-				inputMultiplexer = new InputMultiplexer();
-				inputMultiplexer.addProcessor(escMenuStage);
-				Gdx.input.setInputProcessor(inputMultiplexer);
-				buildingController.resetBuilding();
-			} else {
-				manageInputs();
+		if(!levelOver){
+			if (escReleased == true && Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+				escMenuShowing = !escMenuShowing;
+				System.out.println("EscMenuShowing: " + escMenuShowing);
+				escReleased = false;
+	
+				if (escMenuShowing) {
+					inputMultiplexer = new InputMultiplexer();
+					inputMultiplexer.addProcessor(escMenuStage);
+					Gdx.input.setInputProcessor(inputMultiplexer);
+					buildingController.resetBuilding();
+				} else {
+					manageInputs();
+				}
+			}
+			if (escReleased == false) {
+				if (!Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+					escReleased = true;
+				}
 			}
 		}
-		if (escReleased == false) {
-			if (!Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-				escReleased = true;
-			}
+		else{
+			inputMultiplexer = new InputMultiplexer();
+			inputMultiplexer.addProcessor(dialogStage);
+			Gdx.input.setInputProcessor(inputMultiplexer);
+			buildingController.resetBuilding();
 		}
 		/**
 		 * if(Math.random() < 0.01f){ stage.addActor(new Enemy(0, 4500, 1,
@@ -476,7 +488,7 @@ public class GameFrame extends InputListener implements Screen {
 		stageCamera.update();
 		tileMapRenderer.setView(stageCamera);
 		tileMapRenderer.render();
-		if (!escMenuShowing) {
+		if (!escMenuShowing && !levelOver) {
 			stage.act(Gdx.graphics.getDeltaTime());
 			Entity.checkCollisions();
 			Enemy.checkForIntersection(lavaDetector,
@@ -505,9 +517,13 @@ public class GameFrame extends InputListener implements Screen {
 			escMenuStage.act(Gdx.graphics.getDeltaTime());
 			escMenuStage.draw();
 		} else {
-			if (inputMultiplexer.getProcessors().size == 1) {
+			if (inputMultiplexer.getProcessors().size == 1 && !levelOver) {
 				manageInputs();
 			}
+		}
+		if(levelOver){
+			dialogStage.act(Gdx.graphics.getDeltaTime());
+			dialogStage.draw();
 		}
 		// fpsLogger.log();
 
@@ -637,15 +653,6 @@ public class GameFrame extends InputListener implements Screen {
 
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) {
-		/*
-		 * Pixmap ui = new Pixmap(new
-		 * FileHandle("textures/ui/ingame/uiNew.png")); float fx = ui.getWidth()
-		 * / Gdx.graphics.getWidth(); float fy = ui.getHeight() /
-		 * Gdx.graphics.getHeight();
-		 * 
-		 * Color newColor = new Color(ui.getPixel((int)(x/fx),(int)(y/fy)));
-		 * System.out.println(newColor);
-		 */
 		super.touchDragged(event, x, y, pointer);
 	}
 
@@ -726,16 +733,18 @@ public class GameFrame extends InputListener implements Screen {
 	}
 
 	public void levelFinished() {
+		levelOver = true;
 		bgmMusic.stop();
 		IngameDialog idia = new IngameDialog(game, width, height, "Level Abgeschlossen",true,selectedLevel);
-		ui.addActor(idia.getGroup());
+		dialogStage.addActor(idia.getGroup());
 		idia.showDialog();
 	}
 	
 	public void levelLost(){
+		levelOver = true;
 		bgmMusic.stop();
 		IngameDialog idia = new IngameDialog(game, width, height, "Level verloren",false,selectedLevel);
-		ui.addActor(idia.getGroup());
+		dialogStage.addActor(idia.getGroup());
 		idia.showDialog();
 		
 	
