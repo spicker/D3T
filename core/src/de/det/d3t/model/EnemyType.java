@@ -17,7 +17,7 @@ public enum EnemyType {
 	ELECTRO("enemyElectro2",100,1.9f,1),
 	FOG("enemyFog",100,1.9f,1),
 	BRAIN("enemyBrain",100,2f,1.1f),
-	BOSS_EYEBALL("enemyEyeballMouth",1000,1,1),
+	BOSS_EYEBALL("enemyEyeballMouth",1000,1.4f,1),
 	//level3
 	GRASS("enemyGrass",100,1.9f,1.1f),
 	MUD("enemyMud",100,1.9f,1),
@@ -36,7 +36,7 @@ public enum EnemyType {
 	BLUEABSTRACT("enemyBlueAbstract",130,1.9f,1.3f),
 	SPIRAL("enemySpiral",130,1.9f,1.3f),
 	SPIRAL2("enemySpiral2",130,1.9f,1.3f),
-	SEMIBOSS_LEOPARD("enemyLeopard",1000,2f,1),
+	SEMIBOSS_LEOPARD("enemyLeopard",1000,5f,1),
 	//level7
 	REDLAVA("enemyRedLava",170,1.7f,1.4f),
 	REDLAVA2("enemyRedLava2",170,1.7f,1.4f),
