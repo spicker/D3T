@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.det.d3t.TextureFactory;
 
 public class MagnetTower extends Tower {
-	private float knockStrength = 2000;
+	private float knockStrength = 1000;
 	private float towerRange = 2000;
 	private BlinkImage deco;
 	private SpriteBatch sp;
