@@ -18,7 +18,8 @@ public class Settings {
 	
 	private static boolean levelConquered[] = {false,false,false,false,false,false,false};
 	
-	private static boolean levelUnlocked[] = {true,false,false,false,false,false,false};
+	//TODO lock!!
+	private static boolean levelUnlocked[] = {true,true,true,true,true,true,true};
 	
 	private static boolean showGameFinishedDialog = false;
 	

@@ -76,8 +76,6 @@ public class Level {
 		this.initialDelay = initialDelay;
 		this.spawnAreaList = spawnAreaList;
 		base = new BaseCircle(100);
-		base.setX(0);
-		base.setY(0);
 	}
 
 	/**
