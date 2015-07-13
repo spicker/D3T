@@ -343,7 +343,7 @@ public class TextureFactory {
 	
 	
 	
-	public static void loadAllFonts(){
+	/*public static void loadAllFonts(){
 		addFont("White" , new BitmapFont(Gdx.files.internal("fonts/whitefont.fnt"), false));
 		addFont("Black", new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false));
 		addFont("Alpha_Echo", new BitmapFont(Gdx.files.internal("fonts/alpha_echo.fnt"), false));
@@ -366,7 +366,7 @@ public class TextureFactory {
 		if(!fonts.containsKey("vr")){
 			addFont("vr", new BitmapFont(Gdx.files.internal("fonts/vr.fnt"),false));
 		}		
-	}
+	}*/
 	
 	public static void loadAllButtons(){
 		addTexture("button_brown", new Texture("textures/ui/buttons/button_brown.png"));
