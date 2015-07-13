@@ -55,7 +55,7 @@ public class BuildingController {
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravitation", "Stößt Gegner ab",
+		current = new TowerDescription("Anti Gravitation", "Stï¿½ï¿½t Gegner ab",
 				5, TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -75,7 +75,7 @@ public class BuildingController {
 		descToTowerMap.put(current, SingleShotTower.class);
 
 		current = new TowerDescription("Billard",
-				"Verschießt zurückstoßende\nKugeln", 5,
+				"Verschieï¿½t zurï¿½ckstoï¿½ende\nKugeln", 5,
 				TextureFactory.getTexture("billardIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -100,22 +100,22 @@ public class BuildingController {
 		descToTowerMap.put(current, SlowTower.class);
 		// TODO Icon anpassen
 		current = new TowerDescription("Seilblockade",
-				"Spannt ein Seil\nzwischen zwei Türmen", 5,
-				TextureFactory.getTexture("ropeTexture"));
+				"Spannt ein Seil\nzwischen zwei TÃ¼rmen", 5,
+				TextureFactory.getTexture("ropeIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
 		
 		current = new TowerDescription("Balls of Steel",
-				"Verschießt zwei Kugeln,\ndie mit einem Seil\nverbunden sind", 5,
-				TextureFactory.getTexture("ropeTexture"));
+				"Verschieï¿½t zwei Kugeln,\ndie mit einem Seil\nverbunden sind", 5,
+				TextureFactory.getTexture("ballsOfSteelIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BallsTower.class);
 		
 		current = new TowerDescription("Barrikade",
 				"Blockiert Gegner", 5,
-				TextureFactory.getTexture("ropeTexture"));
+				TextureFactory.getTexture("barricadeIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BarricadeTower.class);

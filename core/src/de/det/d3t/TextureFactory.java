@@ -182,6 +182,10 @@ public class TextureFactory {
 		addTexture("magnetIcon", new Texture("textures/gameElements/towers/labels/magnetIcon.png"));
 		addTexture("teleportIcon", new Texture("textures/gameElements/towers/labels/teleportIcon.png"));
 		addTexture("poisonIcon", new Texture("textures/gameElements/towers/labels/poisonIcon.png"));
+		addTexture("ballsOfSteelIcon", new Texture("textures/gameElements/towers/labels/ballOfSteeIcon.png"));
+		addTexture("ropeIcon", new Texture("textures/gameElements/towers/labels/ropeIcon.png"));
+		addTexture("barricadeIcon", new Texture("textures/gameElements/towers/labels/barricadeIcon.png"));
+		
 		
 		addTexture("wave_0", new Texture("effects/wave_0.png"));
 		

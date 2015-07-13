@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -182,7 +184,9 @@ public class GameFrame extends InputListener implements Screen {
 		ingameTime.setBounds(width / 2 - (1900 / 2) + 4000, height / 2 + height
 				/ 3 + height / 10 + height / 120, 300, 300);
 		
-		ingameLife = new Image(TextureFactory.getTexture("heart"));
+		Texture t = TextureFactory.getTexture("heart");
+		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		ingameLife = new Image(t);
 		ingameLife.setBounds(width / 2 - (1900 / 2) + 2000, height / 2 + height
 				/ 3 + height / 10 + height / 120, 300, 300);
 
