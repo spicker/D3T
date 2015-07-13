@@ -31,6 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.det.d3t.Settings;
@@ -58,7 +59,7 @@ public class GameFrame extends InputListener implements Screen {
 	private Stage ui;
 	private Stage escMenuStage;
 	private Stage dialogStage;
-	private StretchViewport stageViewport;
+	private FillViewport stageViewport;
 	private StretchViewport uiViewport;
 	private StretchViewport escViewport;
 	private StretchViewport dialogViewport;
@@ -336,7 +337,7 @@ public class GameFrame extends InputListener implements Screen {
 	public void setupStage() {
 		stageCamera = new OrthographicCamera();
 		stageCamera.zoom = 0.3f;
-		stageViewport = new StretchViewport(Settings.viewportWidth,
+		stageViewport = new FillViewport(Settings.viewportWidth,
 				Settings.viewportHeight, stageCamera);
 		stage = new Stage(stageViewport);
 	}
@@ -485,6 +486,7 @@ public class GameFrame extends InputListener implements Screen {
 		 * true)); }
 		 */
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stageViewport.apply();
 		stageCamera.update();
 		tileMapRenderer.setView(stageCamera);
 		tileMapRenderer.render();
@@ -493,6 +495,7 @@ public class GameFrame extends InputListener implements Screen {
 			Entity.checkCollisions();
 			Enemy.checkForIntersection(lavaDetector,
 					Gdx.graphics.getDeltaTime());
+			uiViewport.apply();
 			ui.act(Gdx.graphics.getDeltaTime());
 			;
 			levelController.update(delta);
@@ -503,7 +506,9 @@ public class GameFrame extends InputListener implements Screen {
 		ingameGoldLabel.setText(levelController.getGold() + "");
 		ingameLifeLabel.setText(levelController.getCurrentLifes() + "");
 		
+		stageViewport.apply();
 		stage.draw();
+		uiViewport.apply();
 		ui.draw();
 		/*
 		 * ui.getBatch().begin(); Image i = new
