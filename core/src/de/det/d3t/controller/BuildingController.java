@@ -126,7 +126,7 @@ public class BuildingController {
 		return towerDescList;
 	}
 	
-	public void resetBuilding(){
+	public void resetBuilding(boolean destroyBuildings){
 		buildingSelected = false;
 		if(buildTower != null){
 			buildTower.remove();
@@ -137,6 +137,14 @@ public class BuildingController {
 			firstRopeTower = null;
 		}
 		buildDesc = null;
+		
+		if(destroyBuildings){
+			for(Actor actor : gameStage.getActors()){
+				if(actor instanceof Tower){
+					actor.remove();
+				}
+			}
+		}
 	}
 
 	public class TowerDescription implements InputProcessor {
@@ -189,7 +197,7 @@ public class BuildingController {
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 			if (buildingSelected && button != Buttons.LEFT) {
 				
-				resetBuilding();
+				resetBuilding(false);
 				
 				return true;
 			}
@@ -244,7 +252,7 @@ public class BuildingController {
 				}
 
 				if (firstRopeTower == null) {
-					resetBuilding();
+					resetBuilding(false);
 					Level currentLevel = levelController.getCurrentLevel();
 					currentLevel.setGold(currentLevel.getGold() - cost);
 					TextureFactory.getSound("towerbuild").play();
@@ -286,7 +294,7 @@ public class BuildingController {
 				return true;
 			}
 
-			resetBuilding();
+			resetBuilding(false);
 			return false;
 		}
 
