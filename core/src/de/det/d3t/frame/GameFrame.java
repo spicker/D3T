@@ -468,7 +468,7 @@ public class GameFrame extends InputListener implements Screen {
 					inputMultiplexer = new InputMultiplexer();
 					inputMultiplexer.addProcessor(escMenuStage);
 					Gdx.input.setInputProcessor(inputMultiplexer);
-					buildingController.resetBuilding();
+					buildingController.resetBuilding(false);
 				} else {
 					manageInputs();
 				}
@@ -483,7 +483,7 @@ public class GameFrame extends InputListener implements Screen {
 			inputMultiplexer = new InputMultiplexer();
 			inputMultiplexer.addProcessor(dialogStage);
 			Gdx.input.setInputProcessor(inputMultiplexer);
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		/**
 		 * if(Math.random() < 0.01f){ stage.addActor(new Enemy(0, 4500, 1,
@@ -603,20 +603,20 @@ public class GameFrame extends InputListener implements Screen {
 				inputMultiplexer = new InputMultiplexer();
 				inputMultiplexer.addProcessor(escMenuStage);
 				Gdx.input.setInputProcessor(inputMultiplexer);
-				buildingController.resetBuilding();
+				buildingController.resetBuilding(false);
 			} else {
 				manageInputs();
 			}
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		if (event.getListenerActor().equals(ingameButtonHelp)) {
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		if (event.getListenerActor().equals(ingameButtonOptions)) {
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		if (event.getListenerActor().equals(ingameButtonRestart)) {
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(true);
 			levelController.resetLevel();
 			timekeeper.seconds = 0f;
 		}

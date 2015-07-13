@@ -34,7 +34,7 @@ public class TextureFactory {
 		
 		//////////////////////////////GAME-STAGE////////////////////////////////////////
 		addTexture("basic", new Texture("textures/gameElements/pixel.png"));
-		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy_kevin.png"));
+		addTexture("enemy", new Texture("textures/gameElements/enemies/enemy.png"));
 		addTexture("enemyBlackStone", new Texture("textures/gameElements/enemies/enemy_black_stone.png"));
 		addTexture("enemyBrownLight", new Texture("textures/gameElements/enemies/enemy_brown_light.png"));
 		addTexture("enemyMetal", new Texture("textures/gameElements/enemies/enemy_metal.png"));
@@ -49,6 +49,7 @@ public class TextureFactory {
 		addTexture("enemyMud", new Texture("textures/gameElements/enemies/enemy_mud.png"));
 		addTexture("enemyTriangles", new Texture("textures/gameElements/enemies/enemy_triangles.png"));
 		addTexture("enemyBrown", new Texture("textures/gameElements/enemies/enemy_brown.png"));
+		addTexture("enemyGreen", new Texture("textures/gameElements/enemies/enemy_green.png"));
 		addTexture("enemyPlant", new Texture("textures/gameElements/enemies/enemy_plant.png"));
 		addTexture("enemyBlueGlow", new Texture("textures/gameElements/enemies/enemy_blue_glow.png"));
 		addTexture("enemyBlueAbstract", new Texture("textures/gameElements/enemies/enemy_blue_apstract.png"));

@@ -123,4 +123,12 @@ public class Wave extends ArrayList<Enemy> {
 	public int queueSize(){
 		return queuedEnemyList.size();
 	}
+	
+	public void addToDeadList(Enemy e){
+		dead.add(e);
+	}
+
+	public ArrayList<Enemy> getDeadList() {
+		return dead;
+	}
 }

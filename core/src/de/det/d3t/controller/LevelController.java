@@ -108,12 +108,14 @@ public class LevelController {
 		}
 
 		getCurrentLevel().updateGold();
-		
+
 		currentLifes -= getCurrentLevel().checkBase();
-		
-		if(currentLifes <= 0){
+
+		if (currentLifes <= 0) {
 			gameFrame.levelLost();
-		} else if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
+		}
+		
+		if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
 			System.out.println("Finished Level " + currentLevel);
 			Settings.getLevelConquered()[currentLevel] = true;
 			if (levelList.size() > currentLevel + 1) {
@@ -242,7 +244,7 @@ public class LevelController {
 						if (restartedLevelName != null
 								&& levelName.equals(restartedLevelName)) {
 							Level curLevel;
-							if (base != null) {
+							if (base == null) {
 								curLevel = new Level(levelName,
 										new TmxMapLoader().load("tilemap/"
 												+ levelMapPath),
@@ -274,7 +276,7 @@ public class LevelController {
 
 						if (restartedLevelName == null) {
 							Level curLevel;
-							if (base != null) {
+							if (base == null) {
 								curLevel = new Level(levelName,
 										new TmxMapLoader().load("tilemap/"
 												+ levelMapPath),
@@ -313,8 +315,9 @@ public class LevelController {
 					} else if (value[0].equals("base")) {
 						float radius = Float.parseFloat(value[3]);
 						base = new BaseCircle(radius);
-						base.setX(Float.parseFloat(value[1]) - radius);
-						base.setY(Float.parseFloat(value[2]) - radius);
+						float posX = Float.parseFloat(value[1]) - radius;
+						float posY = Float.parseFloat(value[2]) - radius;
+						base.setPosition(posX, posY);
 						continue;
 					} else if (value[0].equals("map")) {
 						levelMapPath = value[1];
