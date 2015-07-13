@@ -45,6 +45,7 @@ public class Enemy extends Circle{
 		super(type.getTexture(), (type.getTexture().getHeight() / 2) * type.getScale()/Settings.scaleConst);
 		scale = type.getScale();
 		maxHp = hp = type.getHp();
+		accelerationGrow = type.getAccelerationGrow();
 		scale /= Settings.scaleConst;
 		allEnemys.add(this);
 		Rectangle bounds = new Rectangle(x, y, type.getTexture().getWidth() * scale, type.getTexture().getHeight() * scale);
