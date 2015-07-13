@@ -6,6 +6,8 @@ public class BaseCircle extends Circle {
 
 	public BaseCircle(float radius) {
 		super(TextureFactory.getTexture("wave_0"), radius);
+		this.setWidth(radius*2);
+		this.setHeight(radius*2);
 	}
 	
 	@Override

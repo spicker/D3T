@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -55,7 +55,7 @@ public class BuildingController {
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravitation", "Stößt Gegner ab",
+		current = new TowerDescription("Anti Gravitation", "Stï¿½ï¿½t Gegner ab",
 				5, TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -75,7 +75,7 @@ public class BuildingController {
 		descToTowerMap.put(current, SingleShotTower.class);
 
 		current = new TowerDescription("Billard",
-				"Verschießt zurückstoßende\nKugeln", 5,
+				"Verschieï¿½t zurï¿½ckstoï¿½ende\nKugeln", 5,
 				TextureFactory.getTexture("billardIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -100,14 +100,14 @@ public class BuildingController {
 		descToTowerMap.put(current, SlowTower.class);
 		// TODO Icon anpassen
 		current = new TowerDescription("Seilblockade",
-				"Spannt ein Seil\nzwischen zwei Türmen", 5,
+				"Spannt ein Seil\nzwischen zwei Tï¿½rmen", 5,
 				TextureFactory.getTexture("ropeTexture"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
 		
 		current = new TowerDescription("Balls of Steel",
-				"Verschießt zwei Kugeln,\ndie mit einem Seil\nverbunden sind", 5,
+				"Verschieï¿½t zwei Kugeln,\ndie mit einem Seil\nverbunden sind", 5,
 				TextureFactory.getTexture("ropeTexture"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
