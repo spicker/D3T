@@ -106,9 +106,7 @@ import de.det.d3t.frame.SetupGameFrame;
 	    public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        if(event.getListenerActor() == btnRestart)
 	        {
-	        	//TODO: clear all towers, enemies and Projectiles from the stage
-	        	//TODO: reset values (gold, time wave etc)
-	        	System.out.println("set game frame restart level");
+	        	//System.out.println("set game frame restart level");
 	        	game.setScreen(new GameFrame(game,playingLevel));
 	        	closeDialog();
 	        }

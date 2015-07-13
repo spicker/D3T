@@ -8,7 +8,7 @@ import de.det.d3t.TextureFactory;
 
 public class SingleShotTower extends Tower {
 	public float knockStrength = 2000;
-	private float cd = 0.3f;
+	private float cd = 1f;
 	RotatingImage deco;
 	RotatingImage deco2;
 
@@ -33,7 +33,7 @@ public class SingleShotTower extends Tower {
 
 		cd -= delta;
 		if (cd < 0) {
-			cd = 0.3f;
+			cd = 1f;
 			shoot();
 		}
 		super.act(delta);
@@ -44,7 +44,7 @@ public class SingleShotTower extends Tower {
 		if (target != null && target.getStage() != null) {
 			Missile m = new Missile(
 					TextureFactory.getTexture("singleShotMissle"), this,
-					target, 1000, 100);
+					target, 2000, 100);
 			getStage().addActor(m);
 			m.setAction((Enemy e) -> {
 				if (e != null) {
