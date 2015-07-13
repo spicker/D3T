@@ -8,12 +8,12 @@ public enum EnemyType {
 	KEVIN("enemy", 100, 1,1),
 	BLACKSTONE("enemyBlackStone", 100, 1.7f,1),
 	//level1
-	BROWNLIGHT("enemyBrownLight",100,1.7f,1),
-	METAL("enemyMetal",100,1.7f,1),
+	BROWNLIGHT("enemyBrownLight",100,1.7f,100f),
+	METAL("enemyMetal",100,1.7f,100f),
 	METAL2("enemyMetal2",100,1.7f,1),
 	DISCO("enemyDisco",100,1.6f,1),
 	//level2
-	EYEBALL("enemyEyeball",100,1.7f,1),
+	EYEBALL("enemyEyeball",100,1.7f,100f),
 	ELECTRO("enemyElectro2",100,1.7f,1),
 	FOG("enemyFog",100,1.7f,1),
 	BRAIN("enemyBrain",100,1.5f,1),

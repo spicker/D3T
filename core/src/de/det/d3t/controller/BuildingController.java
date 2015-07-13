@@ -55,7 +55,8 @@ public class BuildingController {
 
 		TowerDescription current;
 
-		current = new TowerDescription("Anti Gravitation", "St��t Gegner ab",
+
+		current = new TowerDescription("Anti Gravitation", "Stößt Gegner ab",
 				5, TextureFactory.getTexture("antiGravityIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -75,7 +76,7 @@ public class BuildingController {
 		descToTowerMap.put(current, SingleShotTower.class);
 
 		current = new TowerDescription("Billard",
-				"Verschie�t zur�cksto�ende\nKugeln", 5,
+				"Verschießt zurückstoßende\nKugeln", 5,
 				TextureFactory.getTexture("billardIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -100,22 +101,22 @@ public class BuildingController {
 		descToTowerMap.put(current, SlowTower.class);
 		// TODO Icon anpassen
 		current = new TowerDescription("Seilblockade",
-				"Spannt ein Seil\nzwischen zwei T�rmen", 5,
-				TextureFactory.getTexture("ropeTexture"));
+				"Spannt ein Seil\nzwischen zwei Türmen", 5,
+				TextureFactory.getTexture("ropeIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
 		
 		current = new TowerDescription("Balls of Steel",
 				"Verschie�t zwei Kugeln,\ndie mit einem Seil\nverbunden sind", 5,
-				TextureFactory.getTexture("ropeTexture"));
+				TextureFactory.getTexture("ballsOfSteelIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BallsTower.class);
 		
 		current = new TowerDescription("Barrikade",
 				"Blockiert Gegner", 5,
-				TextureFactory.getTexture("ropeTexture"));
+				TextureFactory.getTexture("barricadeIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BarricadeTower.class);
@@ -126,7 +127,7 @@ public class BuildingController {
 		return towerDescList;
 	}
 	
-	public void resetBuilding(){
+	public void resetBuilding(boolean destroyBuildings){
 		buildingSelected = false;
 		if(buildTower != null){
 			buildTower.remove();
@@ -137,6 +138,14 @@ public class BuildingController {
 			firstRopeTower = null;
 		}
 		buildDesc = null;
+		
+		if(destroyBuildings){
+			for(Actor actor : gameStage.getActors()){
+				if(actor instanceof Tower){
+					actor.remove();
+				}
+			}
+		}
 	}
 
 	public class TowerDescription implements InputProcessor {
@@ -189,7 +198,7 @@ public class BuildingController {
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 			if (buildingSelected && button != Buttons.LEFT) {
 				
-				resetBuilding();
+				resetBuilding(false);
 				
 				return true;
 			}
@@ -244,7 +253,7 @@ public class BuildingController {
 				}
 
 				if (firstRopeTower == null) {
-					resetBuilding();
+					resetBuilding(false);
 					Level currentLevel = levelController.getCurrentLevel();
 					currentLevel.setGold(currentLevel.getGold() - cost);
 					TextureFactory.getSound("towerbuild").play();
@@ -286,7 +295,7 @@ public class BuildingController {
 				return true;
 			}
 
-			resetBuilding();
+			resetBuilding(false);
 			return false;
 		}
 

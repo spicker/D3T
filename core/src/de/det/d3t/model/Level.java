@@ -23,6 +23,7 @@ public class Level {
 	private ArrayList<Wave> waveList = new ArrayList<Wave>();
 	private ArrayList<Rectangle> spawnAreaList = new ArrayList<>();
 	private BaseCircle base;
+	ArrayList<Circle> baselist = new ArrayList<>();
 	private int gold = 50;
 	private boolean complete = false;
 
@@ -52,6 +53,7 @@ public class Level {
 		this.id = id;
 		this.initialDelay = initialDelay;
 		base = new BaseCircle(100);
+		baselist.add(base);
 	}
 
 	/**
@@ -76,6 +78,9 @@ public class Level {
 		this.initialDelay = initialDelay;
 		this.spawnAreaList = spawnAreaList;
 		base = new BaseCircle(100);
+		baselist.add(base);
+		base.setX(0);
+		base.setY(0);
 	}
 
 	/**
@@ -100,6 +105,7 @@ public class Level {
 		this.initialDelay = initialDelay;
 		this.spawnAreaList = spawnAreaList;
 		this.base = base;
+		baselist.add(base);
 	}
 
 	public Level(String name, TiledMap tiledMap, int id, float initialDelay,
@@ -110,6 +116,7 @@ public class Level {
 		this.id = id;
 		this.initialDelay = initialDelay;
 		this.base = base;
+		baselist.add(base);
 	}
 
 	/**
@@ -262,7 +269,7 @@ public class Level {
 				int diff = v.getDeceased() - temp;
 				setGold(getGold() + (int) (diff * v.getIncomePerKill()));
 			}
-			if (!v.isCompleted() && v.getDeceased() == v.queueSize()) {
+			if (!v.isCompleted() && v.getDeadList().size() == v.queueSize()) {
 				gold += v.getIncomeForCompletion();
 				v.complete();
 
@@ -296,8 +303,6 @@ public class Level {
 
 	public int checkBase() {
 		int counter = 0;
-		ArrayList<Circle> baselist = new ArrayList<>();
-		baselist.add(base);
 
 		Iterator<Wave> waveit = waveList.iterator();
 		while (waveit.hasNext()) {
@@ -309,6 +314,7 @@ public class Level {
 					counter++;
 					e.remove();
 					enemyit.remove();
+					v.addToDeadList(e);
 					System.out.println("hit");
 				}
 			}

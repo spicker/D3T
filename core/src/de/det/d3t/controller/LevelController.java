@@ -108,12 +108,14 @@ public class LevelController {
 		}
 
 		getCurrentLevel().updateGold();
-		
+
 		currentLifes -= getCurrentLevel().checkBase();
-		
-		if(currentLifes <= 0){
+
+		if (currentLifes <= 0) {
 			gameFrame.levelLost();
-		} else if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
+		}
+		
+		if (!getCurrentLevel().isComplete() && getCurrentLevel().checkWin()) {
 			System.out.println("Finished Level " + currentLevel);
 			Settings.getLevelConquered()[currentLevel] = true;
 			if (levelList.size() > currentLevel + 1) {

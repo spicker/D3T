@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -182,7 +184,9 @@ public class GameFrame extends InputListener implements Screen {
 		ingameTime.setBounds(width / 2 - (1900 / 2) + 4000, height / 2 + height
 				/ 3 + height / 10 + height / 120, 300, 300);
 		
-		ingameLife = new Image(TextureFactory.getTexture("heart"));
+		Texture t = TextureFactory.getTexture("heart");
+		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		ingameLife = new Image(t);
 		ingameLife.setBounds(width / 2 - (1900 / 2) + 2000, height / 2 + height
 				/ 3 + height / 10 + height / 120, 300, 300);
 
@@ -464,7 +468,7 @@ public class GameFrame extends InputListener implements Screen {
 					inputMultiplexer = new InputMultiplexer();
 					inputMultiplexer.addProcessor(escMenuStage);
 					Gdx.input.setInputProcessor(inputMultiplexer);
-					buildingController.resetBuilding();
+					buildingController.resetBuilding(false);
 				} else {
 					manageInputs();
 				}
@@ -479,7 +483,7 @@ public class GameFrame extends InputListener implements Screen {
 			inputMultiplexer = new InputMultiplexer();
 			inputMultiplexer.addProcessor(dialogStage);
 			Gdx.input.setInputProcessor(inputMultiplexer);
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		/**
 		 * if(Math.random() < 0.01f){ stage.addActor(new Enemy(0, 4500, 1,
@@ -599,20 +603,20 @@ public class GameFrame extends InputListener implements Screen {
 				inputMultiplexer = new InputMultiplexer();
 				inputMultiplexer.addProcessor(escMenuStage);
 				Gdx.input.setInputProcessor(inputMultiplexer);
-				buildingController.resetBuilding();
+				buildingController.resetBuilding(false);
 			} else {
 				manageInputs();
 			}
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		if (event.getListenerActor().equals(ingameButtonHelp)) {
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		if (event.getListenerActor().equals(ingameButtonOptions)) {
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(false);
 		}
 		if (event.getListenerActor().equals(ingameButtonRestart)) {
-			buildingController.resetBuilding();
+			buildingController.resetBuilding(true);
 			levelController.resetLevel();
 			timekeeper.seconds = 0f;
 		}
