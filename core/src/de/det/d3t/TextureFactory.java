@@ -249,6 +249,18 @@ public class TextureFactory {
 		addTexture("slider_knob2", new Texture("textures/ui/slider/slider_knob2.png"));
 		addTexture("slider_bar2", new Texture("textures/ui/slider/slider_bar2.png"));
 		
+		addTexture("invis", new Texture("textures/ui/list/invis.png"));
+		addTexture("listBar", new Texture("textures/ui/list/listBar2.png"));
+		addTexture("listKnob", new Texture("textures/ui/list/listKnob2.png"));
+		addTexture("listBackground", new Texture("textures/ui/list/listBackground.png"));
+		addTexture("listSelection", new Texture("textures/ui/list/listSelection.png"));
+		addTexture("curInput32", new Texture("cursors/curInput32.png"));
+		
+		addTexture("blueButtonNew", new Texture("textures/ui/ingame/blueButtonNew.png"));
+		addTexture("blueButtonNew_down", new Texture("textures/ui/ingame/blueButtonNewDown.png"));
+		addTexture("blueButtonNew_over", new Texture("textures/ui/ingame/blueButtonNewOver.png"));
+		
+		addTexture("selectedLevelBackground", new Texture("textures/ui/ingame/selectedLevelBackground.png"));
 		
 		addTexture("optionsBackground", new Texture(Gdx.files.internal("textures/background/optionsBackground.jpg")));
 		//////////////////////////////OPTIONS-MENU-STAGE////////////////////////////////////////

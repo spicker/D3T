@@ -5,6 +5,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Filter;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
 import de.det.d3t.TextureFactory;
 import de.det.d3t.frame.MenuFrame;
@@ -20,6 +23,10 @@ public class FrameController extends Game implements ApplicationListener {
 	public void create() {
 		System.out.println("FrameController: Screen set to MenuFrame by default");
         setScreen(new MenuFrame(this));		
+        Pixmap pm = new Pixmap(Gdx.files.internal("cursors/cursor.png"));  
+        pm.setFilter(Pixmap.Filter.BiLinear);
+        Gdx.input.setCursorImage(pm, 0, 0);
+        pm.dispose();
         currentScreen = (Screen) getScreen();
 	}
 

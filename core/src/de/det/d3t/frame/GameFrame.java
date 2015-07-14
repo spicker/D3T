@@ -45,6 +45,7 @@ import de.det.d3t.controller.LevelController;
 import de.det.d3t.controller.UIController;
 import de.det.d3t.controller.BuildingController.TowerDescription;
 import de.det.d3t.frame.Dialogs.IngameDialog;
+import de.det.d3t.frame.Dialogs.LoadSaveDialog;
 import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.BillardTower;
@@ -113,6 +114,8 @@ public class GameFrame extends InputListener implements Screen {
 	private Music bgmMusic;
 	private Sound buttonClickSound;
 	private int selectedLevel;
+	
+	private boolean dialogOpen = false;
 
 	private TimeKeeper timekeeper;
 
@@ -436,6 +439,7 @@ public class GameFrame extends InputListener implements Screen {
 		stageViewport.update(width, height);
 		uiViewport.update(width, height);
 		escViewport.update(width, height);
+		dialogViewport.update(width, height);
 
 		this.width = stageViewport.getWorldWidth();
 		this.height = stageViewport.getWorldHeight();
@@ -459,7 +463,7 @@ public class GameFrame extends InputListener implements Screen {
 	public void render(float delta) {
 
 		if(!levelOver){
-			if (escReleased == true && Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			if (escReleased == true && Gdx.input.isKeyPressed(Keys.ESCAPE) && !dialogOpen) {
 				escMenuShowing = !escMenuShowing;
 				System.out.println("EscMenuShowing: " + escMenuShowing);
 				escReleased = false;
@@ -484,6 +488,11 @@ public class GameFrame extends InputListener implements Screen {
 			inputMultiplexer.addProcessor(dialogStage);
 			Gdx.input.setInputProcessor(inputMultiplexer);
 			buildingController.resetBuilding(false);
+		}
+		if(dialogOpen){
+			inputMultiplexer = new InputMultiplexer();
+			inputMultiplexer.addProcessor(dialogStage);
+			Gdx.input.setInputProcessor(inputMultiplexer);
 		}
 		/**
 		 * if(Math.random() < 0.01f){ stage.addActor(new Enemy(0, 4500, 1,
@@ -565,27 +574,27 @@ public class GameFrame extends InputListener implements Screen {
 			return true;
 		}
 		if (event.getListenerActor().equals(escButtonCloseGame)) {
-			if (escMenuShowing)
+			if (escMenuShowing&& !dialogOpen)
 				buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if (event.getListenerActor().equals(escButtonMainMenu)) {
-			if (escMenuShowing)
+			if (escMenuShowing && !dialogOpen)
 				buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if (event.getListenerActor().equals(escButtonLoadGame)) {
-			if (escMenuShowing)
+			if (escMenuShowing&& !dialogOpen)
 				buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if (event.getListenerActor().equals(escButtonSaveGame)) {
-			if (escMenuShowing)
+			if (escMenuShowing&& !dialogOpen)
 				buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
 		if (event.getListenerActor().equals(escButtonLevelSelect)) {
-			if (escMenuShowing)
+			if (escMenuShowing&& !dialogOpen)
 				buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
@@ -640,12 +649,18 @@ public class GameFrame extends InputListener implements Screen {
 		}
 		if (event.getListenerActor().equals(escButtonLoadGame)) {
 			if (escMenuShowing) {
-
+				//LoadSaveDialog lsd = new LoadSaveDialog(game,width,height,"Spiel laden",bgmMusic,"load",this);
+				//lsd.showDialog();
+				//dialogStage.addActor(lsd.getGroup());
+				//dialogOpen = true;
 			}
 		}
 		if (event.getListenerActor().equals(escButtonSaveGame)) {
 			if (escMenuShowing) {
-
+				//LoadSaveDialog lsd = new LoadSaveDialog(game,width,height,"Spiel laden",bgmMusic,"save",this);
+				//lsd.showDialog();
+				//ui.addActor(lsd.getGroup());	
+				//dialogOpen = true;
 			}
 
 		}
@@ -758,6 +773,10 @@ public class GameFrame extends InputListener implements Screen {
 		
 	
 	}
+	
+public void closeDialog(){
+	dialogOpen = false;
+}
 	
 	
 	

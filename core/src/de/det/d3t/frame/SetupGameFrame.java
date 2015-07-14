@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.frame.Dialogs.LoadSaveDialog;
 import de.det.d3t.frame.Dialogs.SetupGameDialog;
 
 public class SetupGameFrame extends InputListener implements Screen {
@@ -88,6 +89,8 @@ public class SetupGameFrame extends InputListener implements Screen {
 	private int selectedLevel = 1;
 	private boolean levelUnlocked[];
 	private boolean levelConquered[];
+	
+	private boolean dialogOpen = false;
 	
 	
 
@@ -430,51 +433,51 @@ public class SetupGameFrame extends InputListener implements Screen {
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		
-		if(event.getListenerActor().equals(startLevelButton)){
+		if(event.getListenerActor().equals(startLevelButton) && !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(mainMenuButton)){
+		if(event.getListenerActor().equals(mainMenuButton)&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(saveGameButton)){
+		if(event.getListenerActor().equals(saveGameButton)&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(loadGameButton)){
+		if(event.getListenerActor().equals(loadGameButton)&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(closeGameButton)){
+		if(event.getListenerActor().equals(closeGameButton)&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(level1Button) && levelUnlocked[0]){
+		if(event.getListenerActor().equals(level1Button) && levelUnlocked[0]&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(level2Button) && levelUnlocked[1]){
+		if(event.getListenerActor().equals(level2Button) && levelUnlocked[1]&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(level3Button) && levelUnlocked[2]){
+		if(event.getListenerActor().equals(level3Button) && levelUnlocked[2]&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(level4Button) && levelUnlocked[3]){
+		if(event.getListenerActor().equals(level4Button) && levelUnlocked[3]&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(level5Button) && levelUnlocked[4]){
+		if(event.getListenerActor().equals(level5Button) && levelUnlocked[4]&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(level6Button) && levelUnlocked[5]){
+		if(event.getListenerActor().equals(level6Button) && levelUnlocked[5]&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
-		if(event.getListenerActor().equals(level7Button) && levelUnlocked[6]){
+		if(event.getListenerActor().equals(level7Button) && levelUnlocked[6]&& !dialogOpen){
 			buttonClickSound.play(Settings.getSfx());
 			return true;
 		}
@@ -498,10 +501,16 @@ public class SetupGameFrame extends InputListener implements Screen {
 			bgmMusic.stop();
 		}
 		if(event.getListenerActor().equals(saveGameButton)){
-
+			LoadSaveDialog lsd = new LoadSaveDialog(game,width,height,"Spiel laden",bgmMusic,"save",this);
+			lsd.showDialog();
+			ui.addActor(lsd.getGroup());	
+			dialogOpen = true;
 		}
 		if(event.getListenerActor().equals(loadGameButton)){
-
+			LoadSaveDialog lsd = new LoadSaveDialog(game,width,height,"Spiel laden",bgmMusic,"load",this);
+			lsd.showDialog();
+			ui.addActor(lsd.getGroup());	
+			dialogOpen = true;
 		}
 		if(event.getListenerActor().equals(closeGameButton)){
 			//TODO: show dialog "You are closing the game. Unsaved progress will be lost! Save before going back to the MainMenu?"
@@ -607,10 +616,15 @@ public class SetupGameFrame extends InputListener implements Screen {
 	
 	private void showGameFinished(){
 		if(showGameFinished){
-			sgd = new SetupGameDialog(game, width, height, "Spiel abgeschlossen",true,7,bgmMusic);
+			sgd = new SetupGameDialog(game, width, height, "Spiel abgeschlossen",true,7,bgmMusic,this);
 			ui.addActor(sgd.getGroup());
 			sgd.showDialog();
+			dialogOpen = true;
 		}
+	}
+	
+	public void closeDialog(){
+		dialogOpen = false;
 	}
 	
 	

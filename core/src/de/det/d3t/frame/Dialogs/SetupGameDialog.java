@@ -19,6 +19,7 @@ import de.det.d3t.TextureFactory;
 import de.det.d3t.controller.LevelController;
 import de.det.d3t.frame.GameFrame;
 import de.det.d3t.frame.MenuFrame;
+import de.det.d3t.frame.SetupGameFrame;
 
 
 	public class SetupGameDialog extends Dialog{
@@ -41,8 +42,10 @@ import de.det.d3t.frame.MenuFrame;
 	    private Game game;
 
 	    private Music music;
+	    
+	    private SetupGameFrame sgf;
 
-	    public SetupGameDialog(Game game, float width, float height, String titleText, boolean gameWon, int playingLevel, Music music){
+	    public SetupGameDialog(Game game, float width, float height, String titleText, boolean gameWon, int playingLevel, Music music, SetupGameFrame sgf){
 	    	this.game = game;
 	        this.width = width;
 	        this.height = height;
@@ -50,6 +53,7 @@ import de.det.d3t.frame.MenuFrame;
 	        this.gameWon = gameWon;
 	        this.playingLevel = playingLevel;
 	        this.music = music;
+	        this.sgf = sgf;
 	        
 	    }
 		
@@ -119,6 +123,7 @@ import de.det.d3t.frame.MenuFrame;
 	        if(event.getListenerActor() == btnContinuePlaying)
 	        {     	
 	        	Settings.setShowGameFinishedDialog(false);
+	        	sgf.closeDialog();
 	        	closeDialog();
 	        }
 
@@ -131,6 +136,7 @@ import de.det.d3t.frame.MenuFrame;
 	        	music.stop();
 	        	
 	        	game.setScreen(new MenuFrame(game));
+	        	sgf.closeDialog();
 	        	closeDialog();   	
 	        }
 	    }

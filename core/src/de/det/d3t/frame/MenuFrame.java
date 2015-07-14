@@ -39,6 +39,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.det.d3t.Settings;
 import de.det.d3t.TextureFactory;
+import de.det.d3t.frame.Dialogs.LoadSaveDialog;
 import de.det.d3t.model.Enemy;
 
 public class MenuFrame extends InputListener implements Screen {
@@ -46,12 +47,15 @@ public class MenuFrame extends InputListener implements Screen {
 	private Stage settingsStage;
 	private Stage uiStage;
 	private Stage creditsStage;
+	private Stage dialogStage;
 	private StretchViewport stageViewport;
 	private StretchViewport uiViewport;
 	private StretchViewport creditsViewport;
+	private StretchViewport dialogViewport;
 	private OrthographicCamera stageCamera;
 	private OrthographicCamera uiCamera;
 	private OrthographicCamera creditsCamera;
+	private OrthographicCamera dialogCamera;
 	private InputMultiplexer inputMultiplexer;
 	private FPSLogger fpsLogger;
 	
@@ -102,6 +106,8 @@ public class MenuFrame extends InputListener implements Screen {
 	
 	private Game game;
 	
+	private boolean dialogOpen = false;
+	
 	
 	
 	
@@ -113,6 +119,7 @@ public class MenuFrame extends InputListener implements Screen {
 		setupStage();
 		setupUI();
 		setupCreditsStage();
+		setupDialogStage();
 		manageInputs();
 		fpsLogger = new FPSLogger();
 		width = stageViewport.getWorldWidth();
@@ -220,13 +227,13 @@ public class MenuFrame extends InputListener implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				bgmLabel.setText("Musik-Lautst‰rke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
+				bgmLabel.setText("Musik-LautstÔøΩrke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
 				//Settings.setBgm(bgmSlider.getValue()/100);
 				bgmToSet = bgmSlider.getValue()/100;
 			}
 			
 		});
-	    bgmLabel = new Label("Musik-Lautst‰rke: " + String.format("%.01f", bgmSlider.getValue()) + " %", ls);
+	    bgmLabel = new Label("Musik-LautstÔøΩrke: " + String.format("%.01f", bgmSlider.getValue()) + " %", ls);
 	    bgmLabel.setBounds(width/2 - 200, height/2 -200, 800, 200);
 	    
 	    sfxSlider = new Slider(0f, 100f, 0.1f, false, sliderStyle);
@@ -236,20 +243,20 @@ public class MenuFrame extends InputListener implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				sfxLabel.setText("Sound-Lautst‰rke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
+				sfxLabel.setText("Sound-LautstÔøΩrke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
 				//Settings.setBgm(sfxSlider.getValue()/100);
 				sfxToSet = sfxSlider.getValue()/100;
 			}
 			
 		});
-	    sfxLabel = new Label("Sound-Lautst‰rke: " + String.format("%.01f", sfxSlider.getValue()) + " %", ls);
+	    sfxLabel = new Label("Sound-LautstÔøΩrke: " + String.format("%.01f", sfxSlider.getValue()) + " %", ls);
 	    sfxLabel.setBounds(width/2 - 200, height/2, 800, 200);
 	    
-	    backButton = new TextButton("Zur¸ck", textButtonStyle);
+	    backButton = new TextButton("ZurÔøΩck", textButtonStyle);
 	    backButton.setBounds(width/2 - 1100, height/2 -700, 600, 150);
 	    backButton.addListener(this);
 	    
-	    acceptButton = new TextButton("Best‰tigen", textButtonStyle);
+	    acceptButton = new TextButton("BestÔøΩtigen", textButtonStyle);
 	    acceptButton.setBounds(width/2 + 500, height/2 -700, 600, 150);
 	    acceptButton.addListener(this);
 	    
@@ -300,6 +307,13 @@ public class MenuFrame extends InputListener implements Screen {
 		creditsStage = new Stage(creditsViewport);
 	}
 	
+	public void setupDialogStage(){
+		dialogCamera = new OrthographicCamera();
+		dialogCamera.zoom = 1f;
+		dialogViewport = new StretchViewport(Settings.viewportWidth,Settings.viewportHeight, dialogCamera);
+		dialogStage = new Stage(dialogViewport);
+	}
+	
 
 	
 	public void manageInputs(){
@@ -307,6 +321,7 @@ public class MenuFrame extends InputListener implements Screen {
 		inputMultiplexer.addProcessor(uiStage);
 		inputMultiplexer.addProcessor(settingsStage);
 		inputMultiplexer.addProcessor(creditsStage);
+		inputMultiplexer.addProcessor(dialogStage);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 	
@@ -315,6 +330,7 @@ public class MenuFrame extends InputListener implements Screen {
 		stageViewport.update(width, height);
 		uiViewport.update(width, height);
 		creditsViewport.update(width,height);
+		dialogViewport.update(width, height);
 		this.height = stageViewport.getWorldHeight();
 		this.width = stageViewport.getWorldWidth();
 		
@@ -350,22 +366,22 @@ public class MenuFrame extends InputListener implements Screen {
 			settingsStage.draw();
 		}
 		if(!inSettings && !inCredits){
-			uiStage.act(Gdx.graphics.getDeltaTime());;
+			if(!dialogOpen || dialogStage.getActors().size==0){
+				uiStage.act(Gdx.graphics.getDeltaTime());
+			}
+			else{
+				dialogStage.act(Gdx.graphics.getDeltaTime());
+			}
 			uiStage.draw();
+			dialogStage.draw();
 			batch.begin();
 			for(PooledEffect effect : effects) {
 				effect.draw(batch, delta);
 				if(effect.isComplete()) {
 					effect.start();
-					//PooledEffect effe = effect;
-					//effects.removeValue(effect, true);
-					//effect.free();
-					//effects.add(effe);
 				}
 			}
 			batch.end();
-			//Settings.basePositionMenuX = Gdx.input.getX();
-			//Settings.basePositionMenuY = Gdx.input.getY();
 			
 			timeNew = System.currentTimeMillis();
 			if(timeNew-timeOld > 5000){
@@ -394,24 +410,40 @@ public class MenuFrame extends InputListener implements Screen {
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		if(event.getListenerActor() == startGameButton){
-			buttonClickSound.play(Settings.getSfx());
-			return true;
+			if(!dialogOpen){
+				buttonClickSound.play(Settings.getSfx());
+				return true;
+			}
 		}	
+		if(event.getListenerActor() == loadGameButton){
+			if(!dialogOpen){
+				buttonClickSound.play(Settings.getSfx());
+				return true;
+			}
+		}		
 		if(event.getListenerActor() == startOptionsButton){
-			buttonClickSound.play(Settings.getSfx());
-			return true;
+			if(!dialogOpen){
+				buttonClickSound.play(Settings.getSfx());
+				return true;
+			}
 		}		
 		if(event.getListenerActor() == startCreditsButton){
-			buttonClickSound.play(Settings.getSfx());
-			return true;
+			if(!dialogOpen){
+				buttonClickSound.play(Settings.getSfx());
+				return true;
+			}
 		}		
 		if(event.getListenerActor() == helpButton){
-			buttonClickSound.play(Settings.getSfx());
-			return true;
+			if(!dialogOpen){
+				buttonClickSound.play(Settings.getSfx());
+				return true;
+			}
 		}		
 		if(event.getListenerActor() == closeGameButton){
-			buttonClickSound.play(Settings.getSfx());
-			return true;
+			if(!dialogOpen){
+				buttonClickSound.play(Settings.getSfx());
+				return true;
+			}
 		}		
 		if(event.getListenerActor() == backButton){
 			buttonClickSound.play(Settings.getSfx());
@@ -431,7 +463,12 @@ public class MenuFrame extends InputListener implements Screen {
             game.setScreen(new SetupGameFrame(game,false));
             bgmMusic.stop();
 		}
-		
+		if(event.getListenerActor() == loadGameButton){
+			LoadSaveDialog lsd = new LoadSaveDialog(game,width,height,"Spiel laden",bgmMusic,"load",this);
+			lsd.showDialog();
+			dialogStage.addActor(lsd.getGroup());
+			dialogOpen = true;
+		}	
 		if(event.getListenerActor() == startOptionsButton){
 			inSettings = true;
 			inMenu = false;
@@ -442,16 +479,13 @@ public class MenuFrame extends InputListener implements Screen {
 		
 		
 		
-		
-		
-		
 		if(event.getListenerActor() == backButton){
 			inSettings = false;
 			inMenu = true;
 			sfxSlider.setValue(Settings.getSfx()*100);
 			bgmSlider.setValue(Settings.getBgm()*100);
-			sfxLabel.setText("Sound-Lautst‰rke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
-			bgmLabel.setText("Musik-Lautst‰rke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
+			sfxLabel.setText("Sound-Lautst√§rke: " + String.format("%.01f", sfxSlider.getValue()) + " %");
+			bgmLabel.setText("Musik-Lautst√§rke: " + String.format("%.01f", bgmSlider.getValue()) + " %");
 		}
 		if(event.getListenerActor() == acceptButton){
 			Settings.setBgm(bgmToSet);
@@ -471,6 +505,10 @@ public class MenuFrame extends InputListener implements Screen {
 	    int randomNum = rand.nextInt((max - min) + 1) + min;
 
 	    return randomNum;
+	}
+	
+	public void closeDialog(){
+		dialogOpen = false;
 	}
 	
 	
