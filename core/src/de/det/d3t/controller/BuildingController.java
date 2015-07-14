@@ -21,6 +21,7 @@ import de.det.d3t.model.AntiGravityTower;
 import de.det.d3t.model.AoeTower;
 import de.det.d3t.model.BallsTower;
 import de.det.d3t.model.BarricadeTower;
+import de.det.d3t.model.BaseCircle;
 import de.det.d3t.model.BillardTower;
 import de.det.d3t.model.Enemy;
 import de.det.d3t.model.Level;
@@ -31,8 +32,14 @@ import de.det.d3t.model.SlowTower;
 import de.det.d3t.model.TeleportTower;
 import de.det.d3t.model.Tower;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public class BuildingController {
 
+	private static float MIN_DISTANCE_TO_BASE = 700;
+	
 	private ArrayList<TowerDescription> towerDescList = new ArrayList<>();
 	private HashMap<TowerDescription, Class<? extends Tower>> descToTowerMap = new HashMap<>();
 	private LabelStyle labelstyle;
@@ -99,7 +106,7 @@ public class BuildingController {
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SlowTower.class);
-		// TODO Icon anpassen
+		
 		current = new TowerDescription("Seilblockade",
 				"Spannt ein Seil\nzwischen zwei Türmen", 5,
 				TextureFactory.getTexture("ropeIcon"));
@@ -204,7 +211,7 @@ public class BuildingController {
 			}
 
 			if (button == Buttons.LEFT && buildingSelected
-					&& !hasCollisionWithGameObjects(buildTower)) {
+					&& !hasCollisionWithGameObjects(buildTower) && !tooCloseToBase(buildTower)) {
 
 				Vector2 target = gameStage
 						.screenToStageCoordinates(new Vector2(screenX, screenY));
@@ -327,6 +334,19 @@ public class BuildingController {
 
 			return false;
 		}
+		
+		private boolean tooCloseToBase(Tower tower){
+			BaseCircle base = levelController.getCurrentLevel().getBase();
+			double xDist = abs(tower.getCenterX() - base.getCenterX());
+			double yDist = abs(tower.getCenterY() - base.getCenterY());
+			double absDist = sqrt(pow(xDist, 2) + pow(yDist, 2));
+			
+			if(absDist > MIN_DISTANCE_TO_BASE){
+				return false;
+			}else{
+				return true;
+			}
+		}
 
 		@Override
 		public boolean mouseMoved(int screenX, int screenY) {
@@ -338,7 +358,7 @@ public class BuildingController {
 				buildTower.setX(target.x - (buildTower.getWidth() / 2));
 				buildTower.setY(target.y - (buildTower.getHeight() / 2));
 
-				boolean coll = hasCollisionWithGameObjects(buildTower);
+				boolean coll = hasCollisionWithGameObjects(buildTower) || tooCloseToBase(buildTower);
 
 				if (coll) {
 					buildTower.getColor().r = 1f;
