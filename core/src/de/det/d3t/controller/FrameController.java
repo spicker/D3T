@@ -23,7 +23,7 @@ public class FrameController extends Game implements ApplicationListener {
 	public void create() {
 		System.out.println("FrameController: Screen set to MenuFrame by default");
         setScreen(new MenuFrame(this));		
-        Pixmap pm = new Pixmap(Gdx.files.internal("cursors/cursor.png"));  
+        Pixmap pm = new Pixmap(Gdx.files.internal("cursors/cursor32.png"));  
         pm.setFilter(Pixmap.Filter.BiLinear);
         Gdx.input.setCursorImage(pm, 0, 0);
         pm.dispose();

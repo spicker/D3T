@@ -69,7 +69,7 @@ public class BuildingController {
 		towerDescList.add(current);
 		descToTowerMap.put(current, AntiGravityTower.class);
 
-		current = new TowerDescription("AOE", "Greift mehrere Gegner an", 5,
+		current = new TowerDescription("AOE", "Greift mehrere Gegner an", 6,
 				TextureFactory.getTexture("aoeIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
@@ -83,46 +83,46 @@ public class BuildingController {
 		descToTowerMap.put(current, SingleShotTower.class);
 
 		current = new TowerDescription("Billard",
-				"Verschießt zurückstoßende\nKugeln", 5,
+				"Verschießt zurückstoßende\nKugeln", 4,
 				TextureFactory.getTexture("billardIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BillardTower.class);
 
-		current = new TowerDescription("Teleport", "Teleportiert Gegner", 5,
+		current = new TowerDescription("Teleport", "Teleportiert Gegner", 7,
 				TextureFactory.getTexture("teleportIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, TeleportTower.class);
 
-		current = new TowerDescription("Magnet", "Zieht Gegner an", 5,
+		current = new TowerDescription("Magnet", "Zieht Gegner an", 3,
 				TextureFactory.getTexture("magnetIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, MagnetTower.class);
 
 		current = new TowerDescription("Verlangsamung", "Verlangsamt Gegner",
-				5, TextureFactory.getTexture("poisonIcon"));
+				1, TextureFactory.getTexture("poisonIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, SlowTower.class);
 		
 		current = new TowerDescription("Seilblockade",
-				"Spannt ein Seil\nzwischen zwei Türmen", 5,
+				"Spannt ein Seil\nzwischen zwei Türmen", 4,
 				TextureFactory.getTexture("ropeIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, RopeTower.class);
 		
 		current = new TowerDescription("Balls of Steel",
-				"Verschie�t zwei Kugeln,\ndie mit einem Seil\nverbunden sind", 5,
+				"Verschießt zwei Kugeln,\ndie mit einem Seil\nverbunden sind", 5,
 				TextureFactory.getTexture("ballsOfSteelIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
 		descToTowerMap.put(current, BallsTower.class);
 		
 		current = new TowerDescription("Barrikade",
-				"Blockiert Gegner", 5,
+				"Blockiert Gegner", 1,
 				TextureFactory.getTexture("barricadeIcon"));
 		current.setImageBounds(35, 35);
 		towerDescList.add(current);
